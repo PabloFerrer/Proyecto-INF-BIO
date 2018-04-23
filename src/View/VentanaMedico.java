@@ -181,8 +181,7 @@ public class VentanaMedico extends JFrame{
 		n.setLayout(new BorderLayout(0,10));
 		n.add(p,BorderLayout.EAST);
 		n.add(pp, BorderLayout.WEST);
-		JLabel bien=new JLabel("Bienvenido Dr./Dra. "+med.getNombre()+" "+med.getApellidos());
-		bien.setFont(new Font("", Font.BOLD,15));
+	
 		
 		JPanel aux2=new JPanel();
 		menu.setLayout(new BorderLayout());
@@ -197,12 +196,25 @@ public class VentanaMedico extends JFrame{
 		menu.add(new JLabel("     "),BorderLayout.WEST);
 		menu.setOpaque(false);
 		
+		JLabel bien=new JLabel("Bienvenido Dr./Dra. "+med.getNombre()+" "+med.getApellidos());
+		bien.setFont(new Font("", Font.BOLD,15));
+		
+		JPanel ajust=new JPanel();
+		ajust.setOpaque(false);
+		ajust.setLayout(new BorderLayout());
+		JLabel lab=new JLabel("    ");
+		lab.setFont(new Font("", Font.BOLD,8));
+		ajust.add(bien,BorderLayout.CENTER);
+		ajust.add(lab,BorderLayout.NORTH);
+		
 		n.add(menu,BorderLayout.CENTER);
 		bien.setHorizontalAlignment(SwingConstants.CENTER);
-		n.add(bien, BorderLayout.NORTH);
+		n.add(ajust, BorderLayout.NORTH);
 		usado.add(n,BorderLayout.NORTH);
 		usado.add(centro, BorderLayout.CENTER);
-		
+		JPanel ajus=new JPanel();
+		ajus.setOpaque(false);
+		ajus.setLayout(new BorderLayout());
 		Logo aux=new Logo();
 		aux.setOpaque(false);
 		aux.setLayout(new BorderLayout());
@@ -212,10 +224,13 @@ public class VentanaMedico extends JFrame{
 		invi.setOpaque(false);
 		invi.setBorderPainted(false);
 		invi.setContentAreaFilled(false);
-		aux.add(invi);
+		aux.add(invi,BorderLayout.CENTER);
+		ajus.add(new JLabel("    "),BorderLayout.WEST);
+		ajus.add(new JLabel(" "),BorderLayout.SOUTH);
+		ajus.add(aux,BorderLayout.CENTER);
 		//FINAL BASICO
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		fondo.add(aux, BorderLayout.SOUTH);
+		fondo.add(ajus, BorderLayout.SOUTH);
 		fondo.add(usado,BorderLayout.CENTER);
 	    
 		this.add(fondo,BorderLayout.CENTER);

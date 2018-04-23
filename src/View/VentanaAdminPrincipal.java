@@ -179,16 +179,28 @@ public class VentanaAdminPrincipal extends JFrame{
 		n.setLayout(new BorderLayout());
 		n.add(p,BorderLayout.EAST);
 		n.add(pp, BorderLayout.WEST);
-		JLabel bien=new JLabel("Bienvenido "+usuario.getUser());
-		bien.setFont(new Font("", Font.BOLD,25));
+		
 		Menu menu=new Menu();
 		menu.setOpaque(false);
 		
+		JLabel bien=new JLabel("Bienvenido "+usuario.getUser());
+		bien.setFont(new Font("", Font.BOLD,25));
+		
+		JPanel ajust=new JPanel();
+		ajust.setOpaque(false);
+		ajust.setLayout(new BorderLayout());
+		
+		ajust.add(bien,BorderLayout.CENTER);
+		ajust.add(new JLabel("    "),BorderLayout.NORTH);
+		
 		bien.setHorizontalAlignment(SwingConstants.CENTER);
-		n.add(bien, BorderLayout.CENTER);
+		n.add(ajust, BorderLayout.CENTER);
 		usado.add(n,BorderLayout.NORTH);
 		usado.add(centro, BorderLayout.CENTER);
 		
+		JPanel ajus=new JPanel();
+		ajus.setOpaque(false);
+		ajus.setLayout(new BorderLayout());
 		Logo logo=new Logo();
 		logo.setOpaque(false);
 		logo.setLayout(new BorderLayout());
@@ -198,12 +210,14 @@ public class VentanaAdminPrincipal extends JFrame{
 		invi.setOpaque(false);
 		invi.setBorderPainted(false);
 		invi.setContentAreaFilled(false);
-		logo.add(invi);
+		logo.add(invi,BorderLayout.CENTER);
+		ajus.add(new JLabel("    "),BorderLayout.WEST);
+		ajus.add(new JLabel(" "),BorderLayout.SOUTH);
+		ajus.add(logo,BorderLayout.CENTER);
 		//FINAL BASICO
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		fondo.add(ajus, BorderLayout.SOUTH);
 		fondo.add(usado, BorderLayout.CENTER);
-	    fondo.add(logo,BorderLayout.SOUTH);
 		
 		this.add(fondo,BorderLayout.CENTER);
 		
