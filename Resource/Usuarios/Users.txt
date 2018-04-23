@@ -1,0 +1,11 @@
+SergioBemposta;medico;s#B3mp0sta@uem.es
+MariLuzMorales;medico;m1#M0ra13s@uem.es
+BorjaRodriguez;medico;b#R0dr1gu3z@uem.es
+BorjaMonsalve;medico;1
+PedroLara;tecnico;1
+EnriquePuertas;tecnico;e#Pu3rtas@uem.es
+GuillermoCastilla;tecnico;g#Casti11a@uem.es
+MariaJoTerron;tecnico;mJ#T3rr0n@uem.es
+VictorPadron;tecnico;v#Padr0n@uem.es
+JuanAPinuela;admin;jA#Pinu31a@uem.es
+A;admin;a

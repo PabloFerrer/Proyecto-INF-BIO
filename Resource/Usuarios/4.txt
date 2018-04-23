@@ -1,0 +1,45 @@
+   Bienvenido a la ventana de médico, en esta ventana podremos 
+   entrar como médico y revisar los distintos electrocardiogramas
+   de los pacientes asignados a cada médico.
+   Dentro de esta ventana tenemos varias acciones posibles:
+   
+      1 - Inicio: el botón "inicio" permitira al medico volver 
+      al principio de forma que ocultara todo aquello que halla
+      en la ventana para que el medico pueda elegir otra opción.
+   		  
+      2 - Pacientes: el botón "pacientes" permitira al medico 
+      acceder la lista de sus pacientes en un panel con una 
+      barra de desplazamiento. A su vez tambien podra buscar
+      al paciente deseado en el campo de texto que se encuentra
+      en la zona superior derecha.
+      Una vez halla encontrado al paciente deseado podrá acceder
+      al paciente en cuestion haciendo clic sobre este.
+      Tras hacer clic en un paciente el medico tendra acceso a
+      la ficha del paciente en la cual podra ver todos los ECGs
+      correspondientes a dicho paciente y a su vez compararlos
+      entre si pulsando el boton "Comparar ECGs".
+      *NOTA: El medico solo podra comparar desde 2 hasta 6 ECGs
+      a la vez.
+      Podra regresar al menu de pacientes pulsando el boton "Atras"
+      situado en la zona superior izquierda de la ficha.
+      Finalmente, podra realizar su diagnostico en el campo de texto
+      situado en el margen derecho y guardarlo pulsando el boton
+      "Guardar Diagnostico".
+   		 
+      3 - Revisar ECG: el medico podra acceder a la lista de ECGs
+      de todos sus pacientes ordenados por aquellos que estan 
+      sin leer o sin identificar, pudiendo acceder a la ficha de
+      dicho paciente pulsando el panel del paciente deseado.
+   		  
+      4 - Crear: finalmente, el medico podra dar de alta en el sistema
+      un nuevo paciente pulsando el boton "Crear" el cual mostrara 
+      una pequeña ventana con un formulario en el cual rellenara
+      los datos del nuevo paciente y pulsara el boton verde en la 
+      esquina superior derecha para registrarlo o cancelar el 
+      registro pulsando el boton rojo situado en la esquina superior
+      izquierda.    
+   		  
+   Esta ventana dispone de un boton situado en la esquina superior
+   derecha designado con un icono de "Logout" a traves del cual 
+   podremos cerrar sesion en caso de querer entrar con otro usuario
+   en la aplicacion. 

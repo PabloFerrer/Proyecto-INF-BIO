@@ -1,0 +1,9 @@
+Uxio;Rivera Otero;06973452J;274141566213;Outeiro de Rei;Rua do Concello 31
+Hombre.jpg
+Moderado
+El paciente referia taquicardias que no aparecian en las pruebas. Por fin ha aparecido y dejamos seguimiento
+ECG_20161006_pac4_tec2
+ECG_20161108_pac4_tec2
+ECG_20161207_pac4_tec2
+ECG_20170105_pac4_tec2
+

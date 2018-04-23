@@ -1,0 +1,31 @@
+   Bienvenido a la ventana de administrador, en esta ventana podremos
+   acceder al usuario maestro el cual es capaz de crear y eliminar 
+   medicos y tecnicos.
+
+   Podremos realizar varias acciones en esta ventana y son:
+
+      1 - Dar de alta un medico: A través del boton "Dar de alta 
+        en el sistema un medico" accederemos a un pequeño formulario
+        en el cual nos seran requeridos una serie de datos pertenecientes
+        a un medico.Tras reyenar dichos datos y pulsar el boton verde de
+        la esquina superior izquierda indicado con un "Tic" procederemos
+        a crear el nuevo medico.
+ 
+      2- Dar de alta un tecnico: A través del boton "Dar de alta en el sistema 
+        un tecnico" accederemos a un pequeño formulario en el cual nos seran 
+        requeridos una serie de datos pertenecientes a un tecnico.
+        Tras reyenar dichos datos y pulsar el boton verde de la esquina superior 
+        izquierda indicado con un "Tic" procederemos a crear el nuevo tecnico.
+        
+      3- Finalmente, a traves del botón "Control de usuarios" accederemos a un
+        apartado en el cual tendremos dos pequeñas ventanas, una para medicos
+        y otra para tecnicos. En estas podremos ver una lista de medicos y
+        tecnicos organizados en paneles horizontalmente y podremos eliminar
+        dichos usuarios. Adicionalmente tenemos un campo de texto que nos 
+        permitira buscar entre todos los usuarios.
+        Podremos volver al menu anterior pulsando el boton "back".		
+
+   Esta ventana dispone de un boton situado en la esquina superior
+   derecha designado con un icono de "Logout" a traves del cual 
+   podremos cerrar sesion en caso de querer entrar con otro usuario
+   en la aplicacion. 

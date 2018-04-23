@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="View.VentanaTecnico" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/VentanaTecnico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="130" x="175" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="2" language="java" name="Control" project="EjemploInterfazAdv" file="/EjemploInterfazAdv/src/Control" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="114" x="345" y="-180"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="3" language="java" name="Control.ControladorAdmin" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Control/ControladorAdmin.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="461" width="446" x="903" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="Model.Fondo" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Fondo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="364" x="499" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="Model.PacienteTecnico" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/PacienteTecnico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="239" x="3828" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="Model.Usuario" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Usuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="177" x="4401" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="View.VentanaLogin" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/VentanaLogin.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="254" x="4107" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="Model.Logo" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Logo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="461" width="364" x="4107" y="1092"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="Control.MainProgram" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Control/MainProgram.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="124" x="1389" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="View.VentanaHelp" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/VentanaHelp.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="145" x="1553" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="Model.Menu" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Menu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="196" x="1738" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="Control.ControladorDetalle_paciente" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Control/ControladorDetalle_paciente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="271" x="2159" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="13" language="java" name="View" project="EjemploInterfazAdv" file="/EjemploInterfazAdv/src/View" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="114" x="2470" y="-180"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="14" language="java" name="Model.CreacionEscritura" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/CreacionEscritura.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="145" x="2624" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="15" language="java" name="Model" project="EjemploInterfazAdv" file="/EjemploInterfazAdv/src/Model" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="114" x="2809" y="-180"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="16" language="java" name="Control.ControladorTecnico" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Control/ControladorTecnico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="212" x="4114" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="View.Formulario" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/Formulario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="551" width="208" x="779" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="Control.ControladorLogin" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Control/ControladorLogin.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="212" x="4366" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="View.DetallePaciente" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/DetallePaciente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="353" width="191" x="2159" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="Model.Lectura" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Lectura.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="195" x="2963" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="Model.PanelUsuario" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/PanelUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="364" x="3198" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="Model.Paciente" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/Model/Paciente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="641" width="472" x="3602" y="-180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="View.VentanaAdminPrincipal" project="EjemploInterfazAdv" 
+    file="/EjemploInterfazAdv/src/View/VentanaAdminPrincipal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="259" x="1027" y="501"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="24">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="25" name="frame"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="28" name="a"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="31" name="aux1"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="34" name="frame"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="37" name="logo"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="40" name="user"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

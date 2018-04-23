@@ -1,0 +1,11 @@
+Jose Luis;Fraga Fraga;86739916Q;155671243275;Oleiros;La linea Sin definir
+Mujer.jpg
+Critico
+Atentos a los comentarios del paciente por si comunica algun tipo de dolor localizado
+ECG_20180103_pac2_tec1
+ECG_20180105_pac2_tec1
+ECG_20180108_pac2_tec4
+ECG_20180112_pac2_tec4
+ECG_20180119_pac2_tec1
+ECG_20180122_pac2_tec4
+

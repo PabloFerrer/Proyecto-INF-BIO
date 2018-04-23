@@ -1,0 +1,11 @@
+Sergio;Bemposta Rosende;09118512R;151515980;Complejo Hospitalario Universitario A Coruña; 981178139
+paciente1
+paciente2
+paciente3
+paciente7
+paciente9
+paciente10
+paciente11
+paciente14
+paciente15
+paciente18

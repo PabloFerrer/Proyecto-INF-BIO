@@ -1,0 +1,18 @@
+Juan;Garcia Perez;04589265Y;158690367467;Arteixo;Cami�o do Cancelo 13
+Hombre.jpg
+Moderado
+El paciente debe hacer una prueba a la semana
+ECG
+ECG
+ECG
+ECG2
+ECG2
+ECG2
+ECG2
+ECG2
+ECG7
+ECG_20171213_pac1_tec4
+ECG_20171220_pac1_tec1
+ECG_2018127_paciente1_PedroLara
+ECG_2018127_paciente1_PedroLara
+ECG_2018127_paciente1_PedroLara

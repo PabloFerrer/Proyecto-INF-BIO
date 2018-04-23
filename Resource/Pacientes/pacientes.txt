@@ -1,0 +1,22 @@
+paciente1;Juan;Garcia Perez;04589265Y
+paciente2;Carmela;Fraga Mosqueira;86739916Q
+paciente3;Adela;Pazo Ulloa;20580166L
+paciente4;Uxio;Rivera Otero;06973452J
+paciente5;Roi;Aspas Mariño;44190038T
+paciente6;Manuel;Alba Torres;39875417H
+paciente7;Antonio;Blanco Marquez;40282503G
+paciente8;Florentina;Bermejo Gutierrez;40738914A
+paciente9;Segismundo;Lamas Vila;46510922T
+paciente10;Maria;Pose Garcia;87677151R
+paciente11;Ana;Rodriguez Neira;61290654R
+paciente12;Manuel;Fernandez Fernandez;09036444C
+paciente13;Maria;Garcia Castano;08887243C
+paciente14;Eva;Gonzalez Marquez;41212154H
+paciente15;Joaquin;Pazo Ulloa;09143974W
+paciente16;Santiago;Becerra Alvarez;08473866E
+paciente17;Maria;Colon Carvajal;44009114V
+paciente18;Angustias;Martin de Pablos;24583125N
+paciente19;Antonio;Rodriguez Perez;04684757W
+paciente20;Celsa;Eyre Lamas;15223933A
+paciente21;Eugenia;Canella Rico;18656344D
+paciente22;Juan;Otero Rosende;14787132H

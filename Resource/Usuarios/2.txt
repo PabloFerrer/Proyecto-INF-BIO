@@ -1,0 +1,23 @@
+   Bienvenido a la ventana de técnico, en esta ventana podrá 
+   acceder a una lista de pacientes que se situa en el margen 
+   izquierdo y podrá buscar entre estos a través de un campo 
+   de texto situado encima de la lista de pacientes.
+
+   Tras seleccionar un paciente para la realizacion de un ECG,
+   sera necesario introducir el DNI de dicho paciente como metodo
+   de doble verificacion. Tras introducir este pasaremos a ver la 
+   ficha del paciente en la cual tendremos varias acciones disponibles: 
+  
+        1- Podremos tomar datos del paciente, presionando el boton "Tomar datos"
+           tras esto aparecera una pequeña previsualizacion del ECG de este 
+           en pantalla.
+        2- Podremos realizar observaciones como tecnico en el campo de texto 
+           situado a la derecha.
+        3- Podremos enviar los datos recopilados, tanto ECG como observaciones,  
+           a nuestro medico de forma que se le adjunte en un archivo.
+        4- Finalmente, podremos presionar el boton "Atras" y volver a nuestra 
+           lista de pacientes para seleccionar un nuevo paciente.
+
+   Tambien esta disponible la opcion de cerrar sesion mediante el boton 
+   que se encuentra en la esquina superior izquierda con el icono de logout
+   de forma que podamos abrir sesion con otro usuario.

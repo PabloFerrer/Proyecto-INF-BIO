@@ -1,0 +1,8 @@
+Borja;Monsalve Piqueras;81969556V;360812468;Hospital Alvaro Cunqueiro;986811111
+paciente1
+paciente2
+paciente3
+paciente4
+paciente20
+paciente21
+paciente22

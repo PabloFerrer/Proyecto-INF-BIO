@@ -1,0 +1,4 @@
+Borja;Rodriguez Vila;65874985H;152899773;Hospital Clinico Universitario de Santiago;981950000
+paciente2
+paciente5
+paciente8

@@ -1,0 +1,11 @@
+Carmela;y Amen;86739916Q;155671243275;Oleiros;Villaviciosa de Odon
+Mujer.jpg
+Critico
+Atentos a los comentarios del paciente por si comunica algun tipo de dolor localizado
+ECG
+ECG2
+ECG_20180108_pac2_tec4
+ECG_20180112_pac2_tec4
+ECG_20180119_pac2_tec1
+ECG_20180122_pac2_tec4
+
