@@ -362,8 +362,14 @@ public class VentanaAdminPrincipal extends JFrame{
 					pan.setBorder(new LineBorder(new Color(0,204,204), 2));
 					pane.add(pan);	
 				} else {
-					PanelPaciente pan = new PanelPaciente(new Paciente("","",""," "),"");
+					JPanel pan = new JPanel();
 					pan.setOpaque(false);
+					pan.setLayout(new BorderLayout());
+					JButton but=new JButton();
+					but.setContentAreaFilled(false);
+					but.setBorderPainted(false);
+					but.setOpaque(false);
+					pan.add(but,BorderLayout.CENTER);
 					pane.add(pan);
 				}
 				i++;
@@ -377,13 +383,19 @@ public class VentanaAdminPrincipal extends JFrame{
 		}
 		
 		if(colum<10){
-		for(int i= colum;i<10;i++){
+		for(int i= colum;i<15;i++){
 			JPanel pane=new JPanel();
 			pane.setOpaque(false);
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
-				PanelPaciente pan = new PanelPaciente(new Paciente("","",""," "),"");
+				JPanel pan = new JPanel();
 				pan.setOpaque(false);
+				pan.setLayout(new BorderLayout());
+				JButton but=new JButton();
+				but.setContentAreaFilled(false);
+				but.setBorderPainted(false);
+				but.setOpaque(false);
+				pan.add(but,BorderLayout.CENTER);
 				pane.add(pan);	
 			}
 			rey4.add(pane);
@@ -403,8 +415,14 @@ public class VentanaAdminPrincipal extends JFrame{
 					pan.setBorder(new LineBorder(new Color(0,204,204), 2));
 					pane.add(pan);	
 				} else {
-					PanelPaciente pan = new PanelPaciente(new Paciente("","",""," "),"");
+					JPanel pan = new JPanel();
 					pan.setOpaque(false);
+					pan.setLayout(new BorderLayout());
+					JButton but=new JButton();
+					but.setContentAreaFilled(false);
+					but.setBorderPainted(false);
+					but.setOpaque(false);
+					pan.add(but,BorderLayout.CENTER);
 					pane.add(pan);
 				}
 				i++;
@@ -418,13 +436,19 @@ public class VentanaAdminPrincipal extends JFrame{
 		}
 		
 		if(columtec<10){
-		for(int i= columtec;i<10;i++){
+		for(int i= columtec;i<15;i++){
 			JPanel pane=new JPanel();
 			pane.setOpaque(false);
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
-				PanelPaciente pan = new PanelPaciente(new Paciente("","",""," "),"");
+				JPanel pan = new JPanel();
 				pan.setOpaque(false);
+				pan.setLayout(new BorderLayout());
+				JButton but=new JButton();
+				but.setContentAreaFilled(false);
+				but.setBorderPainted(false);
+				but.setOpaque(false);
+				pan.add(but,BorderLayout.CENTER);
 				pane.add(pan);	
 			}
 			rey5.add(pane);
