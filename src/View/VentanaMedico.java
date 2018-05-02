@@ -4,7 +4,6 @@ import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -73,7 +72,7 @@ public class VentanaMedico extends JFrame{
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		ImageIcon img = new ImageIcon("Resource/Imagenes/usados/usado-cardio-finito100x100.png");
-		//this.setIconImage(img.getImage());
+		this.setIconImage(img.getImage());
 		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
 		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
@@ -137,13 +136,10 @@ public class VentanaMedico extends JFrame{
 		
 		btnDardeAlta.setBackground(new Color(51,153,255));
 		
-		
-		
 		btnBuscarPacientes.setBackground(new Color(51,153,255));
 		
-		
-		
-		btnInicio.setBackground(new Color(51,153,255));
+		btnInicio.setBackground(new Color(51,153,255).darker());
+		menu.ladoIzq();
 		
 		
 		JPanel n=new JPanel();

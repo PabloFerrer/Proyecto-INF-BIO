@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -34,6 +35,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	private Usuario us;
 	private ControladorAdmin c;
 	private JTextField fl;
+	private Vector<Usuario> elimi;
 	
 	/**
 	 * Constructor de la clase ControladorPanel
@@ -52,10 +54,11 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param c ControladorAdmin 
 	 * @param f JTextField 
 	 */
-	public ControladorPanel(Usuario vt,ControladorAdmin c,JTextField f){
+	public ControladorPanel(Usuario vt,ControladorAdmin c,JTextField f,Vector<Usuario> elimi){
 		this.us = vt;
 		this.c=c;
 		fl=f;
+		this.elimi=elimi;
 		
 	}
 	
@@ -66,9 +69,11 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param arg0 ActionEvent 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		c.getUsuario().remove(us);
+		if(elimi.contains(us)) {
+			elimi.remove(us);
+		} else
+			elimi.add(us);
 		c.actPanel(fl.getText());
-		
 	}
 	
 	/**

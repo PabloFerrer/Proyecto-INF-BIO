@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  * @see JPanel
  *
  */
-public class Logo extends JPanel{
+public class Logo extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 	private final String logo="Resource/Imagenes/Logos/logo600.png";
@@ -37,7 +37,12 @@ public class Logo extends JPanel{
 	private boolean centrado=false;
 	private boolean re=true;
 	private int i=0;
+	private int aumento=0;
+	private boolean stop=false;
 
+	public void stop() {
+		stop=true;
+	}
 	/**
 	 * Constructor que asigna la imagen de logo
 	 * @param a JFrame el cual agarrara como referencia para el size de la imagen
@@ -162,24 +167,24 @@ public class Logo extends JPanel{
         if(centrado==true){
         if(CO==CA){
         	if(this.getWidth()<this.getHeight())
-        		g.drawImage(resize(image,this.getWidth(),this.getWidth()),0,this.getHeight()/2-this.getWidth()/2, this); 
+        		g.drawImage(resize(image,this.getWidth()+aumento,this.getWidth()+aumento),0-aumento/2,(this.getHeight()/2-this.getWidth()/2)-aumento/2, this); 
         	else
-        		g.drawImage(resize(image,this.getHeight(),this.getHeight()),this.getWidth()/2-this.getHeight()/2, 0, this); 
+        		g.drawImage(resize(image,this.getHeight()+aumento,this.getHeight()+aumento),(this.getWidth()/2-this.getHeight()/2)-aumento/2, 0-aumento/2, this); 
         } else if((Math.tan(ang)*this.getWidth())<=this.getHeight()){
-        	g.drawImage(resize(image,this.getWidth(),(int) (Math.tan(ang)*this.getWidth())), 0, (int) (this.getHeight()/2-(Math.tan(ang)*this.getWidth()/2)), this); 
+        	g.drawImage(resize(image,this.getWidth()+aumento,(int) (Math.tan(ang)*this.getWidth())+aumento), 0-aumento/2, (int) (this.getHeight()/2-(Math.tan(ang)*this.getWidth()/2))-aumento/2, this); 
         } else {
-        	g.drawImage(resize(image,(int) (this.getHeight()/Math.tan(ang)),this.getHeight()), (int) (this.getWidth()/2-(this.getHeight()/Math.tan(ang)/2)), 0, this); 
+        	g.drawImage(resize(image,(int) (this.getHeight()/Math.tan(ang))+aumento,this.getHeight()+aumento), (int) (this.getWidth()/2-(this.getHeight()/Math.tan(ang)/2))-aumento/2, 0-aumento/2, this); 
         }
         } else {
         	if(CO==CA){
             	if(this.getWidth()<this.getHeight())
-            		g.drawImage(resize(image,this.getWidth(),this.getWidth()),0,0, this); 
+            		g.drawImage(resize(image,this.getWidth()+aumento,this.getWidth()+aumento),0-aumento/2,0-aumento/2, this); 
             	else
-            		g.drawImage(resize(image,this.getHeight(),this.getHeight()),0, 0, this); 
+            		g.drawImage(resize(image,this.getHeight()+aumento,this.getHeight()+aumento),0-aumento/2, 0-aumento/2, this); 
             } else if((Math.tan(ang)*this.getWidth())<=this.getHeight()){
-            	g.drawImage(resize(image,this.getWidth(),(int) (Math.tan(ang)*this.getWidth())), 0, 0, this); 
+            	g.drawImage(resize(image,this.getWidth()+aumento,(int) (Math.tan(ang)*this.getWidth())+aumento), 0-aumento/2, 0-aumento/2, this); 
             } else {
-            	g.drawImage(resize(image,(int) (this.getHeight()/Math.tan(ang)),this.getHeight()), 0, 0, this); 
+            	g.drawImage(resize(image,(int) (this.getHeight()/Math.tan(ang))+aumento,this.getHeight()+aumento), 0-aumento/2, 0-aumento/2, this); 
             }
         }
     }
@@ -248,5 +253,33 @@ public class Logo extends JPanel{
         }
         return img;
     }
+	@Override
+	public void run() {
+		while(!stop) {
+			aumento=0;
+			this.repaint();
+			try {
+				Thread.sleep(210);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			aumento=-20;
+			this.repaint();
+			try {
+				Thread.sleep(650);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	public boolean isStop() {
+		return stop;
+	}
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
 
 }

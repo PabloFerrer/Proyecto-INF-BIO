@@ -59,6 +59,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
+	private Vector<Usuario> elimi;
 	
 	/**
 	 * Getter de un vector que contiene todos los usuarios
@@ -73,6 +74,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param ax VentanaAdminPrincipal a la que se le ejercerá el control
 	 */
 	public ControladorAdmin(VentanaAdminPrincipal ax){
+		elimi=new Vector<Usuario>();
 		usuario=this.obtenerUsuarios();
 		this.a=ax;
 		a.getBuscador().addKeyListener(new KeyListener(){
@@ -377,11 +379,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 			}
 			
-			a.getCentro().add(a.paneldeusuarios(this,medi,tec),BorderLayout.CENTER);
+			a.getCentro().add(a.paneldeusuarios(this,medi,tec,elimi),BorderLayout.CENTER);
 			
 			a.getCentro().setVisible(true);
 
 		} else if(cmd.equals(BACK)){
+			for(int i=0;i<elimi.size();i++) {
+				usuario.remove(elimi.get(i));
+			}
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
 			for(int i=0;i<aux.length;i++){
@@ -550,7 +555,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 		}
 		
-		a.actPanel(medi, tec,this);
+		a.actPanel(medi, tec,elimi,this);
 		this.a.getTabbedPane().setSelectedIndex(index);
 
 		a.getTabbedPane().setVisible(true);

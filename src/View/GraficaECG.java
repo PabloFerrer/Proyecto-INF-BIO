@@ -5,8 +5,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -41,7 +45,7 @@ import Model.ECG;
  * @see XYPlot
  *
  */
-public class GraficaECG extends JPanel {
+public class GraficaECG extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +54,29 @@ public class GraficaECG extends JPanel {
 	private JFreeChart chart;
 	private JSlider sl;
 	private XYSeriesCollection dataset;
+	private JButton rec;
+	private boolean stop=false;
+	private boolean pause=false;
+	private boolean running=false;
+	private boolean ecgready=false;
+	
+	public boolean isPause() {
+		return pause;
+	}
+
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	private JButton butstop;
 
 	/**
 	 * Setter del mayor punto en las x de la grafica
@@ -109,12 +136,21 @@ public class GraficaECG extends JPanel {
 		spin.setMaximum(20000);
 		esca = new JSpinner(spin);
 		sl = new JSlider(JSlider.HORIZONTAL);
-	}
+		butstop=new JButton();
+		butstop.setContentAreaFilled(false);
+		butstop.setOpaque(false);
+		butstop.setBorderPainted(false);
+		butstop.setEnabled(false);
+		rec=new JButton();
+		rec.setActionCommand(GraphController.RUN);
+		rec.setContentAreaFilled(false);
+		rec.setOpaque(false);
+		rec.setBorderPainted(false);
 
-	/**
-	 * Creacion de la parte visual integrando todos los elementos en un JPanel
-	 */
+		butstop.setActionCommand(GraphController.STOP);
+	}
 	public void initUITEC() {
+		ecgready=false;
 		JPanel aux = new JPanel();
 		createChart();
 
@@ -136,10 +172,54 @@ public class GraficaECG extends JPanel {
 		chart.getXYPlot().getDomainAxis().setRange(0, 5000);
 		chartPanel.setBackground(Color.white);
 		add(chartPanel, BorderLayout.CENTER);
+		aux.add(sl);
+		aux.add(esca);
+		aux.add(new JLabel("msec"));
+		add(aux, BorderLayout.SOUTH);
+	}
+	public boolean isStop() {
+		return stop;
+	}
+
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
+
+	/**
+	 * Creacion de la parte visual integrando todos los elementos en un JPanel
+	 */
+	public void initUIMED() {
+		ecgready=true;
+		JPanel aux = new JPanel();
+		createChart();
+
+		aux.setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
+
+		((JSpinner.DefaultEditor) esca.getEditor()).getTextField().setEditable(false);
+
+		esca.setValue(5000);
+
+		rec.setIcon(new ImageIcon("Resource/Imagenes/playpause.png"));
+		butstop.setIcon(new ImageIcon("Resource/Imagenes/stop.png"));
+		sl.setValue(0);
+		sl.setMinimum(0);
+		sl.setMaximum((mayor > 4000) ? (int) mayor - 4000 : 0);
+
+		ChartPanel chartPanel = new ChartPanel(chart, false, false, false, true, true);
+
+		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+		chart.getXYPlot().getDomainAxis().setRange(0, 5000);
+		chartPanel.setBackground(Color.white);
+		add(chartPanel, BorderLayout.CENTER);
+		
 
 		aux.add(sl);
 		aux.add(esca);
 		aux.add(new JLabel("msec"));
+		aux.add(rec);
+		aux.add(butstop);
 		add(aux, BorderLayout.SOUTH);
 	}
 	/**
@@ -165,6 +245,8 @@ public class GraficaECG extends JPanel {
 	public void addController(GraphController control) {
 		esca.addChangeListener(control);
 		sl.addChangeListener(control);
+		rec.addActionListener(control);
+		butstop.addActionListener(control);
 	}
 /**
  * Getter del slider en el cual se puede seleccionar la escala
@@ -262,4 +344,69 @@ public class GraficaECG extends JPanel {
 		this.dataset = dataset;
 	}
 
+	@Override
+	public void run() {
+		if (ecgready) {
+			//SIMULACION DE GRAFICO ANIMADO YA EXISTENTE, EN LA VENTANA MEDICO
+			if (dataset.getSeriesCount() > 0) {
+				butstop.setEnabled(true);
+				sl.setEnabled(false);
+				try {
+					XYSeriesCollection aux = (XYSeriesCollection) dataset.clone();
+					dataset.removeAllSeries();
+					dataset.addSeries(new XYSeries(aux.getSeriesKey(0)));
+
+					int j = 0;
+					while (j < aux.getSeries(0).getItemCount() && !stop && this.isDisplayable()) {
+						System.out.println("HILO ECG");
+						int i = 0;
+						while (pause && !stop) {
+							if (i == 0) {
+								sl.setEnabled(true);
+								i++;
+							}
+							try {
+								Thread.sleep(10);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						sl.setEnabled(false);
+						dataset.getSeries(0).add(aux.getSeries(0).getX(j), aux.getSeries(0).getY(j));
+						if (aux.getSeries(0).getX(j).intValue() > (int) esca.getValue() / 2) {
+							sl.setValue(aux.getSeries(0).getX(j).intValue() - ((int) esca.getValue() / 2));
+							chart.getXYPlot().getDomainAxis().setRange(
+									aux.getSeries(0).getX(j).intValue() - ((int) esca.getValue() / 2),
+									aux.getSeries(0).getX(j).intValue() + ((int) esca.getValue() / 2));
+						}
+						if (stop == false) {
+							try {
+								long time = ((long) (aux.getSeries(0).getMaxX() / aux.getSeries(0).getItemCount()));
+								Thread.sleep(time);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						j++;
+					}
+					if (stop) {
+						dataset.removeAllSeries();
+						dataset.addSeries(aux.getSeries(0));
+					}
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				running = false;
+				pause = false;
+				stop = false;
+				butstop.setEnabled(false);
+				sl.setEnabled(true);
+
+			}
+		} else {
+			//LECTURA DEL TECNICO CONCURRENTE POSTERIORMENTE
+		}
+	}
 }

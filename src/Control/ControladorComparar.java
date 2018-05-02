@@ -38,7 +38,32 @@ public class ControladorComparar {
 		a=g;
 		ecgs=ecg;
 		 a.getSelec().addMouseListener(new MouseListener(){
-	        	public void mouseClicked(MouseEvent e) {}
+	        	public void mouseClicked(MouseEvent e) {
+	        		 if(e.getClickCount()==2){
+	        			 if(!a.getSelec().isSelectionEmpty()){
+		     					a.getAselec().setVisible(false);
+		     					a.getSelec().setVisible(false);
+		     					
+		     					Vector<String> first=new Vector<String>();
+		     					 for(int i=0;i<a.getSelec().getModel().getSize();i++){
+		     						 first.add(a.getSelec().getModel().getElementAt(i));
+		     					 }
+		     					 Vector<String> second=new Vector<String>();
+		     					 for(int i=0;i<a.getAselec().getModel().getSize();i++){
+		     						 second.add(a.getAselec().getModel().getElementAt(i));
+		     					 }
+		     					 
+		     					second.add(a.getSelec().getSelectedValue().toString());
+		     					a.getAselec().setListData(second);
+		     					first.remove(a.getSelec().getSelectedValue());
+		     					a.getSelec().clearSelection();
+		     					a.getSelec().setListData(first);
+		     					
+		     					a.getAselec().setVisible(true);
+		     					a.getSelec().setVisible(true);
+		     					}
+	        	        }
+	        	}
 				public void mousePressed(MouseEvent e) {}
 				public void mouseReleased(MouseEvent e) {}
 				public void mouseEntered(MouseEvent e) {
@@ -49,7 +74,35 @@ public class ControladorComparar {
 	        });
 	        
 		 a.getAselec().addMouseListener(new MouseListener(){
-	        	public void mouseClicked(MouseEvent e) {}
+	        	public void mouseClicked(MouseEvent e) {
+	        		 if(e.getClickCount()==2){
+	        			  if(!a.getAselec().isSelectionEmpty()){
+	 						if(a.getSelec().getModel().getSize()<6) {
+	 							a.getAselec().setVisible(false);
+	 							a.getSelec().setVisible(false);
+	 							 Vector<String> first=new Vector<String>();
+	 							 for(int i=0;i<a.getAselec().getModel().getSize();i++){
+	 								 first.add(a.getAselec().getModel().getElementAt(i));
+	 							 }
+	 							 Vector<String> second=new Vector<String>();
+	 							 for(int i=0;i<a.getSelec().getModel().getSize();i++){
+	 								 second.add(a.getSelec().getModel().getElementAt(i));
+	 							 }
+	 							 
+	 							second.add(a.getAselec().getSelectedValue().toString());
+	 							a.getSelec().setListData(second);
+	 							first.remove(a.getAselec().getSelectedValue());
+	 							a.getAselec().setListData(first);
+	 							a.getAselec().clearSelection();
+	 							
+	 							a.getAselec().setVisible(true);
+	 							a.getSelec().setVisible(true);
+	 						} else {
+	 							JOptionPane.showMessageDialog(g, "No puede seleccionar mas de 6 ECG, lo sentimos");
+	 						}
+	 					}
+	        	        }
+	        	}
 				public void mousePressed(MouseEvent e) {}
 				public void mouseReleased(MouseEvent e) {}
 				public void mouseEntered(MouseEvent e) {
@@ -100,7 +153,7 @@ public class ControladorComparar {
 							a.getAselec().setVisible(true);
 							a.getSelec().setVisible(true);
 						} else {
-							JOptionPane.showMessageDialog(null, "No puede seleccionar mas de 6 ECG, lo sentimos");
+							JOptionPane.showMessageDialog(g, "No puede seleccionar mas de 6 ECG, lo sentimos");
 						}
 					}
 				}
@@ -155,7 +208,7 @@ public class ControladorComparar {
 						a.setVisible(true);
 				
 				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar por lo menos 1 ECG");
+					JOptionPane.showMessageDialog(g, "Debe seleccionar por lo menos 1 ECG");
 				}
 				} 
 	        	

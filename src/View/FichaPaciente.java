@@ -162,7 +162,7 @@ public class FichaPaciente extends JPanel {
 			ecg.addGraphic(e);
 			GraphController control=new GraphController(ecg);
 			ecg.addController(control);
-			ecg.initUITEC();
+			ecg.initUIMED();
 			JPanel info=new JPanel();
 			JPanel pan13 = new JPanel();
 			pan13.setLayout(new BorderLayout());
@@ -288,7 +288,7 @@ public class FichaPaciente extends JPanel {
 	public void addController(ControladorPanelM cpm){
 		comparar.addActionListener(cpm);
 		atras.addActionListener(cpm);
-		
+		tab.addChangeListener(cpm);
 	}
 	
 }

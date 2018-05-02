@@ -74,6 +74,8 @@ public class VentanaLogin extends JFrame{
 		JPanel segun=new JPanel();
 		JPanel terce=new JPanel();
 		logo.setOpaque(false);
+		Thread hilo=new Thread(logo);
+		hilo.start();
 		
 		primer.setLayout(new BorderLayout());
 		fin.setLayout(new BorderLayout());
@@ -151,6 +153,10 @@ public class VentanaLogin extends JFrame{
 		this.setVisible(true);
 		
 	}
+	public Logo getLogo() {
+		return logo;
+	}
+
 	public void asignarControlador(ControladorLogin control){
 		forget.addActionListener(control);
 		help.addActionListener(control);

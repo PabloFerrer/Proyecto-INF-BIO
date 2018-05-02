@@ -6,13 +6,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Model.ECG;
 import Model.Medico;
 import Model.Paciente;
 import View.CompararECG;
 import View.FichaPaciente;
+import View.GraficaECG;
 import View.VentanaHelp;
 import View.VentanaMedico;
 
@@ -34,7 +38,7 @@ import View.VentanaMedico;
  * @see VentanaMedico
  *
  */
-public class ControladorPanelM implements MouseListener,ActionListener,MouseMotionListener {
+public class ControladorPanelM implements MouseListener,ActionListener,MouseMotionListener,ChangeListener {
 
 	private Paciente p;
 	private Medico m;
@@ -195,6 +199,28 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public void mouseMoved(MouseEvent e) {
 		e.getComponent().removeMouseMotionListener(this);
 		ecg.setLeido(true);
+		
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		for(int i=0;i<vm.getCentro().getComponentCount();i++) {
+			if(vm.getCentro().getComponent(i) instanceof FichaPaciente) {
+				FichaPaciente aux=(FichaPaciente) (vm.getCentro().getComponent(i));
+				for(int j=0;j<aux.getTab().getComponentCount();j++) {
+					if(aux.getTab().getComponentAt(j) instanceof JPanel) {
+						JPanel panel=(JPanel) aux.getTab().getComponentAt(j);
+						for(int h=0;h<panel.getComponentCount();h++) {
+							if(panel.getComponent(h) instanceof GraficaECG) {
+								GraficaECG g=(GraficaECG)(panel.getComponent(h));
+								g.setStop(true);
+							}
+						}
+					}
+				}
+				
+			}
+		}
 		
 	}
 

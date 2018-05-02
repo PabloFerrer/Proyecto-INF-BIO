@@ -1,5 +1,8 @@
 package Control;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -19,7 +22,9 @@ import View.GraficaECG;
  * @see JSlider
  *
  */
-public class GraphController implements ChangeListener{
+public class GraphController implements ChangeListener,ActionListener{
+	public static String STOP="STOP";
+	public static String RUN="RUN";
 	private GraficaECG a;
 	private int fps=5000;
 	private int esca=0;
@@ -80,6 +85,23 @@ public class GraphController implements ChangeListener{
 	        
 	        a.getSl().setValue((int) a.getChart().getXYPlot().getDomainAxis().getRange().getLowerBound());
 	 
+	}
+
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals(RUN)) {
+			if(!a.isRunning()) {
+				a.setRunning(true);
+				Thread hilo=new Thread(a);
+				hilo.start();
+				a.setStop(false);
+			} else {
+					a.setPause(!a.isPause());
+			}
+		} else if(e.getActionCommand().equals(STOP)) {
+			a.setStop(true);
+		}
+		
 	}
 
 

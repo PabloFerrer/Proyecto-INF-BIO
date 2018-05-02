@@ -101,6 +101,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String cmd=e.getActionCommand().toString();
+		
 		if(cmd.equals(ControladorLogin.ACCEDER)){
 			if(help!=null)
 				help.dispose();
@@ -173,7 +174,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 						help.dispose();
 					a.setText("Bienvenido "+user.getRol());
 					if(user.getRol().equals("admin")){
-						
+						frame.getLogo().stop();
 						VentanaAdminPrincipal ven=new VentanaAdminPrincipal(user);
 						ven.setLocation(frame.getLocation());
 						ven.setSize(frame.getSize());
