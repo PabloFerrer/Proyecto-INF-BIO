@@ -360,7 +360,8 @@ public class GraficaECG extends JPanel implements Runnable {
 					while (j < aux.getSeries(0).getItemCount() && !stop && this.isDisplayable()) {
 						System.out.println("HILO ECG");
 						int i = 0;
-						while (pause && !stop) {
+						while (pause && !stop && this.isDisplayable()) {
+							System.out.println("PAUSA");
 							if (i == 0) {
 								sl.setEnabled(true);
 								i++;

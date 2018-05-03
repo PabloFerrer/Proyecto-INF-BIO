@@ -1,5 +1,6 @@
 package Control;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import Model.Lectura;
@@ -107,8 +109,14 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.dispose();
 			}
 			formulario= new Formulario();
-//			formulario.setAlwaysOnTop(true);
-			vm.getCentro().add(formulario.paciente(this));
+//			JButton invi = new JButton();
+//			invi.setOpaque(false);
+//			JButton invi2 = new JButton();
+//			invi2.setOpaque(false);
+			
+			vm.getCentro().add(formulario.paciente(this),BorderLayout.CENTER);
+			//vm.getCentro().add(invi,BorderLayout.EAST);
+			//vm.getCentro().add(invi2,BorderLayout.WEST);
 		}
 		else if(cmd.equals(ControladorMedico.ECG)) {
 			if(help!=null){
