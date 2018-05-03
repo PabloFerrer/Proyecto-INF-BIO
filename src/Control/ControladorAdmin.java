@@ -20,6 +20,8 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import Model.Conexion;
+import Model.Constantes;
 import Model.Usuario;
 import View.Formulario;
 import View.VentanaAdminPrincipal;
@@ -255,13 +257,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
 						con1=con1+aux1.getContrasena1().getPassword()[j];
 					}
-					con2="";
-					for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
-						con2=con2+aux1.getContrasena2().getPassword()[j];
-					}
-					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
+					//escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
+					String sentencia=" insert into Medico ( dni, nColegiado, nTelefono) values ("+aux1.getDni().getText()+","+aux1.getNumero().getText()+","+aux1.getTelefono().getText()+");";
+					Conexion.sentenciaSQL(sentencia);
+					sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
+					Conexion.sentenciaSQL(sentencia);
 					usuario.add(new Usuario(st,"medico",con1));
-					JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
 				}
 			} else {
@@ -356,7 +358,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				
 				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
-				JOptionPane.showMessageDialog(null, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				
 			}

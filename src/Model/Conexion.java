@@ -9,15 +9,11 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-	String BBDDName;
-	Connection c = null;
-	Statement stmt = null;
+	private static String BBDDName = "Proyecto2.1.db";
+	private static Connection c = null;
+	private static Statement stmt = null;
 
-	public Conexion(String path) {
-		BBDDName = path;
-	}
-
-	public boolean sentenciaSQL(String sql) {
+	public static boolean sentenciaSQL(String sql) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
