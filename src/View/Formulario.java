@@ -579,6 +579,9 @@ public class Formulario extends JFrame{
 			 */
 			public JPanel paciente(ControladorMedico control){
 				
+				JButton invi = new JButton();
+				invi.setOpaque(false);
+				
 				JPanel panel = new JPanel();
 				panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 				panel.setOpaque(false);
