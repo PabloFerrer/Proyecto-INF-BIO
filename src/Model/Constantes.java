@@ -10,6 +10,7 @@ public class Constantes {
 	public static int NOCHE = 3;
 	public static int LEIDO = 1;
 	public static int NO_LEIDO = 0;
+	public static int turno = (int) (Math.random()*3+1);
 	
 
 }

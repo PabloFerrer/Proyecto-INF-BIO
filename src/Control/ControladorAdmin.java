@@ -351,12 +351,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
 					con1=con1+aux1.getContrasena1().getPassword()[j];
 				}
-				con2="";
-				for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
-					con2=con2+aux1.getContrasena2().getPassword()[j];
-				}
 				
-				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+				//sql
+				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+				String sentencia=" insert into Tecnico ( dni, turno) values ("+aux1.getDni().getText()+","+Constantes.turno+");";
+				Conexion.sentenciaSQL(sentencia);
+				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
+				Conexion.sentenciaSQL(sentencia);
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
@@ -380,7 +381,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					tec.add(usuario.get(i));
 				}
 			}
-			
+			//drop usuario
 			a.getCentro().add(a.paneldeusuarios(this,medi,tec,elimi),BorderLayout.CENTER);
 			
 			a.getCentro().setVisible(true);
@@ -396,6 +397,9 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 			
 			a.getCentro().setVisible(true);
+//			String sentencia=" insert into Tecnico ( dni, turno) values ("+aux1.getDni().getText()+","+Constantes.turno+");";
+//			String sentencia = "drop turno from Tecnico where Tecnico.dni = 98;";
+//			Conexion.sentenciaSQL(sentencia);
 		}
 	}
 
