@@ -632,7 +632,7 @@ public class Formulario extends JFrame{
 				JPanel formu=new JPanel();
 				FlowLayout flow3=new FlowLayout();
 				flow3.setAlignment(FlowLayout.RIGHT);
-				formu.setLayout(flow3);
+				formu.setLayout(new BoxLayout(formu,BoxLayout.PAGE_AXIS));
 				Font font=new Font("",Font.BOLD,20);
 				
 				JPanel nom=new JPanel();
