@@ -3,3 +3,5 @@
 .DS_Store
 bin/.DS_Store
 src/.DS_Store
+*.class
+*.class

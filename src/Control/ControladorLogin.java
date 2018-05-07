@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Model.Conexion;
 import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
@@ -105,7 +106,10 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		if(cmd.equals(ControladorLogin.ACCEDER)){
 			if(help!=null)
 				help.dispose();
-			darAcceso(); 
+			if(!a.getText().equals(user.getUser())) {
+				user=Conexion.consultaLogin(a.getText(), b.getText());
+			}
+			darAcceso();
 		} else if(cmd.equals(ControladorLogin.FORGET)){
 				JOptionPane.showMessageDialog(frame, "Esta opcion se encontrará disponible en proximas versiones.\n(Para apegarse al formato de fichero del resto)","",JOptionPane.INFORMATION_MESSAGE);
 		} else if(cmd.equals(ControladorLogin.HELP)){
@@ -130,32 +134,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		}
 	}
 	
-/**
- * Buscar el usuario introducido en la base de datos y guardarlo con su informacion si ha sido encontrado
- * @return true si el usuario existe/ false sino
- */
-	private boolean verificar() {
-		boolean aux = false;
-		if (!user.getUser().equals(a.getText().toString())) {
-			File file = null;
-			file = new File("Resource/Usuarios/Users.txt");
-				try (Scanner sc = new Scanner(new FileReader(file))) {
-					while (sc.hasNextLine() && aux == false) {
-						String auxi=sc.nextLine();
-						String[] usuario=auxi.split(";");
-						if (usuario[0].toString().toLowerCase().equals(a.getText().toString().toLowerCase())) {
-							aux=true;
-							user=new Usuario(usuario[0],usuario[1],usuario[2]);
-						} 
-					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-		} else{
-			aux=true;
-		}
-		return aux;
-	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -167,8 +146,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
  * a que rol pertenece para saber la ventana que abre
  */
 	public void darAcceso(){
-		if(!a.getText().isEmpty()){
-			if(verificar()){
+			if(user.getUser()!=null){
 				if(user.getCon().equals(b.getText().toString())){
 					if(help!=null)
 						help.dispose();
@@ -210,6 +188,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 					a.setBackground(Color.green);
 					b.setBackground(Color.green);
 				} else {
+					
 					a.setText("Contraseña erronea");
 					a.setBackground(Color.red);
 					b.setBackground(Color.red);
@@ -220,7 +199,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 				b.setBackground(Color.red);
 			}
 			b.setText("");
-		} 
+		
 	}
 	/**
 	 * Getter del usuario que se ha buscado
@@ -238,6 +217,9 @@ public class ControladorLogin implements ActionListener, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_ENTER) {
+			if(!a.getText().equals(user.getUser())) {
+				user=Conexion.consultaLogin(a.getText(), b.getText());
+			}
 			darAcceso();
 		}
 	}

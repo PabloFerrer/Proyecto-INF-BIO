@@ -14,8 +14,7 @@ public class Usuario {
 		private String user;
 		private String rol;
 		private String con;
-		
-		
+	
 		/**
 		 * Constructor de un Usuario
 		 * @param user Nombe de Usuario
