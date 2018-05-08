@@ -16,6 +16,8 @@ import java.io.FileWriter;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import Model.Conexion;
+import Model.Constantes;
 import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
@@ -108,15 +110,9 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			if(formulario!=null){
 				formulario.dispose();
 			}
-			formulario= new Formulario();
-//			JButton invi = new JButton();
-//			invi.setOpaque(false);
-//			JButton invi2 = new JButton();
-//			invi2.setOpaque(false);
-			
+			formulario= new Formulario();			
 			vm.getCentro().add(formulario.paciente(this),BorderLayout.CENTER);
-			//vm.getCentro().add(invi,BorderLayout.EAST);
-			//vm.getCentro().add(invi2,BorderLayout.WEST);
+			
 		}
 		else if(cmd.equals(ControladorMedico.ECG)) {
 			if(help!=null){
@@ -265,15 +261,18 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			} else {
 				formulario.getSs().setBackground(Color.WHITE);
 			}
-			if(formulario.getUrgencia().getSelectedItem().equals("Elija una opcion")){
-				formulario.getUrgencia().setBackground(Color.RED);
-				bien=false;
-			} else {
-				formulario.getUrgencia().setBackground(Color.WHITE);
-			}
 			if(bien==true) {
-					String st=formulario.getNombre().getText()+formulario.getApellido1().getText();
-					escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
+					String st=formulario.getNombre().getText()+ " " +formulario.getApellido1().getText();
+					String sentencia=" insert into Paciente (dni,nSS,apellido,nombre,ubicacion) values ("
+					+ formulario.getDni().getText()+ ","
+					+ formulario.getSs().getText()+ ",'"
+					+ formulario.getApellido1().getText()+"','"
+					+ formulario.getNombre().getText()+ "','"
+					+ formulario.getLugar().getText()+"');";
+					System.out.println("pruebo");
+					Conexion.sentenciaSQL(sentencia);
+					System.out.println("funciono");
+					//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
 					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					formulario.dispose();
 			} else {

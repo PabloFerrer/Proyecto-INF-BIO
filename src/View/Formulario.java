@@ -629,10 +629,10 @@ public class Formulario extends JFrame{
 				basu2.add(cancel);
 				aux.add(basu2);
 				aux.add(basu1);
-				JPanel formu=new JPanel();
+				JPanel formu=new JPanel();   
 				FlowLayout flow3=new FlowLayout();
 				flow3.setAlignment(FlowLayout.RIGHT);
-				formu.setLayout(new BoxLayout(formu,BoxLayout.PAGE_AXIS));
+				formu.setLayout(new BoxLayout(formu,BoxLayout.PAGE_AXIS  ));
 				Font font=new Font("",Font.BOLD,20);
 				
 				JPanel nom=new JPanel();
@@ -726,7 +726,7 @@ public class Formulario extends JFrame{
 				se.add(rdbtnMasculino);
 				formu.add(se);
 				
-				JPanel c0 = new JPanel();
+				/*JPanel c0 = new JPanel();
 				c0.setOpaque(false);
 				con.setLayout(new FlowLayout());
 				urgencia = new JComboBox<String>();
@@ -736,7 +736,7 @@ public class Formulario extends JFrame{
 				c1.setFont(font);
 				c0.add(c1);
 				c0.add(urgencia);
-				formu.add(c0);
+				formu.add(c0);*/
 				formu.setOpaque(false);
 				
 				nombre.setName("T");
@@ -756,7 +756,7 @@ public class Formulario extends JFrame{
 				apellido2.addKeyListener(control);
 				dni.addKeyListener(control);
 				ss.addKeyListener(control);
-				urgencia.addKeyListener(control);
+				//urgencia.addKeyListener(control);
 				rdbtnFemenino.addKeyListener(control);
 				rdbtnMasculino.addKeyListener(control);
 				
@@ -767,7 +767,7 @@ public class Formulario extends JFrame{
 				lugar.addMouseListener(control);
 				direccion.addMouseListener(control);
 				ss.addMouseListener(control);
-				urgencia.addMouseListener(control);
+				//urgencia.addMouseListener(control);
 				rdbtnFemenino.addMouseListener(control);
 				rdbtnMasculino.addMouseListener(control);
 				
