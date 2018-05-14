@@ -12,11 +12,13 @@ public class ECG {
 	private int fecha;
 	private boolean leido;
 	private String nombreTec;
+	private int dniTec;
+	private int dniPac;
 	private String Comentarios;
 	private String Diagnostico;
 	private int puntosporsec;
 	private String nombre;
-	private Vector<Double> puntos;
+	private String puntos;
 	
 	/**
 	 * Setter para modificar el diagnostico
@@ -35,8 +37,9 @@ public class ECG {
  * @param nombre nombre del archivo del ECG
  * @param puntos Puntos del ECG
  */
-	public ECG(int fecha, String nombreTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
-			Vector<Double> puntos) {
+	public ECG(int fecha, String nombreTec,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+			String puntos) {
+		this.dniTec=dniTec;
 		this.fecha = fecha;
 		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
@@ -57,8 +60,9 @@ public class ECG {
 	 * @param puntos Puntos del ECG
 	 * @param leido boolean si el medico lo ha leido o no
 	 */
-	public ECG(int fecha, String nombreTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
-			Vector<Double> puntos,boolean leido) {
+	public ECG(int fecha, String nombreTec,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+			String puntos,boolean leido) {
+		this.dniTec=dniTec;
 		this.fecha = fecha;
 		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
@@ -67,6 +71,22 @@ public class ECG {
 		this.nombre = nombre;
 		this.puntos = puntos;
 		this.leido=leido;
+	}
+	public ECG(int fecha,int dniTec,int dniPac, String comentarios, int puntosporsec, 
+			String puntos,boolean leido) {
+		this.dniTec=dniTec;
+		this.dniPac=dniPac;
+		this.fecha = fecha;
+		Comentarios = comentarios;
+		this.puntosporsec = puntosporsec;
+		this.puntos = puntos;
+		this.leido=leido;
+	}
+	public int getDniPac() {
+		return dniPac;
+	}
+	public int getDniTec() {
+		return dniTec;
 	}
 	/**
 	 * Getter para saber si fue leido o no
@@ -82,7 +102,7 @@ public class ECG {
  * @param puntos Puntos del ECG
  */
 	public ECG(int puntosporsec, String nombre,
-			Vector<Double> puntos) {
+			String puntos) {
 		this.puntosporsec = puntosporsec;
 		this.nombre = nombre;
 		this.puntos = puntos;
@@ -134,11 +154,10 @@ public class ECG {
 	 * Getter de todos los puntos que conforman el ECG
 	 * @return Puntos del ECG
 	 */
-	public Vector<Double> getPuntos() {
+	public String getPuntos() {
 		return puntos;
 	}
 
-	
 	/**
 	 * Setter de leido
 	 * @param leido establecer si el ECG fue leido o no

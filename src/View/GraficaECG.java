@@ -263,8 +263,9 @@ public class GraficaECG extends JPanel implements Runnable {
 
 		XYSeries series = new XYSeries(ecg.getNombre());
 		double mili = 0;
-		for (int i = 0; i < ecg.getPuntos().size(); i++) {
-			series.add(mili, ecg.getPuntos().get(i));
+		String[] aux=ecg.getPuntos().split(";");
+		for (int i = 0; i < aux.length; i++) {
+			series.add(mili, Double.parseDouble(aux[i]));
 			mili += 1000 / ecg.getPuntosporsec();
 		}
 

@@ -39,16 +39,18 @@ public class Lectura{
 		String comen="";
 		String diag="";
 		String tec="";
+		int dnitec=0;
 		boolean lei=false;
-		String[] puntos=new String[0];
+		String puntos="";
 		try(Scanner br = new Scanner(new FileReader (f))) {
 			fecha=Integer.parseInt(br.nextLine());
 			if(br.nextLine().equals("leido")) {
 				lei=true;
 			}
 			tec=br.nextLine();
+			dnitec=Integer.parseInt(br.nextLine());
 			pun=Integer.parseInt(br.nextLine());
-			puntos=br.nextLine().split(";");
+			puntos=br.nextLine();
 			if(br.hasNextLine()) {
 				comen=br.nextLine();
 			}
@@ -61,13 +63,9 @@ public class Lectura{
 			catch(Exception e){
 				//e.printStackTrace();
 			}
-		Vector<Double> a=new Vector<Double>();
-		for(int i=0;i<puntos.length;i++){
-			//System.out.println(puntos[i]);
-			a.add(Double.parseDouble(puntos[i]));
-		}
 		
-		return new ECG(fecha,tec,comen,diag,pun,f.getName().replaceAll(".txt", ""),a,lei);
+		
+		return new ECG(fecha,tec,dnitec,comen,diag,pun,f.getName().replaceAll(".txt", ""),puntos,lei);
 		}
 	
 	/**
@@ -86,27 +84,23 @@ public class Lectura{
 		Calendar c= Calendar.getInstance();
 		String no="ECG_"+Integer.toString(c.get(Calendar.YEAR))+""+Integer.toString(c.get(Calendar.MONTH))+""+Integer.toString(c.get(Calendar.DATE))+"_"+pacien.getId()+"_"+b;
 		int pun=-1;
-		String[] puntos=new String[0];
+		String puntos="";
 		File archivo = f;
 		try(BufferedReader br = new BufferedReader(new FileReader (archivo))) {
 			
 					pun=Integer.parseInt(br.readLine());
 				
-					puntos=br.readLine().split(";");
+					puntos=br.readLine();
 					
-					Vector<Double> a=new Vector<Double>();
-					for(int i=0;i<puntos.length;i++){
-						System.out.println(puntos[i]);
-						a.add(Double.parseDouble(puntos[i]));
-					}
-					aux[1]=new ECG(pun,no,a);
+					
+					aux[1]=new ECG(pun,no,puntos);
 					aux[0]=no;
 					return aux;
 		}
 			catch(Exception e){
 				JOptionPane.showMessageDialog(null, "El archivo no tiene el formato correcto");
 			}
-		aux[1]=new ECG(0,"",new Vector<Double>());
+		aux[1]=new ECG(0,"","");
 		aux[0]="";
 		return aux;
 		}

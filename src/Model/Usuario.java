@@ -14,7 +14,20 @@ public class Usuario {
 		private String user;
 		private String rol;
 		private String con;
-	
+		private int dni;
+		
+		public int getDni() {
+			return dni;
+		}
+
+		public Usuario(String user, String rol, String con, int dni) {
+			super();
+			this.user = user;
+			this.rol = rol;
+			this.con = con;
+			this.dni = dni;
+		}
+
 		/**
 		 * Constructor de un Usuario
 		 * @param user Nombe de Usuario
@@ -48,6 +61,8 @@ public class Usuario {
 		public String getCon() {
 			return con;
 		}
+
+		
 		
 		
 }

@@ -356,7 +356,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				String sentencia=" insert into Tecnico ( dni, turno) values ("+aux1.getDni().getText()+","+Constantes.turno+");";
 				Conexion.sentenciaSQL(sentencia);
-				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
+				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.TECNICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
 				Conexion.sentenciaSQL(sentencia);
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);

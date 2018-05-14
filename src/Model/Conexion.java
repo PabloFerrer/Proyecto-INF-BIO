@@ -1,8 +1,13 @@
 package Model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Collection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -27,6 +32,32 @@ public class Conexion {
 		}
 		return true;
 	}
+	static public void InsertarNuevoECG(ECG ecg) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+
+			c.setAutoCommit(false);
+		    
+		    String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values(?,?,?,?,?,?,?);";
+		    PreparedStatement pst;
+		    pst = c.prepareStatement(sql);
+		    pst.setInt(1, ecg.getFecha());
+		    pst.setInt(2, Constantes.NO_LEIDO);
+		    pst.setString(3, ecg.getPuntos());
+		    pst.setInt(4, ecg.getPuntosporsec());
+		    pst.setString(5, ecg.getComentarios());
+		    pst.setInt(6, ecg.getDniTec());
+		    pst.setInt(7, ecg.getDniPac());
+		   
+		    pst.execute();
+		    pst.toString();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage()+" "+e.getCause() );
+		}
+	}
+	
 	
 	static public Usuario consultaLogin(String nick, String pass) {
 		Usuario a=new Usuario(null,null,null);
@@ -40,6 +71,7 @@ public class Conexion {
 				String nickname = rs.getString("nick");
 				String password = rs.getString("contrasena");
 				String rol="";
+				int dni=rs.getInt("dni");
 				switch(rs.getInt("rol")){
 					case Constantes.ADMINISTRADOR:
 						rol="admin";
@@ -51,7 +83,7 @@ public class Conexion {
 						rol="tecnico";
 						break;
 				}
-				a=new Usuario(nickname,rol,password);
+				a=new Usuario(nickname,rol,password,dni);
 			}
 			rs.close();
 			stmt.close();

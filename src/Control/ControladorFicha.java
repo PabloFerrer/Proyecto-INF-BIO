@@ -5,11 +5,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 
+import Model.Conexion;
 import Model.ECG;
 import Model.Lectura;
 import View.DetallePaciente;
@@ -109,25 +112,8 @@ public class ControladorFicha implements ActionListener {
 			
 			if(resp==0){
 			d.getBtnEnivar().setEnabled(false);
-			
-			if(!arch.equals("")){
-			try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
-				wr.write(arch+"\r\n");
-				try(FileWriter wr2=new FileWriter("Resource/ECG/"+arch+".txt",true)){
-					wr2.write(ecg.getPuntosporsec()+"\r\n");
-					for(int i=0;i<ecg.getPuntos().size();i++){
-						wr2.write(ecg.getPuntos().get(i)+";");
-					}
-					String str=d.getObser().getText().replaceAll("\r", ";");
-					str=str.replaceAll("\n", ";");
-					wr2.write("\r\n"+str+"\r\n");
-				}catch(Exception e){
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			}
+			ecg=new ECG(Integer.parseInt(Calendar.YEAR+""+Calendar.MONTH+""+Calendar.DATE),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-2)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
+			Conexion.InsertarNuevoECG(ecg);
 			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 			vt.getFicha().getEcg().cleanGraph();
 			vt.getFicha().getObser().setText("");;
