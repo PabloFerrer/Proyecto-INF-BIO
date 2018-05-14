@@ -10,58 +10,13 @@ import java.util.ArrayList;
  * 
  * @version Final
  */
-public class Medico {
-	private String nombre;
-	private String apellidos;
-	private String dni;
+public class Medico extends Usuario{
+	
 	private String ss;
-	private String hospital;
 	private String numero;
 	private ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 
-	/**
-	 * Getter del atributo nombre del medico
-	 * @return String nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-	/**
-	 * Setter del atributo nombre del medico
-	 * @param nombre String 
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	
-	/**
-	 * Getter del atributo apellidos del medico
-	 * @return String apellidos
-	 */
-	public String getApellidos() {
-		return apellidos;
-	}
-	/**
-	 * Setter del atributo apellidos del medico
-	 * @param apellidos String 
-	 */
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-	/**
-	 * Getter del atributo dni del medico
-	 * @return String dni
-	 */
-	public String getDni() {
-		return dni;
-	}
-	/**
-	 * Setter del atributo dni del medico
-	 * @param dni String 
-	 */
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
 	/**
 	 * Getter del atributo seguridad social del medico
 	 * @return String ss
@@ -76,20 +31,7 @@ public class Medico {
 	public void setSs(String ss) {
 		this.ss = ss;
 	}
-	/**
-	 * Getter del atributo hospital del medico
-	 * @return String hospital
-	 */
-	public String getHospital() {
-		return hospital;
-	}
-	/**
-	 * Getter del atributo hospital del medico
-	 * @param hospital String 
-	 */
-	public void setHospital(String hospital) {
-		this.hospital = hospital;
-	}
+	
 	/**
 	 * Getter del atributo numero del medico
 	 * @return String numero
@@ -119,32 +61,31 @@ public class Medico {
 		this.pacientes = pacientes;
 	}
 	
-	/**
-	 * Constructor de la clase Medico
-	 * 
-	 * @param nombre String 
-	 * @param apellidos String 
-	 * @param dni String 
-	 * @param ss String 
-	 * @param hospital String 
-	 * @param numero String 
-	 * @param pacientes ArrayList de Paciente 
-	 */
-	public Medico(String nombre, String apellidos, String dni, String ss, String hospital, String numero,ArrayList<Paciente>pacientes) {
-		super();
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.dni = dni;
-		this.ss = ss;
-		this.hospital = hospital;
-		this.numero = numero;
-		this.pacientes = pacientes;
-	}
-	
 	public Medico() {
 		super();
 	}
 	
+	public Medico(String user, String rol, String con, int dni, String ss, String numero,
+			ArrayList<Paciente> pacientes) {
+		super(user, rol, con, dni);
+		this.ss = ss;
+		this.numero = numero;
+		this.pacientes = pacientes;
+	}
+	public Medico(String nombre, String apellido, String user, String rol, String con, int dni, String ubicacion,
+			String ss, String numero, ArrayList<Paciente> pacientes) {
+		super(nombre, apellido, user, rol, con, dni, ubicacion);
+		this.ss = ss;
+		this.numero = numero;
+		this.pacientes = pacientes;
+	}
+	
+	public Medico(String ss, String numero, ArrayList<Paciente> pacientes) {
+		super();
+		this.ss = ss;
+		this.numero = numero;
+		this.pacientes = pacientes;
+	}
 	/**
 	 * Metodo que nos permite aniadir un paciente al medico
 	 * @param p Paciente

@@ -148,7 +148,9 @@ public class Lectura{
 					pacientes.add(p);
 				}
 			}
-			m = new Medico(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],pacientes);
+//			public Medico(String nombre, String apellido, String user, String rol, String con, int dni, String ubicacion,
+//					String ss, String numero, ArrayList<Paciente> pacientes) {
+			m = new Medico(datos[0],datos[1],us.getUser(),us.getRol(),us.getCon(),Integer.parseInt(datos[2].substring(0, datos[2].length()-2)),datos[4],datos[3],datos[5],pacientes);
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -192,7 +192,7 @@ public class VentanaMedico extends JFrame{
 		menu.add(new JLabel("     "),BorderLayout.WEST);
 		menu.setOpaque(false);
 		
-		JLabel bien=new JLabel("Bienvenido Dr./Dra. "+med.getNombre()+" "+med.getApellidos());
+		JLabel bien=new JLabel("Bienvenido Dr./Dra. "+med.getNombre()+" "+med.getApellido());
 		bien.setFont(new Font("", Font.BOLD,15));
 		
 		JPanel ajust=new JPanel();
