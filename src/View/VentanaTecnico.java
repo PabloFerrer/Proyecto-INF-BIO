@@ -264,12 +264,23 @@ public class VentanaTecnico extends JFrame {
 	
 	
 	for(int i= 0;i<pacientes.size();i++){
+		System.out.println(pacientes.get(i).getDni());
 			PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 			pan.setBorder(new LineBorder(Color.gray, 2));
 			ControladorPanel cp = new ControladorPanel(this,pacientes.get(i));
 			pan.addMouseListener(cp);
 			rey4.add(pan);	
 		}
+	if(pacientes.size()<10) {
+		for(int i= pacientes.size();i<10;i++){
+			JPanel pan=new JPanel();
+			//pan.setOpaque(false);
+			JLabel a=new JLabel(" ");
+			a.setFont(new Font("",15,45));
+			pan.add(a);
+			rey4.add(pan);
+		}
+	}
 	
 	
 	//CREO EL SCROLL

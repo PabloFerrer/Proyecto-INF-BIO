@@ -201,7 +201,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		
 		if (pacientes.size() < 10) {
 			for (int i = pacientes.size(); i < 10; i++) {
-				PanelPaciente pan = new PanelPaciente(new Paciente(" ", " ", " ", " "), "");
+				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " "), "");
 
 				JLabel invi = new JLabel("lalalalalal");
 				invi.setVisible(false);
@@ -220,21 +220,21 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	 * METODO QUE LEE DEL TXT Y LO PASA A UN ARRAYLIST los pacientes del Tecnico
 	 * @return ArrayList de Pacientes Tecnicos
 	 */
-	public ArrayList<Paciente> leeTxt() {
-		pacientes = new ArrayList<Paciente>();
-		File file = null;
-		file = new File("Resource/Pacientes/pacientes.txt");
-		try(Scanner sc = new Scanner(new FileReader(file))) {
-			while(sc.hasNextLine()){
-				String[] array ;
-				String palabra = sc.nextLine();
-				array = palabra.split(";");
-				Paciente p = new Paciente(array[0],array[1],array[2],array[3]);
-				pacientes.add(p);	
-			}
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return pacientes;
-	}
+//	public ArrayList<Paciente> leeTxt() {
+//		pacientes = new ArrayList<Paciente>();
+//		File file = null;
+//		file = new File("Resource/Pacientes/pacientes.txt");
+//		try(Scanner sc = new Scanner(new FileReader(file))) {
+//			while(sc.hasNextLine()){
+//				String[] array ;
+//				String palabra = sc.nextLine();
+//				array = palabra.split(";");
+//				Paciente p = new Paciente(array[0],array[1],array[2],array[3]);
+//				pacientes.add(p);	
+//			}
+//		}catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		return pacientes;
+//	}
 }

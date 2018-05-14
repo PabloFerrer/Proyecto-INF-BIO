@@ -166,7 +166,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 						ControladorTecnico ct = new ControladorTecnico(vt);
 						vt.setSize(frame.getSize());
 						vt.setLocation(frame.getLocation());
-						vt.crearVista(ct.leeTxt());
+						vt.crearVista(Conexion.consultaPacTec());
 						vt.addController(ct);
 						vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 						vt.ver();

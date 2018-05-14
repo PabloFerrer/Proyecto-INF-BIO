@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,30 +35,56 @@ public class Conexion {
 	}
 	static public void InsertarNuevoECG(ECG ecg) {
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
-
-			c.setAutoCommit(false);
+//			Class.forName("org.sqlite.JDBC");
+//			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+//
+//			c.setAutoCommit(false);
 		    
-		    String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values(?,?,?,?,?,?,?);";
-		    PreparedStatement pst;
-		    pst = c.prepareStatement(sql);
-		    pst.setInt(1, ecg.getFecha());
-		    pst.setInt(2, Constantes.NO_LEIDO);
-		    pst.setString(3, ecg.getPuntos());
-		    pst.setInt(4, ecg.getPuntosporsec());
-		    pst.setString(5, ecg.getComentarios());
-		    pst.setInt(6, ecg.getDniTec());
-		    pst.setInt(7, ecg.getDniPac());
-		   
-		    pst.execute();
-		    pst.toString();
-			c.close();
+		    String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values('"+ecg.getFecha()+"',"+Constantes.NO_LEIDO+",'"+ecg.getPuntos()+"',"+ecg.getPuntosporsec()+",'"+ecg.getComentarios()+"',"+ecg.getDniTec()+","+ecg.getDniPac()+");";
+		    sentenciaSQL(sql);
+//		    PreparedStatement pst;
+//		    pst = c.prepareStatement(sql);
+//		    pst.setInt(1, ecg.getFecha());
+//		    pst.setInt(2, Constantes.NO_LEIDO);
+//		    pst.setString(3, ecg.getPuntos());
+//		    pst.setInt(4, ecg.getPuntosporsec());
+//		    pst.setString(5, ecg.getComentarios());
+//		    pst.setInt(6, ecg.getDniTec());
+//		    pst.setInt(7, ecg.getDniPac());
+//		    
+//		    pst.executeUpdate();
+//		    pst.close();
+//			c.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage()+" "+e.getCause() );
 		}
+		System.out.println("GUARDADO ECG");
 	}
-	
+	//public Paciente(String id,String nombre,String apellido,String dni)
+	static public ArrayList<Paciente> consultaPacTec() {
+		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion FROM Paciente;");
+			if (rs.next()) {
+				int dni = rs.getInt("dni");
+				String nombre = rs.getString("nombre");
+				String ape=rs.getString("apellido");
+				String ubicacion=rs.getString("Ubicacion");
+				
+				pac.add(new Paciente(nombre,ape,dni+"",ubicacion));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return pac;
+	}
 	
 	static public Usuario consultaLogin(String nick, String pass) {
 		Usuario a=new Usuario(null,null,null);

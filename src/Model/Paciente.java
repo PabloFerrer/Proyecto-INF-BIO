@@ -51,8 +51,8 @@ public class Paciente {
 		this.ecgs = ecgs;
 	}
 	
-	public Paciente(String id,String nombre,String apellido,String dni){
-		this.id = id;
+	public Paciente(String nombre,String apellido,String dni,String ubicacion){
+		this.poblacion=ubicacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
