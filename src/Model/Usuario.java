@@ -27,6 +27,13 @@ public class Usuario {
 			this.con = con;
 			this.dni = dni;
 		}
+		
+		public Usuario(String user, String rol, int dni) {
+			super();
+			this.user = user;
+			this.rol = rol;
+			this.dni = dni;
+		}
 
 		/**
 		 * Constructor de un Usuario

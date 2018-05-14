@@ -77,7 +77,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public ControladorAdmin(VentanaAdminPrincipal ax){
 		elimi=new Vector<Usuario>();
-		usuario=this.obtenerUsuarios();
+		usuario=Conexion.consultarUsuarios();
 		this.a=ax;
 		a.getBuscador().addKeyListener(new KeyListener(){
 			public void keyTyped(KeyEvent e) {

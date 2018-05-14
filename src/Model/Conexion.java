@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -58,7 +59,41 @@ public class Conexion {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage()+" "+e.getCause() );
 		}
-		System.out.println("GUARDADO ECG");
+	}
+	
+	static public Vector<Usuario> consultarUsuarios(){
+		Vector<Usuario> users=new Vector<Usuario>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
+			while (rs.next()) {
+				String nick = rs.getString("nick");
+				int dni=rs.getInt("dni");
+				String rol="";
+				switch(rs.getInt("rol")){
+				case Constantes.ADMINISTRADOR:
+					rol="admin";
+					break;
+				case Constantes.MEDICO:
+					rol="medico";
+					break;
+				case Constantes.TECNICO:
+					rol="tecnico";
+					break;
+			}
+				
+				users.add(new Usuario(nick,rol,dni));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return users;
 	}
 	//public Paciente(String id,String nombre,String apellido,String dni)
 	static public ArrayList<Paciente> consultaPacTec() {
@@ -69,7 +104,7 @@ public class Conexion {
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion FROM Paciente;");
-			if (rs.next()) {
+			while (rs.next()) {
 				int dni = rs.getInt("dni");
 				String nombre = rs.getString("nombre");
 				String ape=rs.getString("apellido");
