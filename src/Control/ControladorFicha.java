@@ -112,7 +112,15 @@ public class ControladorFicha implements ActionListener {
 			
 			if(resp==0){
 			d.getBtnEnivar().setEnabled(false);
-			ecg=new ECG(Integer.parseInt(Calendar.YEAR+""+Calendar.MONTH+""+Calendar.DATE),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-2)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
+			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
+			if(mon.length()<2) {
+				mon="0"+mon;
+			}
+			String day=Calendar.getInstance().get(Calendar.DATE)+"";
+			if(day.length()<2) {
+				day="0"+day;
+			}
+			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
 			Conexion.InsertarNuevoECG(ecg);
 			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 			vt.getFicha().getEcg().cleanGraph();
