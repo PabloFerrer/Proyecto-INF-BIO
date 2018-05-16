@@ -55,8 +55,6 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	public ControladorTecnico (VentanaTecnico vt){
 		this.vt = vt;
 	}
-	
-	
 
 	/**
 	 * 	
@@ -91,11 +89,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		        } catch (Exception ex) {
 		            
 		        }
-			
 	}
-
-	
-	
 }
 
 	/**

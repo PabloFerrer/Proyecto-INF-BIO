@@ -95,6 +95,35 @@ public class Conexion {
 		}
 		return users;
 	}
+	
+	static public ArrayList<Paciente> consultaPacMed() {
+		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion\r\n" + 
+					"from Paciente\r\n" + 
+					"join medicoPaciente on Paciente.dni = medicoPaciente.dniPaciente\r\n" + 
+					"join Medico on Medico.dni = medicoPaciente.dniMedico;");
+			while (rs.next()) {
+				int dni = rs.getInt("dni");
+				int nss = rs.getInt("nss");
+				String ape=rs.getString("apellido");
+				String nombre = rs.getString("nombre");
+				String ubicacion=rs.getString("Ubicacion");
+				
+				pac.add(new Paciente(nombre,ape,dni+"",ubicacion));//añadir nss, cambiar en el constructor!
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return pac;
+	}
 	//public Paciente(String id,String nombre,String apellido,String dni)
 	static public ArrayList<Paciente> consultaPacTec() {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();

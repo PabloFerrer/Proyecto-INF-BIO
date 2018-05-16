@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import Model.Constantes;
 import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
+import Model.Paciente;
 import View.BuscadorMedico;
 import View.CompararECG;
 import View.Formulario;
@@ -66,6 +68,11 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private VentanaLogin ven;
 	private Medico med;
 	private VentanaHelp help;
+	private Vector<Paciente> Paciente;
+	
+	public Vector<Paciente> getPaciente() {
+		return Paciente;
+	}
 	
 	/**
 	 * Primer constructor de la clase ControladorMedico
