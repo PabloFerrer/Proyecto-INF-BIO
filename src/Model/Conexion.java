@@ -151,7 +151,7 @@ public class Conexion {
 	}
 	
 	static public Usuario consultaLogin(String nick, String pass) {
-		Usuario a=new Usuario(null,null,null);
+		Usuario a=new Usuario(null,null,null,0);
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);

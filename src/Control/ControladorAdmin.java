@@ -100,7 +100,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public ControladorAdmin(Formulario a){
 		this.aux1=a;
-		usuario=this.obtenerUsuarios();
+		usuario=Conexion.consultarUsuarios();
 	}
 	
 	/**
@@ -262,7 +262,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					Conexion.sentenciaSQL(sentencia);
 					sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
 					Conexion.sentenciaSQL(sentencia);
-					usuario.add(new Usuario(st,"medico",con1));
+					usuario.add(new Usuario(st,"medico",con1,Integer.parseInt(aux1.getDni().getText())));
 					JOptionPane.showMessageDialog(null, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
 				}
@@ -358,7 +358,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				Conexion.sentenciaSQL(sentencia);
 				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.TECNICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
 				Conexion.sentenciaSQL(sentencia);
-				usuario.add(new Usuario(st,"tecnico",con1));
+				usuario.add(new Usuario(st,"tecnico",con1,Integer.parseInt(aux1.getDni().getText())));
 				JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				
@@ -387,8 +387,17 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			a.getCentro().setVisible(true);
 
 		} else if(cmd.equals(BACK)){
-			for(int i=0;i<elimi.size();i++) {
-				usuario.remove(elimi.get(i));
+			while(!elimi.isEmpty()) {
+				if(usuario.get(0).getRol().equals("medico")) {
+					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
+				} else if(usuario.get(0).getRol().equals("tecnico")){
+					Conexion.sentenciaSQL("delete from tecnico where dni="+elimi.get(0).getDni());
+				} else {
+					Conexion.sentenciaSQL("delete from administrador where dni="+elimi.get(0).getDni());
+				}
+				Conexion.sentenciaSQL("delete from Usuario where dni="+elimi.get(0).getDni());
+				usuario.remove(elimi.get(0));
+				elimi.remove(0);
 			}
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
@@ -472,69 +481,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		// TODO Auto-generated method stub
 		
 	}
-	/**
-	 * Se encarga de la lectura de todos los usuarios desde su fichero correspondiente
-	 * @return Un vector con todos los usuarios que pudo leer de fichero
-	 */
-	public Vector<Usuario> obtenerUsuarios(){
-		Vector<Usuario> us=new Vector<Usuario>();
-			File file = null;
-			file = new File("Resource/Usuarios/Users.txt");
-				try (Scanner sc = new Scanner(new FileReader(file))) {
-					while (sc.hasNextLine()) {
-						String auxi=sc.nextLine();
-						String[] usuario=auxi.split(";");
-						us.add(new Usuario(usuario[0],usuario[1],usuario[2]));
-						
-					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-		
-		return us;
-	}
-	/**
-	 * Escritura y creacion de un nuevo medico en la base de datos
-	 * @param User nombre de usuario	
-	 * @param password contrasena del usuario
-	 * @param nom nombre
-	 * @param ape1 primero apellido
-	 * @param ape2 segundo apellido
-	 * @param dn DNI
-	 * @param tele numero de telefono
-	 * @param lugar Lugar/direccion de residencia/Trabajo
-	 * @param cole Numero de colegiado
-	 */
-	public void escribirMedico(String User,String password,String nom,String ape1,String ape2,String dn,String tele,String lugar,String cole){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Medicos/"+User+".txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+tele+";"+lugar+";"+cole+"\r\n");
-		}catch(Exception exc){
-		}
-	}
-	/**
-	 * Escritura y creacion de un nuevo tecnico en la base de datos
-	 * @param User nombre de usuario
-	 * @param password contrasena de dicho usuario
-	 * @param nom nombre
-	 * @param ape1 primer apellido
-	 * @param ape2 segundo apellido
-	 * @param dn DNI
-	 * @param lugar Lugar/direccion de residencia/Trabajo
-	 */
-	public void escribirTecnico(String User,String password,String nom,String ape1,String ape2,String dn,String lugar){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Tecnicos/Tecnicos.txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+lugar+"\r\n");
-		}catch(Exception exc){
-		}
-	}
+	
 	/**
 	 * Se encarga de la actualizacion de los usuarios mostrados en 
 	 * el control de usuarios de la ventanaAdminPrincipal aplicandolo un filtro

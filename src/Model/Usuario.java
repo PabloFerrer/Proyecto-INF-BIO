@@ -65,17 +65,7 @@ public class Usuario {
 			this.dni = dni;
 		}
 
-		/**
-		 * Constructor de un Usuario
-		 * @param user Nombe de Usuario
-		 * @param rol Rol (medico,admin,tecnico)
-		 * @param con contrasena
-		 */
-		public Usuario(String user,String rol, String con){
-			this.user=user;
-			this.rol=rol;
-			this.con=con;
-		}
+		
 
 		/**
 		 * Getter del nombre de Usuario

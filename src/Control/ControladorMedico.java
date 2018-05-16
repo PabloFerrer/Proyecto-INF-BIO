@@ -278,6 +278,8 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 					+ formulario.getLugar().getText()+"');";
 					System.out.println("pruebo");
 					Conexion.sentenciaSQL(sentencia);
+					sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
+					Conexion.sentenciaSQL(sentencia);
 					System.out.println("funciono");
 					//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
 					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);

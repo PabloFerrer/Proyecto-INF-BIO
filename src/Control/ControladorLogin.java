@@ -56,7 +56,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		 * @param frame VentanaLogin a la cual se le asignaran los controladores y se controlara
 		 */
 	public ControladorLogin(VentanaLogin frame){
-		user=new Usuario("","","");
+		user=new Usuario("","","",0);
 		this.a=frame.getUser();
 		this.b=frame.getPass();
 		this.frame=frame;
