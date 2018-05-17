@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import Model.Conexion;
 import Model.Lectura;
 import Model.Medico;
+import Model.Paciente;
 import Model.Usuario;
 import View.VentanaAdminPrincipal;
 import View.VentanaHelp;
@@ -22,6 +23,7 @@ import View.VentanaLogin;
 import View.VentanaMedico;
 import View.VentanaTecnico;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
@@ -172,7 +174,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 						frame.dispose();
 					}
 					else if(user.getRol().equals("medico")) {
-						Medico med=Lectura.lectura_medico(user);
+						Medico med=new Medico(user,"","",new ArrayList<Paciente>());
 						VentanaMedico vm = new VentanaMedico(med);
 						ControladorMedico cm = new ControladorMedico(vm,med);
 						vm.crearVista();

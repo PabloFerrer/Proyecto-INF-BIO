@@ -72,6 +72,14 @@ public class Medico extends Usuario{
 		this.numero = numero;
 		this.pacientes = pacientes;
 	}
+	
+	public Medico(Usuario us,
+			String ss, String numero, ArrayList<Paciente> pacientes) {
+		super(us.getNombre(), us.getApellido(), us.getUser(), us.getRol(), us.getCon(), us.getDni(), us.getUbicacion());
+		this.ss = ss;
+		this.numero = numero;
+		this.pacientes = pacientes;
+	}
 	public Medico(String nombre, String apellido, String user, String rol, String con, int dni, String ubicacion,
 			String ss, String numero, ArrayList<Paciente> pacientes) {
 		super(nombre, apellido, user, rol, con, dni, ubicacion);

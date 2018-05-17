@@ -96,8 +96,8 @@ public class Conexion {
 		return users;
 	}
 	
-	static public ArrayList<Paciente> consultaPacMed() {
-		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+	static public Vector<Paciente> consultaPacMed(Medico m) {
+		Vector<Paciente> pac=new Vector<Paciente>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
@@ -106,7 +106,8 @@ public class Conexion {
 			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion\r\n" + 
 					"from Paciente\r\n" + 
 					"join medicoPaciente on Paciente.dni = medicoPaciente.dniPaciente\r\n" + 
-					"join Medico on Medico.dni = medicoPaciente.dniMedico;");
+					"join Medico on Medico.dni = medicoPaciente.dniMedico"
+					+ " where Medico.dni = "+m.getDni()+" ;");
 			while (rs.next()) {
 				int dni = rs.getInt("dni");
 				int nss = rs.getInt("nss");
@@ -162,6 +163,9 @@ public class Conexion {
 				String nickname = rs.getString("nick");
 				String password = rs.getString("contrasena");
 				String rol="";
+				String nombre = rs.getString("nombre");
+				String ape=rs.getString("apellido");
+				String ubicacion=rs.getString("Ubicacion");
 				int dni=rs.getInt("dni");
 				switch(rs.getInt("rol")){
 					case Constantes.ADMINISTRADOR:
@@ -174,7 +178,7 @@ public class Conexion {
 						rol="tecnico";
 						break;
 				}
-				a=new Usuario(nickname,rol,password,dni);
+				a=new Usuario(nombre,ape,nickname,rol,password,dni,ubicacion);
 			}
 			rs.close();
 			stmt.close();
