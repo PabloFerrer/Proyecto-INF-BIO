@@ -9,16 +9,40 @@ import java.util.Vector;
  *
  */
 public class ECG {
+	
+	public ECG(int id,int fecha, int fechaDiag, boolean leido, int dniMed, int dniTec, int dniPac,
+			String comentarios, int pulsa, String diagnostico, int puntosporsec, String puntos) {
+		super();
+		this.nombre=fecha+"";
+		this.fecha = fecha;
+		this.fechaDiag = fechaDiag;
+		this.leido = leido;
+		this.dniMed = dniMed;
+		this.dniTec = dniTec;
+		this.dniPac = dniPac;
+		Comentarios = comentarios;
+		this.pulsa = pulsa;
+		Diagnostico = diagnostico;
+		this.puntosporsec = puntosporsec;
+		this.puntos = puntos;
+	}
+	public int getId() {
+		return id;
+	}
+	private int id;
 	private int fecha;
+	private int fechaDiag;
 	private boolean leido;
-	private String nombreTec;
+	private int dniMed;
 	private int dniTec;
 	private int dniPac;
 	private String Comentarios;
+	private int pulsa;
 	private String Diagnostico;
 	private int puntosporsec;
 	private String nombre;
 	private String puntos;
+	
 	
 	/**
 	 * Setter para modificar el diagnostico
@@ -37,11 +61,10 @@ public class ECG {
  * @param nombre nombre del archivo del ECG
  * @param puntos Puntos del ECG
  */
-	public ECG(int fecha, String nombreTec,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+	public ECG(int fecha,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
 			String puntos) {
 		this.dniTec=dniTec;
 		this.fecha = fecha;
-		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
 		Diagnostico = diagnostico;
 		this.puntosporsec = puntosporsec;
@@ -60,11 +83,10 @@ public class ECG {
 	 * @param puntos Puntos del ECG
 	 * @param leido boolean si el medico lo ha leido o no
 	 */
-	public ECG(int fecha, String nombreTec,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+	public ECG(int fecha,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
 			String puntos,boolean leido) {
 		this.dniTec=dniTec;
 		this.fecha = fecha;
-		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
 		Diagnostico = diagnostico;
 		this.puntosporsec = puntosporsec;
@@ -115,13 +137,7 @@ public class ECG {
 	public int getFecha() {
 		return fecha;
 	}
-/**
- * Getter del nombre del Tecnico
- * @return nombre del tecnico que hizo el ecg
- */
-	public String getNombreTec() {
-		return nombreTec;
-	}
+
 	/**
 	 * Getter del comentario que hizo el tecnico
 	 * @return el comentario que hizo el tecnico

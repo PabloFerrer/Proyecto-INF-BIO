@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Calendar;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Model.Conexion;
 import Model.ECG;
 import Model.Medico;
 import Model.Paciente;
@@ -175,10 +177,22 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 				vm.getBtnBuscarPacientes().doClick();
 			}
 		} else if(cmd.equals(GUARDAR)) {
-			if(!fi.getText().isEmpty())
+			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
+			if(mon.length()<2) {
+				mon="0"+mon;
+			}
+			String day=Calendar.getInstance().get(Calendar.DATE)+"";
+			if(day.length()<2) {
+				day="0"+day;
+			}
+			if(!fi.getText().isEmpty()) {
+				System.out.println(ecg.getId());
 				ecg.setDiagnostico(fi.getText());
-			else
+				Conexion.sentenciaSQL("Update ECG set diagnostico='"+fi.getText()+"', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
+			} else {
 				ecg.setDiagnostico("");
+				Conexion.sentenciaSQL("Update ECG set diagnostico=' ', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
+			}
 		}
 		
 	}

@@ -190,7 +190,7 @@ public class FichaPaciente extends JPanel {
 			pan13.add(obser, BorderLayout.CENTER);
 			pan14.add(pan13,BorderLayout.CENTER);
 			info.setLayout(new BoxLayout(info,BoxLayout.Y_AXIS));
-			info.add(new JLabel("Tecnico Responsable: "+e.getNombreTec()));
+			info.add(new JLabel("Tecnico Responsable: "+e.getDniTec()));
 			info.add(new JLabel("Comentario del Tecnico: "+e.getComentarios()));
 			info.add(new JLabel("Fecha de Realizacion:"+String.valueOf(e.getFecha()).substring(6, 8)+"-"+String.valueOf(e.getFecha()).substring(4, 6)+"-"+String.valueOf(e.getFecha()).substring(0, 4)));
 			
