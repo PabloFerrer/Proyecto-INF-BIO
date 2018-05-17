@@ -102,6 +102,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public void mouseClicked(MouseEvent a) {
 		vm.getCentro().setVisible(false);
 		vm.getCentro().removeAll();
+		p.setEcgs(Conexion.consultaECG(p));
 		FichaPaciente fp = new FichaPaciente(p);
 		if(aux==0) {
 			ecg.setLeido(true);

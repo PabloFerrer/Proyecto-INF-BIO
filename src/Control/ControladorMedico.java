@@ -17,9 +17,11 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import Model.Conexion;
+import Model.ECG;
 import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
+import Model.Utilidades;
 import Model.Paciente;
 import View.BuscadorMedico;
 import View.CompararECG;
@@ -66,11 +68,8 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private VentanaLogin ven;
 	private Medico med;
 	private VentanaHelp help;
-	private Vector<Paciente> Paciente;
 	
-	public Vector<Paciente> getPaciente() {
-		return Paciente;
-	}
+	
 	
 	/**
 	 * Primer constructor de la clase ControladorMedico
@@ -78,7 +77,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	 * @param us Medico 
 	 */
 	public ControladorMedico(VentanaMedico vm, Medico us) {
-		Paciente = Conexion.consultaPacMed(us);
 		this.vm=vm;
 		med= us;
 	}
@@ -90,7 +88,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	public ControladorMedico(VentanaMedico vm, Usuario us) {
 		this.vm=vm;
 		med=Conexion.consultaMed(us);
-		Paciente = Conexion.consultaPacMed(med);
 	}
 
 	/**
@@ -133,6 +130,9 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getBtnRevisarEcg().setBackground(new Color(51,153,255).darker());
 			vm.getCentro().setVisible(false);
 			vm.getCentro().removeAll();
+			for(int i=0;i<med.getPacientes().size();i++) {
+				med.getPacientes().get(i).setEcgs(Conexion.consultaECG(med.getPacientes().get(i)));
+			}
 			VentanaMedicoECG ecg = new VentanaMedicoECG(vm,med);
 			ecg.ver();
 			vm.getCentro().add(ecg);
@@ -273,13 +273,14 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 					String sentencia=" insert into Paciente (dni,nSS,apellido,nombre,ubicacion) values ("
 					+ formulario.getDni().getText()+ ","
 					+ formulario.getSs().getText()+ ",'"
-					+ formulario.getApellido1().getText()+"','"
+					+ formulario.getApellido1().getText()+" "+formulario.getApellido2().getText()+"','"
 					+ formulario.getNombre().getText()+ "','"
 					+ formulario.getLugar().getText()+"');";
 					System.out.println("pruebo");
 					Conexion.sentenciaSQL(sentencia);
 					sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
 					Conexion.sentenciaSQL(sentencia);
+					med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Integer.parseInt(formulario.getSs().getText()),formulario.getLugar().getText(),null,new Vector<ECG>()));
 					System.out.println("funciono");
 					//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
 					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);

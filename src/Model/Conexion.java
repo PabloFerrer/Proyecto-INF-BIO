@@ -119,8 +119,8 @@ public class Conexion {
 		
 	}
 	
-	static public Vector<Paciente> consultaPacMed(Medico m) {
-		Vector<Paciente> pac=new Vector<Paciente>();
+	static public ArrayList<Paciente> consultaPacMed(Medico m) {
+		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
@@ -133,6 +133,7 @@ public class Conexion {
 					+ " where Medico.dni = "+m.getDni()+" ;");
 			while (rs.next()) {
 				int dni = rs.getInt("dni");
+				System.out.println(dni);
 				int nss = rs.getInt("nss");
 				String ape=rs.getString("apellido");
 				String nombre = rs.getString("nombre");
@@ -211,6 +212,32 @@ public class Conexion {
 		}
 		System.out.println("Consulta terminada, ingreso de usuario " + a.getUser());
 		return a;
+	}
+	
+	static public Vector<ECG> consultaECG(Paciente pac) {
+		Vector<ECG> ecg=new Vector<ECG>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+";");
+			while (rs.next()) {
+//				public ECG(int fecha, int fechaDiag, boolean leido, String nombreTec, int dniMed, int dniTec, int dniPac,
+				//String comentarios, int pulsa, String diagnostico, int puntosporsec, String nombre, String puntos) {
+				boolean leido=(rs.getInt("leido")==Constantes.LEIDO);
+				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),leido,rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
+						,rs.getString("comentarioTecnico"),rs.getInt("pulsaciones"),rs.getString("diagnostico"),rs.getInt("puntoSegundo")
+						,rs.getString("puntos")
+						));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return ecg;
 	}
 
 }
