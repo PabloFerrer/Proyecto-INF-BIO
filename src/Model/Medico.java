@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Medico extends Usuario{
 	
-	private String ss;
-	private String numero;
+	private int ss;
+	private int numero;
 	private ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 
 	
@@ -21,14 +21,14 @@ public class Medico extends Usuario{
 	 * Getter del atributo seguridad social del medico
 	 * @return String ss
 	 */
-	public String getSs() {
+	public int getSs() {
 		return ss;
 	}
 	/**
 	 * Setter del atributo seguridad social del medico
 	 * @param ss String 
 	 */
-	public void setSs(String ss) {
+	public void setSs(int ss) {
 		this.ss = ss;
 	}
 	
@@ -36,14 +36,14 @@ public class Medico extends Usuario{
 	 * Getter del atributo numero del medico
 	 * @return String numero
 	 */
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 	/**
 	 * Setter del atributo numero del medico
 	 * @param numero String 
 	 */
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 	/**
@@ -65,7 +65,7 @@ public class Medico extends Usuario{
 		super();
 	}
 	
-	public Medico(String user, String rol, String con, int dni, String ss, String numero,
+	public Medico(String user, String rol, String con, int dni, int ss, int numero,
 			ArrayList<Paciente> pacientes) {
 		super(user, rol, con, dni);
 		this.ss = ss;
@@ -73,22 +73,21 @@ public class Medico extends Usuario{
 		this.pacientes = pacientes;
 	}
 	
-	public Medico(Usuario us,
-			String ss, String numero, ArrayList<Paciente> pacientes) {
+	public Medico(Usuario us,int ss, int numero) {
 		super(us.getNombre(), us.getApellido(), us.getUser(), us.getRol(), us.getCon(), us.getDni(), us.getUbicacion());
 		this.ss = ss;
 		this.numero = numero;
-		this.pacientes = pacientes;
+		this.pacientes = new ArrayList<Paciente>();
 	}
 	public Medico(String nombre, String apellido, String user, String rol, String con, int dni, String ubicacion,
-			String ss, String numero, ArrayList<Paciente> pacientes) {
+			int ss, int numero, ArrayList<Paciente> pacientes) {
 		super(nombre, apellido, user, rol, con, dni, ubicacion);
 		this.ss = ss;
 		this.numero = numero;
 		this.pacientes = pacientes;
 	}
 	
-	public Medico(String ss, String numero, ArrayList<Paciente> pacientes) {
+	public Medico(int ss, int numero, ArrayList<Paciente> pacientes) {
 		super();
 		this.ss = ss;
 		this.numero = numero;

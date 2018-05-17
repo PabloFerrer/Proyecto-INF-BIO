@@ -96,6 +96,29 @@ public class Conexion {
 		return users;
 	}
 	
+	public static Medico consultaMed(Usuario us){
+		Medico m= new Medico(us,0,0);
+		try{
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Medico.nColegiado,Medico.nTelefono "
+					+ "from Medico" + 
+					" where Medico.dni = " + us.getDni() + ";");
+			if (rs.next()) {
+				int nC = rs.getInt("nColegiado");
+				int nT = rs.getInt("nTelefono");
+				
+				m = new Medico(us,nC,nT);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return m;
+		
+	}
+	
 	static public Vector<Paciente> consultaPacMed(Medico m) {
 		Vector<Paciente> pac=new Vector<Paciente>();
 		try {

@@ -12,14 +12,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import Model.Conexion;
-import Model.Constantes;
 import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
@@ -70,7 +67,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private Medico med;
 	private VentanaHelp help;
 	private Vector<Paciente> Paciente;
-	private Vector<Paciente> p;
 	
 	public Vector<Paciente> getPaciente() {
 		return Paciente;
@@ -82,7 +78,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	 * @param us Medico 
 	 */
 	public ControladorMedico(VentanaMedico vm, Medico us) {
-		p = new Vector<Paciente>();
 		Paciente = Conexion.consultaPacMed(us);
 		this.vm=vm;
 		med= us;
@@ -94,8 +89,8 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	 */
 	public ControladorMedico(VentanaMedico vm, Usuario us) {
 		this.vm=vm;
-		Paciente = Conexion.consultaPacMed((Medico)us);
-		 med=new Medico(us,"","",new ArrayList<Paciente>());
+		med=Conexion.consultaMed(us);
+		Paciente = Conexion.consultaPacMed(med);
 	}
 
 	/**

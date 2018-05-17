@@ -174,7 +174,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 						frame.dispose();
 					}
 					else if(user.getRol().equals("medico")) {
-						Medico med=new Medico(user,"","",new ArrayList<Paciente>());
+						Medico med=Conexion.consultaMed(user);
 						VentanaMedico vm = new VentanaMedico(med);
 						ControladorMedico cm = new ControladorMedico(vm,med);
 						vm.crearVista();
