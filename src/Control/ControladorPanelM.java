@@ -115,8 +115,9 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		fp.addControlMensa(new ControladorMensaje(p,(Usuario)m));
 		if(aux==0) {
 			ecg.setLeido(true);
+			Conexion.sentenciaSQL("UPDATE ECG set leido="+Constantes.LEIDO+" Where id="+ecg.getId()+";");
 			int i=0;
-			while(!p.getEcgs().get(i).equals(ecg) && i<p.getEcgs().size()) {
+			while(i<p.getEcgs().size() && !p.getEcgs().get(i).equals(ecg) ) {
 				i++;
 			}
 			if(i<p.getEcgs().size())
@@ -230,6 +231,8 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public void mouseMoved(MouseEvent e) {
 		e.getComponent().removeMouseMotionListener(this);
 		ecg.setLeido(true);
+		System.out.println(ecg.getId());
+		Conexion.sentenciaSQL("UPDATE ECG set leido="+Constantes.LEIDO+" Where id="+ecg.getId()+";");
 		
 	}
 

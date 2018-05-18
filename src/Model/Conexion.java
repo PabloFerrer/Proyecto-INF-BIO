@@ -242,12 +242,10 @@ public class Conexion {
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+";");
 			while (rs.next()) {
-				boolean leido=(rs.getInt("leido")==Constantes.LEIDO);
-				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),leido,rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
+				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),(rs.getInt("leido")==Constantes.LEIDO),rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
 						,rs.getString("comentarioTecnico"),rs.getInt("pulsaciones"),rs.getString("diagnostico"),rs.getInt("puntoSegundo")
 						,rs.getString("puntos")
 						));
-				
 			}
 			rs.close();
 			stmt.close();
@@ -255,6 +253,7 @@ public class Conexion {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
+		
 		return ecg;
 	}
 	

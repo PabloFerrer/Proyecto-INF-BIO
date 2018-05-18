@@ -76,7 +76,7 @@ public class PanelPaciente extends JPanel {
 			add(panel2, BorderLayout.EAST);
 			panel2.setLayout(new GridLayout(2,1));
 			panel2.add(new JLabel("Leido?          "+ ecg.isLeido()));
-			panel2.add(new JLabel("Diagnosticado?  "+ ((ecg.getDiagnostico().isEmpty())?"false":"true")));
+			panel2.add(new JLabel("Diagnosticado?  "+ ((ecg.getDiagnostico()==null || ecg.getDiagnostico().isEmpty())?"false":"true")));
 			
 			usuario = new JLabel(p.getNombre());
 			panel.add(usuario);

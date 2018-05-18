@@ -146,7 +146,7 @@ public class FichaPaciente extends JPanel {
 		invi4.setContentAreaFilled(false);
 		invi4.setBorderPainted(false);
 		
-		for(ECG e : p.getEcgs()){
+		for(int i=0;i< p.getEcgs().size();i++){
 			JPanel north=new JPanel();
 			north.setOpaque(false);
 			north.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -154,18 +154,18 @@ public class FichaPaciente extends JPanel {
 			guardar.setActionCommand(ControladorPanelM.GUARDAR);
 			
 			JTextArea obser=new JTextArea();
-			obser.setText(e.getDiagnostico());
+			obser.setText(p.getEcgs().get(i).getDiagnostico());
 			
 			obser.setLineWrap(true);
 			obser.setWrapStyleWord(true);
 			
-			guardar.addActionListener(new ControladorPanelM(e,obser));
+			guardar.addActionListener(new ControladorPanelM(p.getEcgs().get(i),obser));
 			north.add(guardar);
 			
 			JPanel prueba = new JPanel(new BorderLayout(7,0));
 			prueba.setOpaque(false);
 			GraficaECG ecg = new GraficaECG();
-			ecg.addGraphic(e);
+			ecg.addGraphic(p.getEcgs().get(i));
 			GraphController control=new GraphController(ecg);
 			ecg.addController(control);
 			ecg.initUIMED();
@@ -196,18 +196,18 @@ public class FichaPaciente extends JPanel {
 			pan13.add(obser, BorderLayout.CENTER);
 			pan14.add(pan13,BorderLayout.CENTER);
 			info.setLayout(new BoxLayout(info,BoxLayout.Y_AXIS));
-			info.add(new JLabel("Tecnico Responsable: "+Conexion.getUserName(e.getDniTec())+"          DNI: "+ e.getDniTec()+Utilidades.letraDNI(e.getDniTec())));
-			info.add(new JLabel("Comentario del Tecnico: "+e.getComentarios()));
-			info.add(new JLabel("Fecha de Realizacion:"+String.valueOf(e.getFecha()).substring(6, 8)+"-"+String.valueOf(e.getFecha()).substring(4, 6)+"-"+String.valueOf(e.getFecha()).substring(0, 4)));
+			info.add(new JLabel("Tecnico Responsable: "+Conexion.getUserName(p.getEcgs().get(i).getDniTec())+"          DNI: "+ p.getEcgs().get(i).getDniTec()+Utilidades.letraDNI(p.getEcgs().get(i).getDniTec())));
+			info.add(new JLabel("Comentario del Tecnico: "+p.getEcgs().get(i).getComentarios()));
+			info.add(new JLabel("Fecha de Realizacion:"+String.valueOf(p.getEcgs().get(i).getFecha()).substring(6, 8)+"-"+String.valueOf(p.getEcgs().get(i).getFecha()).substring(4, 6)+"-"+String.valueOf(p.getEcgs().get(i).getFecha()).substring(0, 4)));
 			
 			prueba.add(north,BorderLayout.NORTH);
 			prueba.add(pan14,BorderLayout.EAST);
 			prueba.add(ecg,BorderLayout.CENTER);
 			prueba.add(info,BorderLayout.SOUTH);
 			
-			prueba.addMouseMotionListener(new ControladorPanelM(e,obser));
-			tab.add(e.getNombre(), prueba);
-			
+		
+			prueba.addMouseMotionListener(new ControladorPanelM(p.getEcgs().get(i),obser));
+			tab.add(p.getEcgs().get(i).getNombre(), prueba);	
 		}
 		
 		

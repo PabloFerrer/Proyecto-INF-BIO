@@ -13,6 +13,7 @@ public class ECG {
 	public ECG(int id,int fecha, int fechaDiag, boolean leido, int dniMed, int dniTec, int dniPac,
 			String comentarios, int pulsa, String diagnostico, int puntosporsec, String puntos) {
 		super();
+		this.id=id;
 		this.nombre=fecha+"";
 		this.fecha = fecha;
 		this.fechaDiag = fechaDiag;
