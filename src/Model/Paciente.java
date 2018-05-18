@@ -20,6 +20,7 @@ public class Paciente {
 	private String poblacion;
 	private Image foto;
 	private Vector<ECG> ecgs;
+	private Vector<Mensaje> mensajes;
 
 	/**
   	* Constructor de la clase Paciente
@@ -44,6 +45,7 @@ public class Paciente {
 		this.poblacion = poblacion;
 		this.foto = foto;
 		this.ecgs = ecgs;
+		mensajes=new Vector<Mensaje>();
 	}
 	
 	public Paciente(String nombre,String apellido,String dni,String ubicacion){
@@ -51,6 +53,7 @@ public class Paciente {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
+		mensajes=new Vector<Mensaje>();
 	}
 	
 	public Paciente(){
@@ -160,6 +163,14 @@ public class Paciente {
 	 */
 	public void setEcgs(Vector<ECG> ecgs) {
 		this.ecgs = ecgs;
+	}
+
+	public Vector<Mensaje> getMensajes() {
+		return mensajes;
+	}
+
+	public void setMensajes(Vector<Mensaje> mensajes) {
+		this.mensajes = mensajes;
 	}
 
 	

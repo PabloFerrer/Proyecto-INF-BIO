@@ -120,6 +120,8 @@ public class ControladorFicha implements ActionListener {
 			if(day.length()<2) {
 				day="0"+day;
 			}
+			System.out.println("HOLA"+d.getP().getDni());
+			System.out.println(Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)));
 			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
 			Conexion.InsertarNuevoECG(ecg);
 			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);

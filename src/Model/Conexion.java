@@ -139,7 +139,7 @@ public class Conexion {
 				String nombre = rs.getString("nombre");
 				String ubicacion=rs.getString("Ubicacion");
 				
-				pac.add(new Paciente(nombre,ape,dni+"",ubicacion));//añadir nss, cambiar en el constructor!
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion));//añadir nss, cambiar en el constructor!
 			}
 			rs.close();
 			stmt.close();
@@ -164,7 +164,7 @@ public class Conexion {
 				String ape=rs.getString("apellido");
 				String ubicacion=rs.getString("Ubicacion");
 				
-				pac.add(new Paciente(nombre,ape,dni+"",ubicacion));
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion));
 			}
 			rs.close();
 			stmt.close();
@@ -213,6 +213,25 @@ public class Conexion {
 		System.out.println("Consulta terminada, ingreso de usuario " + a.getUser());
 		return a;
 	}
+	static public Vector<Mensaje> consultarMensajes(Paciente pac){
+		Vector<Mensaje> men=new Vector<Mensaje>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha;");
+			while (rs.next()) {
+				men.add(new Mensaje(rs.getInt("id"),rs.getInt("DniUsuario"),rs.getInt("dniPaciente"),rs.getInt("leido"),rs.getString("datos"),rs.getInt("fecha"),rs.getString("asunto")));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return men;
+	}
 	
 	static public Vector<ECG> consultaECG(Paciente pac) {
 		Vector<ECG> ecg=new Vector<ECG>();
@@ -223,13 +242,12 @@ public class Conexion {
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+";");
 			while (rs.next()) {
-//				public ECG(int fecha, int fechaDiag, boolean leido, String nombreTec, int dniMed, int dniTec, int dniPac,
-				//String comentarios, int pulsa, String diagnostico, int puntosporsec, String nombre, String puntos) {
 				boolean leido=(rs.getInt("leido")==Constantes.LEIDO);
 				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),leido,rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
 						,rs.getString("comentarioTecnico"),rs.getInt("pulsaciones"),rs.getString("diagnostico"),rs.getInt("puntoSegundo")
 						,rs.getString("puntos")
 						));
+				
 			}
 			rs.close();
 			stmt.close();
@@ -239,5 +257,26 @@ public class Conexion {
 		}
 		return ecg;
 	}
-
+	
+	static public String getUserName(int dni) {
+		String name="";
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT nombre,apellido FROM usuario where dni="+dni+";");
+			if (rs.next()) {
+				name=rs.getString("nombre")+" "+rs.getString("apellido");
+				System.out.println("LECTOR:" +name);
+				
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return name;
+	}
 }

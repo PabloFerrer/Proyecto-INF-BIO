@@ -132,7 +132,7 @@ public class VentanaTecnico extends JFrame {
 	 * 
 	 * @param pacientes ArrayList de PacienteTecnico
 	 */
-	public void crearVista(ArrayList<Paciente> pacientes){
+	public void crearVista(ArrayList<Paciente> pacientes,Usuario us){
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
@@ -267,7 +267,7 @@ public class VentanaTecnico extends JFrame {
 		System.out.println(pacientes.get(i).getDni());
 			PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 			pan.setBorder(new LineBorder(Color.gray, 2));
-			ControladorPanel cp = new ControladorPanel(this,pacientes.get(i));
+			ControladorPanel cp = new ControladorPanel(this,pacientes.get(i),us);
 			pan.addMouseListener(cp);
 			rey4.add(pan);	
 		}

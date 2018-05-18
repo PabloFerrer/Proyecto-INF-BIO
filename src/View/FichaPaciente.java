@@ -1,13 +1,18 @@
 package View;
 
+import Model.Conexion;
 import Model.ECG;
 import Model.Paciente;
+import Model.Utilidades;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.*;
+
+import Control.ControladorMensaje;
 import Control.ControladorPanelM;
 import Control.GraphController;
 
@@ -40,6 +45,7 @@ public class FichaPaciente extends JPanel {
 	private JButton invi4;
 	private JButton comparar;
 	private JButton atras;
+	private JButton mensa;
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -190,7 +196,7 @@ public class FichaPaciente extends JPanel {
 			pan13.add(obser, BorderLayout.CENTER);
 			pan14.add(pan13,BorderLayout.CENTER);
 			info.setLayout(new BoxLayout(info,BoxLayout.Y_AXIS));
-			info.add(new JLabel("Tecnico Responsable: "+e.getDniTec()));
+			info.add(new JLabel("Tecnico Responsable: "+Conexion.getUserName(e.getDniTec())+"          DNI: "+ e.getDniTec()+Utilidades.letraDNI(e.getDniTec())));
 			info.add(new JLabel("Comentario del Tecnico: "+e.getComentarios()));
 			info.add(new JLabel("Fecha de Realizacion:"+String.valueOf(e.getFecha()).substring(6, 8)+"-"+String.valueOf(e.getFecha()).substring(4, 6)+"-"+String.valueOf(e.getFecha()).substring(0, 4)));
 			
@@ -231,13 +237,14 @@ public class FichaPaciente extends JPanel {
 		pan2.add(pan5);
 		pan2.add(pan6);
 		pan2.add(pan7);
-		
-		
 										
 		
 		tab.setVisible(true);
-		
+
+		mensa=new JButton("Mensajes");
+		mensa.setActionCommand(ControladorMensaje.MENSAJE);
 		pan10.add(comparar);
+		pan10.add(mensa);
 		
 		pan12.add(atras);
 		
@@ -289,6 +296,10 @@ public class FichaPaciente extends JPanel {
 		comparar.addActionListener(cpm);
 		atras.addActionListener(cpm);
 		tab.addChangeListener(cpm);
+	}
+	
+	public void addControlMensa(ControladorMensaje con) {
+		mensa.addActionListener(con);
 	}
 	
 }

@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import Model.Paciente;
+import Model.Usuario;
 import View.PanelPaciente;
 import View.VentanaHelp;
 import View.VentanaLogin;
@@ -47,13 +48,15 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	private VentanaTecnico vt;
 	private ArrayList<Paciente> pacientes;
 	private VentanaHelp help;
+	private Usuario us;
 	
 	/**
 	 * Constructor de la clase ControladorTecnico
 	 * @param vt VentanaTecnico 
 	 */
-	public ControladorTecnico (VentanaTecnico vt){
+	public ControladorTecnico (VentanaTecnico vt, Usuario us){
 		this.vt = vt;
+		this.us=us;
 	}
 
 	/**
@@ -165,7 +168,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 						PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 
-						ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i));
+						ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),us);
 						pan.addMouseListener(cp);
 						JLabel invi = new JLabel("lalalalalal");
 						invi.setVisible(false);
@@ -182,7 +185,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 				PanelPaciente pan = new PanelPaciente(this.pacientes.get(i));
 
 				pan.setBorder(new LineBorder(Color.gray, 2));
-				ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i));
+				ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),us);
 				pan.addMouseListener(cp);
 				JLabel invi = new JLabel("lalalalalal");
 				invi.setVisible(false);

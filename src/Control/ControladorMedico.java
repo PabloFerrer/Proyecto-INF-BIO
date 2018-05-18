@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Vector;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Model.Conexion;
@@ -30,6 +31,7 @@ import View.VentanaHelp;
 import View.VentanaLogin;
 import View.VentanaMedico;
 import View.VentanaMedicoECG;
+import View.VentanaMensajes;
 
 /**
  * ControladorMedico es la clase que se encargara de ejercer como controlador de 
@@ -104,9 +106,11 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getCentro().removeAll();
 			vm.getCentro().setVisible(true);
 			
-			for(int i=0;i<CompararECG.getFrames().length;i++){
-				if(CompararECG.getFrames()[i] instanceof CompararECG)
-				CompararECG.getFrames()[i].dispose();
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
 			}
 			if(help!=null){
 				help.dispose();
@@ -124,6 +128,12 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			}
 			if(formulario!=null){
 				formulario.dispose();
+			}
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
 			}
 			vm.cleanButton();
 			vm.getMenu().ningunExtremo();
@@ -145,6 +155,12 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			if(formulario!=null){
 				formulario.dispose();
 			}
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
+			}
 			
 			vm.cleanButton();
 			vm.getBtnInicio().setBackground(new Color(51,153,255).darker());
@@ -160,6 +176,12 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			if(formulario!=null){
 				formulario.dispose();
 			}
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
+			}
 			vm.getMenu().ningunExtremo();
 			vm.cleanButton();
 			vm.getBtnBuscarPacientes().setBackground(new Color(51,153,255).darker());
@@ -171,9 +193,11 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getCentro().setVisible(true);
 		}
 		else if(cmd.equals(ControladorMedico.LOGOUT)){
-			for(int i=0;i<CompararECG.getFrames().length;i++){
-				if(CompararECG.getFrames()[i] instanceof CompararECG)
-				CompararECG.getFrames()[i].dispose();
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
 			}
 			
 			if(help!=null){
@@ -181,10 +205,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			}
 			if(formulario!=null){
 				formulario.dispose();
-			}
-			for(int i=0;i<CompararECG.getFrames().length;i++){
-				if(CompararECG.getFrames()[i] instanceof CompararECG)
-				CompararECG.getFrames()[i].dispose();
 			}
 			vm.dispose();
 			ven=new VentanaLogin();
@@ -197,9 +217,11 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			}
 			if(formulario!=null)
 				formulario.dispose();
-			for(int i=0;i<CompararECG.getFrames().length;i++){
-				if(CompararECG.getFrames()[i] instanceof CompararECG)
-				CompararECG.getFrames()[i].dispose();
+			for(int i=0;i<JFrame.getFrames().length;i++){
+				if(JFrame.getFrames()[i] instanceof CompararECG)
+					JFrame.getFrames()[i].dispose();
+				else if(JFrame.getFrames()[i] instanceof VentanaMensajes)
+					JFrame.getFrames()[i].dispose();
 			}
 			
 			File fileH = new File("Resource/Usuarios/4.txt");

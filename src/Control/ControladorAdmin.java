@@ -242,6 +242,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					
 				}else{
 					int i=0;
+					elimi=new Vector<Usuario>();
+					usuario=Conexion.consultarUsuarios();
 					String st=aux1.getNombre().getText()+aux1.getApellido1().getText();
 					Vector<String> aux=new Vector<String>();
 					for(int j=0;j<usuario.size();j++) {
@@ -335,6 +337,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getContrasena1().setBackground(Color.RED);
 				JOptionPane.showMessageDialog(null, "Las passwords no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
 			} else{
+				elimi=new Vector<Usuario>();
+				usuario=Conexion.consultarUsuarios();
 				int i=0;
 				String st=aux1.getNombre().getText()+aux1.getApellido1().getText();
 				Vector<String> aux=new Vector<String>();
@@ -367,6 +371,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if(cmd.equals(USUARIOS)){
+			elimi=new Vector<Usuario>();
+			usuario=Conexion.consultarUsuarios();
 			aux=a.getCentro().getComponents();
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();

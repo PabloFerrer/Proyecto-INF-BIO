@@ -18,8 +18,13 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
+import Control.ControladorMensaje;
+import Control.ControladorPanel;
+import Control.ControladorPanelM;
 import Control.GraphController;
+import Model.Mensaje;
 import Model.Paciente;
+import Model.Usuario;
 
 
 /**
@@ -49,6 +54,7 @@ public class DetallePaciente extends JPanel {
 	private Paciente p;
 	private GraficaECG ecg;
 	private JTextArea obser;
+	private JButton mens;
 	
 	
 	
@@ -105,6 +111,10 @@ public class DetallePaciente extends JPanel {
 		return lblDni;
 	}
 	
+	public void addMensajesControl(ControladorPanelM cont) {
+		
+	}
+	
 	/**
 	 * Constructor de la clase DetallePaciente en el cual
 	 * se crea la vista de dicha clase a traves de layouts y 
@@ -119,6 +129,8 @@ public class DetallePaciente extends JPanel {
 		//Fondo fon = new Fondo(this,fondo2);
 		//this.add(fon);
 		obser=new JTextArea();
+		mens=new JButton("Mensajes");
+		mens.setActionCommand(ControladorMensaje.MENSAJE);
 		obser.setLineWrap(true);
 		obser.setWrapStyleWord(true);
 		button = new JButton("<- Atras");
@@ -245,7 +257,7 @@ public class DetallePaciente extends JPanel {
 	     fl4.setAlignment(FlowLayout.RIGHT);
 	    JPanel pul=new JPanel();
 	    pul.setLayout(fl4);
-	    
+	    pul.add(mens);
 	    bu.add(pul,BorderLayout.CENTER);
 	    bu.add(pa,BorderLayout.WEST);
 	    bu.add(pa2,BorderLayout.EAST);
@@ -301,6 +313,18 @@ public class DetallePaciente extends JPanel {
 	 */
 	public void setTextArea(JTextPane textArea) {
 		this.textArea = textArea;
+	}
+	public void MensajeCont(ControladorMensaje me) {
+		mens.addActionListener(me);
+	}
+	public void actUsuarioPaciente(Usuario us,Paciente p) {
+		for(int i=0;i<mens.getActionListeners().length;i++) {
+			if(mens.getActionListeners()[i] instanceof ControladorMensaje) {
+				ControladorMensaje con=(ControladorMensaje)(mens.getActionListeners()[i]);
+				con.setP(p);
+				con.setUs(us);
+			}
+		}
 	}
 
 

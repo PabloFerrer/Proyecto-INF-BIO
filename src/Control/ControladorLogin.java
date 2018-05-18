@@ -164,10 +164,10 @@ public class ControladorLogin implements ActionListener, KeyListener{
 						frame.dispose();
 					}else if(user.getRol().equals("tecnico")){
 						VentanaTecnico vt = new VentanaTecnico(user);
-						ControladorTecnico ct = new ControladorTecnico(vt);
+						ControladorTecnico ct = new ControladorTecnico(vt,user);
 						vt.setSize(frame.getSize());
 						vt.setLocation(frame.getLocation());
-						vt.crearVista(Conexion.consultaPacTec());
+						vt.crearVista(Conexion.consultaPacTec(),user);
 						vt.addController(ct);
 						vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 						vt.ver();

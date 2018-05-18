@@ -11,16 +11,22 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Model.Conexion;
+import Model.Constantes;
 import Model.ECG;
 import Model.Medico;
+import Model.Mensaje;
 import Model.Paciente;
+import Model.Usuario;
 import View.CompararECG;
 import View.FichaPaciente;
 import View.GraficaECG;
 import View.VentanaHelp;
 import View.VentanaMedico;
+import View.VentanaMensajes;
 
 /**
  * Controlador que permite mostrar la lista de pacientes en la VentanaMedico.
@@ -47,8 +53,10 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	private ECG ecg;
 	private JTextArea fi;
 	private VentanaMedico vm;
+	private VentanaMensajes ven;
 	public static String COMPARAR ="COMPARAR";
 	public static String ATRAS ="ATRAS";
+	public static String MENSAJE ="MENSAJE";
 	public static String GUARDAR ="GUARDAR";
 	private CompararECG ce;
 	private int aux=-1;
@@ -104,6 +112,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		vm.getCentro().removeAll();
 		p.setEcgs(Conexion.consultaECG(p));
 		FichaPaciente fp = new FichaPaciente(p);
+		fp.addControlMensa(new ControladorMensaje(p,(Usuario)m));
 		if(aux==0) {
 			ecg.setLeido(true);
 			int i=0;
@@ -154,10 +163,14 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	 * @param e ActionEvent 
 	 */
 	public void actionPerformed(ActionEvent e) {
+		
 		String cmd=e.getActionCommand().toString();
 		if(cmd.equals(COMPARAR)){
 			if(ce != null){
 				ce.dispose();
+			}
+			if(ven!=null) {
+				ven.dispose();
 			}
 			
 			for(int i=0;i<VentanaHelp.getFrames().length;i++) {
@@ -171,6 +184,9 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		}else if(cmd.equals(ATRAS)){
 			if(ce != null){
 				ce.dispose();
+			}
+			if(ven!=null) {
+				ven.dispose();
 			}
 			if(aux==0) {
 				vm.getBtnRevisarEcg().doClick();
@@ -238,5 +254,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		}
 		
 	}
+
+
 
 }

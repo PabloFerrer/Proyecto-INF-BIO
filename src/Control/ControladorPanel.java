@@ -4,13 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import Model.Conexion;
+import Model.Constantes;
+import Model.Mensaje;
 import Model.Paciente;
 import Model.Usuario;
+import View.VentanaMensajes;
 import View.VentanaTecnico;
 
 /**
@@ -42,9 +49,10 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param vt VentanaTecnico 
 	 * @param p PacienteTecnico 
 	 */
-	public ControladorPanel(VentanaTecnico vt,Paciente p){
+	public ControladorPanel(VentanaTecnico vt,Paciente p,Usuario us){
 		this.vt = vt;
 		this.p=p;
+		this.us=us;
 		
 	}
 	
@@ -84,9 +92,8 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param arg0 MouseEvent 
 	 */
 	public void mouseClicked(MouseEvent arg0) {
-		
 		String respuesta = JOptionPane.showInputDialog("Escriba el DNI del paciente");
-		
+		vt.getFicha().MensajeCont(new ControladorMensaje(p,us));
 		if(respuesta!=null){
 		if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
 			vt.getFicha().getLblNewLabel().setText(p.getNombre());
@@ -135,6 +142,9 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+
 
 	
 	
