@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
@@ -21,6 +22,7 @@ import Model.Medico;
 import Model.Mensaje;
 import Model.Paciente;
 import Model.Usuario;
+import Model.Utilidades;
 import View.CompararECG;
 import View.FichaPaciente;
 import View.GraficaECG;
@@ -195,22 +197,28 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 				vm.getBtnBuscarPacientes().doClick();
 			}
 		} else if(cmd.equals(GUARDAR)) {
-			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
-			if(mon.length()<2) {
-				mon="0"+mon;
+			if(!fi.getText().equals(ecg.getDiagnostico())) {
+			int resp = JOptionPane.showConfirmDialog(vm, "Seguro que desea guardar los cambios?", "Guardar cambios",JOptionPane.YES_NO_OPTION);
+			if(resp==JOptionPane.YES_OPTION) {
+				String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
+				if(mon.length()<2) {
+					mon="0"+mon;
+				}
+				String day=Calendar.getInstance().get(Calendar.DATE)+"";
+				if(day.length()<2) {
+					day="0"+day;
+				}
+				if(!fi.getText().isEmpty()) {
+					System.out.println(ecg.getId());
+					ecg.setDiagnostico(fi.getText());
+					Conexion.sentenciaSQL("Update ECG set diagnostico='"+fi.getText()+"', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
+				} else {
+					ecg.setDiagnostico("");
+					Conexion.sentenciaSQL("Update ECG set diagnostico=' ', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
+				}
 			}
-			String day=Calendar.getInstance().get(Calendar.DATE)+"";
-			if(day.length()<2) {
-				day="0"+day;
 			}
-			if(!fi.getText().isEmpty()) {
-				System.out.println(ecg.getId());
-				ecg.setDiagnostico(fi.getText());
-				Conexion.sentenciaSQL("Update ECG set diagnostico='"+fi.getText()+"', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
-			} else {
-				ecg.setDiagnostico("");
-				Conexion.sentenciaSQL("Update ECG set diagnostico=' ', fechadediagnostico="+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+" where id="+ecg.getId());
-			}
+			
 		}
 		
 	}

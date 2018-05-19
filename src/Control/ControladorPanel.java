@@ -17,6 +17,7 @@ import Model.Constantes;
 import Model.Mensaje;
 import Model.Paciente;
 import Model.Usuario;
+import Model.Utilidades;
 import View.VentanaMensajes;
 import View.VentanaTecnico;
 
@@ -79,9 +80,14 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if(elimi.contains(us)) {
 			elimi.remove(us);
-		} else
-			elimi.add(us);
-		c.actPanel(fl.getText());
+			c.actPanel(fl.getText());
+		} else {
+			int resp = JOptionPane.showConfirmDialog(c.getA(), "Seguro que desea eliminar al usuario propietario del DNI: "+us.getDni()+Utilidades.letraDNI(us.getDni()), "Eliminacion de Usuario",JOptionPane.YES_NO_OPTION);
+			if(resp==JOptionPane.YES_OPTION) {
+				elimi.add(us);
+				c.actPanel(fl.getText());
+			} 
+		}
 	}
 	
 	/**

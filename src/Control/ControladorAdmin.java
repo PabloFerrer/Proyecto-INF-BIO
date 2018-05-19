@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import Model.Conexion;
 import Model.Constantes;
 import Model.Usuario;
+import Model.Utilidades;
 import View.Formulario;
 import View.VentanaAdminPrincipal;
 import View.VentanaHelp;
@@ -393,6 +394,12 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			a.getCentro().setVisible(true);
 
 		} else if(cmd.equals(BACK)){
+			if(!elimi.isEmpty()) {
+				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? Serán permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
+				if(resp==JOptionPane.NO_OPTION) {
+					elimi.removeAllElements();
+				}
+			}
 			while(!elimi.isEmpty()) {
 				if(usuario.get(0).getRol().equals("medico")) {
 					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
@@ -518,6 +525,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		this.a.getTabbedPane().setSelectedIndex(index);
 
 		a.getTabbedPane().setVisible(true);
+	}
+
+	public VentanaAdminPrincipal getA() {
+		return a;
 	}
 	
 }

@@ -57,6 +57,7 @@ public class CompararECG extends JFrame {
 		this.setSize((int) (x * porcex), (int) (y * porcey));
 		this.setLocation((int) ((x / 2) - (x * porcex / 2)), (int) ((y / 2) - (y * porcey / 2)));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setAlwaysOnTop(true);
 		all.setLayout(new BorderLayout());
 		this.setLayout(new BorderLayout());
 		JPanel usado = new JPanel();
@@ -146,7 +147,7 @@ public class CompararECG extends JFrame {
 	 *            ecgs que se van a mostrar para compararlos
 	 */
 	public void Comparacion(Vector<ECG> ecg) {
-
+		this.setAlwaysOnTop(true);
 		this.setResizable(true);
 		this.getContentPane().removeAll();
 		all = new JPanel();

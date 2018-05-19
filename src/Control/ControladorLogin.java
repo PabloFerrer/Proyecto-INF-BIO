@@ -108,7 +108,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		if(cmd.equals(ControladorLogin.ACCEDER)){
 			if(help!=null)
 				help.dispose();
-			if(!a.getText().equals(user.getUser())) {
+			if(!a.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
 				user=Conexion.consultaLogin(a.getText(), b.getText());
 			}
 			darAcceso();
@@ -219,7 +219,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_ENTER) {
-			if(!a.getText().equals(user.getUser())) {
+			if(!a.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
 				user=Conexion.consultaLogin(a.getText(), b.getText());
 			}
 			darAcceso();

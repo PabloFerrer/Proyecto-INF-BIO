@@ -220,7 +220,7 @@ public class Conexion {
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha;");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
 			while (rs.next()) {
 				men.add(new Mensaje(rs.getInt("id"),rs.getInt("DniUsuario"),rs.getInt("dniPaciente"),rs.getInt("leido"),rs.getString("datos"),rs.getInt("fecha"),rs.getString("asunto")));
 			}

@@ -40,12 +40,13 @@ public class VentanaMensajes extends JFrame{
 	
 	public VentanaMensajes(ControladorMensaje control) {
 		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
+		this.setAlwaysOnTop(true);
 		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		this.setSize((int)(x*0.50), (int)(y*0.4));
 		this.setMinimumSize(new Dimension((int)(x*0.50), (int)(y*0.40)));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		fon=new Fondo(this,"Resource/Imagenes/fondo.jpeg");
-		
+		this.setLocation((x-this.getWidth())/2, (y-this.getHeight())/2);
 		this.setLayout(new BorderLayout());
 
 		ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
@@ -162,7 +163,7 @@ public class VentanaMensajes extends JFrame{
 			System.out.println(Conexion.getUserName(men.getDniUsuario())+" "+men.getDniUsuario()+Utilidades.letraDNI(men.getDniUsuario()));
 			emisor.setText(Conexion.getUserName(men.getDniUsuario())+" "+men.getDniUsuario()+Utilidades.letraDNI(men.getDniUsuario()));
 			texto.setText(men.getData());
-			fecha.setText(String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4));
+			fecha.setText(String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");
 			
 		}
 

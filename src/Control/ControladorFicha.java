@@ -89,7 +89,7 @@ public class ControladorFicha implements ActionListener {
 			
 			ecg=null;
 			d.getEcg().cleanGraph();
-			JFileChooser file=new JFileChooser();
+			JFileChooser file=new JFileChooser("Resource/ECG");
 			file.showOpenDialog(vt);
 			file.setVisible(true);
 			File abierto = file.getSelectedFile();
