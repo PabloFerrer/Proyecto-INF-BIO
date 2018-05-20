@@ -352,7 +352,7 @@ public class Formulario extends JFrame{
 				abajo.add(u,BorderLayout.NORTH);
 				abajo.add(user,BorderLayout.CENTER);
 				
-				dni.setName("S");
+				dni.setName("C");
 				contrasena1.setName("S");
 				contrasena2.setName("S");
 				
@@ -531,6 +531,7 @@ public class Formulario extends JFrame{
 				nombre.setName("N");
 				apellido1.setName("N");
 				apellido2.setName("N");
+				dni.setName("C");
 				
 				JPanel abajo=new JPanel();
 				abajo.setOpaque(false);
@@ -550,7 +551,7 @@ public class Formulario extends JFrame{
 				fon.add(aux,BorderLayout.NORTH);
 				fon.add(abajo,BorderLayout.SOUTH);
 				
-				dni.setName("S");
+				
 				contrasena1.setName("S");
 				contrasena2.setName("S");
 
@@ -751,6 +752,7 @@ public class Formulario extends JFrame{
 				panel.add(aux,BorderLayout.NORTH);
 				
 				ss.setName("N");
+				dni.setName("N");
 				
 				botones.add(rdbtnFemenino);
 				botones.add(rdbtnMasculino);
