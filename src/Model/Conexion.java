@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class Conexion {
 
 	private static String BBDDName = "Proyecto2.1.db";
-	private static Connection c = null;
+	public static Connection c = null;
 	private static Statement stmt = null;
 
 	public static boolean sentenciaSQL(String sql) {

@@ -43,6 +43,7 @@ public class Formulario extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JButton enviar;
 	private JButton cancel;
+	private JButton agregar;
 	private JTextField nombre;
 	private JTextField apellido1;
 	private JTextField apellido2;
@@ -203,6 +204,7 @@ public class Formulario extends JFrame{
 				basu1.setLayout(flow);
 				basu2.setLayout(flow2);
 				
+				agregar= new JButton();
 				enviar=new JButton();
 				enviar.setBorderPainted(false);
 				enviar.setOpaque(false);
@@ -383,6 +385,9 @@ public class Formulario extends JFrame{
 				this.add(fon);
 			}
 			
+			public JRadioButton getRdbtnMasculino() {
+				return rdbtnMasculino;
+			}
 			/**
 			 * Este es el formulario correspondiente a los nuevos Tecnicos, posee
 			 * un control en el que en caso de que alguna de las casillas anteriores no es encu
@@ -585,13 +590,7 @@ public class Formulario extends JFrame{
 				JPanel panel = new JPanel();
 				panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 				panel.setOpaque(false);
-//				int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
-//				int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
-//				int porceX=36;
-//				int porceY=70;
-//				this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
-//				this.setSize(x*porceX/100,y*porceY/100);
-//				this.setMinimumSize(new Dimension(x*porceX/100,y*porceY/100));
+
 				
 				
 				BorderLayout bor=new BorderLayout();
@@ -610,6 +609,7 @@ public class Formulario extends JFrame{
 				basu1.setLayout(flow);
 				basu2.setLayout(flow2);
 				
+				agregar=new JButton("Agregar imagen:");
 				enviar=new JButton();
 				enviar.setBorderPainted(false);
 				enviar.setOpaque(false);
@@ -621,6 +621,8 @@ public class Formulario extends JFrame{
 				enviar.setIcon(new ImageIcon("Resource/Imagenes/send.png"));
 				cancel.setIcon(new ImageIcon("Resource/Imagenes/cancel.png"));
 				enviar.setActionCommand(ControladorMedico.ENVIAR);
+				agregar.setActionCommand(ControladorMedico.AGREGAR);
+				agregar.addActionListener(control);
 				enviar.addActionListener(control);
 				cancel.addActionListener(control);
 				cancel.setActionCommand(ControladorMedico.CANCEL);
@@ -725,6 +727,8 @@ public class Formulario extends JFrame{
 				se.add(rdbtnFemenino);
 				se.add(rdbtnMasculino);
 				formu.add(se);
+				
+				//formu.add(agregar);
 				
 				/*JPanel c0 = new JPanel();
 				c0.setOpaque(false);

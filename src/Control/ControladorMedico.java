@@ -9,21 +9,27 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Model.Conexion;
+import Model.Constantes;
 import Model.ECG;
 import Model.Lectura;
 import Model.Medico;
+import Model.Paciente;
 import Model.Usuario;
 import Model.Utilidades;
-import Model.Paciente;
 import View.BuscadorMedico;
 import View.CompararECG;
 import View.Formulario;
@@ -32,6 +38,7 @@ import View.VentanaLogin;
 import View.VentanaMedico;
 import View.VentanaMedicoECG;
 import View.VentanaMensajes;
+
 
 /**
  * ControladorMedico es la clase que se encargara de ejercer como controlador de 
@@ -65,11 +72,16 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	public static String HELP ="HELP";
 	public static String ENVIAR="ENVIAR";
 	public static String CANCEL="CANCEL";
+	public static String AGREGAR="AGREGAR";
+	public static String nombre = null;
+	public static int s = 0;
+	public static byte[] imagenPersona = null;
 	private VentanaMedico vm;
 	private Formulario formulario=null;
 	private VentanaLogin ven;
 	private Medico med;
 	private VentanaHelp help;
+	
 	
 	
 	
@@ -246,6 +258,30 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.dispose();
 			vm.getBtnInicio().doClick();
 		}
+		else if(cmd.equals(ControladorMedico.AGREGAR)){
+			JFileChooser fc = new JFileChooser();
+			fc.showOpenDialog(null);
+			File f = fc.getSelectedFile();
+			nombre = f.getAbsolutePath();
+			
+			try{
+				
+				File imagen = new File(nombre);
+				FileInputStream fis = new FileInputStream(imagen);
+				ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
+				byte[] buf = new byte[1024];
+				
+				for(int leer; (leer=fis.read(buf))!=-1;){
+					bos.write(buf,0,leer);
+				}
+				
+				imagenPersona = bos.toByteArray();
+				
+			}catch (Exception o){
+				JOptionPane.showMessageDialog(null,o);
+			}
+			
+		}
 		else if(cmd.equals(ControladorMedico.ENVIAR)) {
 			boolean bien=true;
 			if(formulario.getNombre().getText().isEmpty()){
@@ -291,13 +327,38 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.getSs().setBackground(Color.WHITE);
 			}
 			if(bien==true) {
+//					String numDni = formulario.getDni().getText();
+//					int numm=Integer.parseInt(numDni);
+//					
+//					String numSS = formulario.getSs().getText();
+//					int numm2= Integer.parseInt(numSS);
+//					
+//					String apellidos = formulario.getApellido1().getText()+" "+formulario.getApellido2().getText();
+//					
+//					String sqql = "insert into Paciente (dni,nSS,apellido,nombre,ubicacion,foto) values (?,?,?,?,?,?)";
+//					PreparedStatement pst; 
+//					try {
+//						pst = Conexion.c.prepareStatement(sqql);
+//						pst.setInt(1,numm);
+//						pst.setInt(2,numm2);
+//						pst.setString(3,apellidos);
+//						pst.setString(4, formulario.getNombre().getText());
+//						pst.setString(5,formulario.getLugar().getText());
+//						pst.setBytes(6, imagenPersona);
+//						pst.execute(sqql);
+//						pst.close();
+//					} catch (SQLException e1) {
+//						e1.printStackTrace();
+//					}
+				
 					String st=formulario.getNombre().getText()+ " " +formulario.getApellido1().getText();
-					String sentencia=" insert into Paciente (dni,nSS,apellido,nombre,ubicacion) values ("
+					String sentencia=" insert into Paciente (dni,nSS,apellido,nombre,ubicacion,genero) values ("
 					+ formulario.getDni().getText()+ ","
 					+ formulario.getSs().getText()+ ",'"
 					+ formulario.getApellido1().getText()+" "+formulario.getApellido2().getText()+"','"
 					+ formulario.getNombre().getText()+ "','"
-					+ formulario.getLugar().getText()+"');";
+					+ formulario.getLugar().getText()+"',"
+					+ ((formulario.getRdbtnMasculino().isSelected())? Constantes.MASCULINO:Constantes.FEMENINO) +");";
 					System.out.println("pruebo");
 					Conexion.sentenciaSQL(sentencia);
 					sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
