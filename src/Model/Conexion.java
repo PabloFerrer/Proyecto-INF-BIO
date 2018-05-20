@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-	private static String BBDDName = "Proyecto2.1.db";
+	private static String BBDDName = "DataBase/Proyecto2.1.db";;
 	public static Connection c = null;
 	private static Statement stmt = null;
 

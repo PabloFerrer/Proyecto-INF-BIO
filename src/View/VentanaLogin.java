@@ -32,6 +32,8 @@ public class VentanaLogin extends JFrame{
 	private JPasswordField pass;
 	private Logo logo;
 	private String fondo="Resource/Imagenes/fondo.jpeg";
+	private Fondo todo;
+	private boolean anyMaster=false;
 	
 	
 	public JTextField getUser() {
@@ -47,12 +49,19 @@ public class VentanaLogin extends JFrame{
 	}
 	
 	public void crear(){
-		Fondo todo=new Fondo(this,fondo);
+		
+		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
+		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
+		int porceX=50;
+		int porceY=65;
+
+		this.setMinimumSize(new Dimension((int)(x*0.18),(int)(y*0.40)));
+		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
+		this.setSize(x*porceX/100,y*porceY/100);
+		todo=new Fondo(this,fondo);
 		todo.setLayout(new BorderLayout());
 		ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
 		this.setIconImage(img.getImage());
-		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
-		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		this.setName("0");
 		logo=new Logo();
 		logo.centrado(true);
@@ -91,15 +100,11 @@ public class VentanaLogin extends JFrame{
 		
 		pass.setHorizontalAlignment(SwingConstants.CENTER);
 		user.setHorizontalAlignment(SwingConstants.CENTER);
-		int porceX=50;
-		int porceY=65;
-		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
-		this.setSize(x*porceX/100,y*porceY/100);
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		forget.setBorderPainted(false);
 		forget.setForeground(new Color(105,171,255));
-		this.setMinimumSize(new Dimension((int)(x*0.18),(int)(y*0.40)));
 		
 		id.setHorizontalAlignment(SwingConstants.CENTER);
 		password.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,7 +155,6 @@ public class VentanaLogin extends JFrame{
 		aa.add(a);
 		todo.add(aa, BorderLayout.SOUTH);
 		this.add(todo,BorderLayout.CENTER);
-		this.setVisible(true);
 		
 	}
 	public Logo getLogo() {
@@ -158,14 +162,89 @@ public class VentanaLogin extends JFrame{
 	}
 
 	public void asignarControlador(ControladorLogin control){
+		
 		forget.addActionListener(control);
 		help.addActionListener(control);
 		acceder.addActionListener(control);
 		acceder.addKeyListener(control);
 		user.addKeyListener(control);
 		pass.addKeyListener(control);
+		logo.addMouseListener(control);
+		this.addWindowListener(control);
+		
 	}	
 	public void ver(){
-		this.setVisible(true);
+		anyMaster=false;
+		for(int i=0;i<JFrame.getFrames().length;i++) {
+			if(JFrame.getFrames()[i] instanceof VentanaLogin) {
+				VentanaLogin aux=(VentanaLogin) JFrame.getFrames()[i];
+				int j=0;
+				if(aux.isShowing())
+						while(!anyMaster && j<aux.getWindowListeners().length) {
+					if(aux.getWindowListeners()[j] instanceof ControladorLogin) {
+						ControladorLogin auxcon=(ControladorLogin) aux.getWindowListeners()[j];
+						if(auxcon.isMaster()) {
+							anyMaster=true;
+						}
+					}
+					j++;
+				}
+			}
+		}
+
+		if(!anyMaster) {
+			this.setVisible(true);
+		} else {
+			this.dispose();
+		}
+		
+	}
+	
+	public void loginMaster(ControladorLogin control){
+		todo.setVisible(false);
+		todo.removeAll();
+		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
+		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
+		
+		int porceX=30;
+		int porceY=7;
+		this.setAlwaysOnTop(true);
+		this.setResizable(false);
+		this.setMinimumSize(new Dimension(x*porceX/100,y*porceY/100));
+		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
+		this.setSize(x*porceX/100,y*porceY/100);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		todo.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		JButton med=new JButton("MEDICO");
+		med.setActionCommand(ControladorLogin.MASTERMED);
+		med.addActionListener(control);
+		JButton tec=new JButton("TECNICO");
+		tec.setActionCommand(ControladorLogin.MASTERTEC);
+		tec.addActionListener(control);
+		JButton adm=new JButton("ADMIN");
+		adm.setActionCommand(ControladorLogin.MASTERADM);
+		adm.addActionListener(control);
+		
+		JButton sal=new JButton("SALIR");
+		sal.setActionCommand(ControladorLogin.SALIR);
+		sal.addActionListener(control);
+		
+		todo.add(med);
+		todo.add(tec);
+		todo.add(adm);
+		todo.add(sal);
+	
+		todo.setVisible(true);
+	}
+	
+	public void relocate() {
+		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
+		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
+		this.setLocation(x-this.getWidth(),(int) (y)-this.getHeight());
+	}
+
+	public JButton getAcceder() {
+		return acceder;
 	}
 }

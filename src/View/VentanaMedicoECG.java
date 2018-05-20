@@ -97,6 +97,7 @@ public class VentanaMedicoECG extends JPanel {
 
 		quicksort(auxec,auxpac,0,auxec.size()-1);
 
+		
 		for(int i= 0;i<auxec.size();i++){
 			PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 			pan.setBorder(new LineBorder(Color.gray, 2));
