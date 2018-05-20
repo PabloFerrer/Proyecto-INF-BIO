@@ -1,5 +1,6 @@
 package Control;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import View.*;
@@ -28,7 +29,9 @@ public class MainProgram {
 				VentanaLogin ven=new VentanaLogin();
 				ControladorLogin con=new ControladorLogin(ven);
 				ven.asignarControlador(con);
+				JOptionPane.showMessageDialog(ven, "Para facilitar la revision hemos incluido un menu de atajos \r\ncon 3 usuarios predeterminados de la base de datos, solo deberan \r\nescribir master en el usuario y darle doble-click al logo");
 				ven.ver();
+				
 			}
 		});
 	}

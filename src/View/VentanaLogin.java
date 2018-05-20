@@ -55,6 +55,8 @@ public class VentanaLogin extends JFrame{
 		int porceX=50;
 		int porceY=65;
 
+		
+		
 		this.setMinimumSize(new Dimension((int)(x*0.18),(int)(y*0.40)));
 		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
 		this.setSize(x*porceX/100,y*porceY/100);
@@ -206,6 +208,7 @@ public class VentanaLogin extends JFrame{
 		int x=(int) (Toolkit.getDefaultToolkit().getScreenSize().width);
 		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		int porceX=30;
 		int porceY=7;
 		this.setAlwaysOnTop(true);
@@ -213,7 +216,6 @@ public class VentanaLogin extends JFrame{
 		this.setMinimumSize(new Dimension(x*porceX/100,y*porceY/100));
 		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
 		this.setSize(x*porceX/100,y*porceY/100);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		todo.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		JButton med=new JButton("MEDICO");
