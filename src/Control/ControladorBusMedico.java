@@ -1,5 +1,6 @@
 package Control;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import View.BuscadorMedico;
@@ -106,8 +109,8 @@ public class ControladorBusMedico implements  KeyListener {
 				if (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())
 						|| pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())
 						|| pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())
-						|| pa.getApellido().toLowerCase().toString().split(" ")[1]
-								.startsWith(aux.get(j).toLowerCase())) {
+						|| ((pa.getApellido().split(" ").length>1)?pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase()):false)
+								) {
 					if (!pacientes.contains(pa))
 						pacientes.add(pa);
 				} else {
@@ -157,13 +160,15 @@ public class ControladorBusMedico implements  KeyListener {
 		
 		if (pacientes.size() < 10) {
 			for (int i = pacientes.size(); i < 10; i++) {
-				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " "), "");
-
-				JLabel invi = new JLabel("lalalalalal");
-				invi.setVisible(false);
-
-				bm.getRey5().add(pan);
-				bm.getRey5().add(invi);
+				JPanel relle=new JPanel();
+				relle.setLayout(new BorderLayout());
+				JButton b=new JButton();
+				b.setContentAreaFilled(false);
+				b.setOpaque(false);
+				b.setBorderPainted(false);
+				relle.add(b,BorderLayout.CENTER);
+				relle.setOpaque(false);
+				bm.getRey5().add(relle);
 			}
 
 		}

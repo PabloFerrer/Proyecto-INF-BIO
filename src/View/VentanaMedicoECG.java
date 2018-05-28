@@ -324,7 +324,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 						cont++;
 					}
 				} else if(diag==1){
-					if(!auxec.get(i).getDiagnostico().isEmpty()) {
+					if((auxec.get(i).getDiagnostico()!=null) && !auxec.get(i).getDiagnostico().isEmpty()) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));

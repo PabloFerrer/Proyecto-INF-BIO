@@ -290,6 +290,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2) {
 			if(usuario.getText().toLowerCase().equals("master")) {
+				System.out.println("HOLA");
 				frame.loginMaster(this);
 			}
 		}

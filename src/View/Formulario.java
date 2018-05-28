@@ -589,7 +589,7 @@ public class Formulario extends JFrame{
 				invi.setOpaque(false);
 				
 				JPanel panel = new JPanel();
-				panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+				panel.setLayout(new BoxLayout(panel,BoxLayout.LINE_AXIS));
 				panel.setOpaque(false);
 
 				
