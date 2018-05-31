@@ -16,7 +16,6 @@ import javax.swing.border.LineBorder;
 import View.BuscadorMedico;
 import View.PanelPaciente;
 import View.VentanaMedico;
-import sun.java2d.xr.MutableInteger;
 import Model.Medico;
 import Model.MutableInt;
 import Model.Paciente;

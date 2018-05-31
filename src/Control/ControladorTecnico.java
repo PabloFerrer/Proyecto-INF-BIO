@@ -17,13 +17,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import Model.MutableInt;
 import Model.Paciente;
 import Model.Usuario;
 import View.PanelPaciente;
 import View.VentanaHelp;
 import View.VentanaLogin;
 import View.VentanaTecnico;
-import sun.java2d.xr.MutableInteger;
 /**
  * ControladorTecnico es la clase que se encargara de ejercer como controlador de 
  * la clase VentanaTecnico. Su funcion es asignar una accion dependiendo del boton 
@@ -140,20 +140,20 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		}
 		
 		
-		MutableInteger nombre=new MutableInteger(0);
-		MutableInteger dni=new MutableInteger(0);
-		MutableInteger fape=new MutableInteger(0);
-		MutableInteger sape=new MutableInteger(0);
+		MutableInt nombre=new MutableInt(0);
+		MutableInt dni=new MutableInt(0);
+		MutableInt fape=new MutableInt(0);
+		MutableInt sape=new MutableInt(0);
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.pacientes.clone());
 		for (int j = 0; j < aux.size(); j++) {
 			for (int i = pacientes.size()-1; i >=0 ; i--) {
 				Paciente pa = pacientes.get(i);
-				if (((nombre.getValue()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
-						|| ((dni.getValue()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
-						|| ((fape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
-						|| ((pa.getApellido().split(" ").length>1)?((sape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
+				if (((nombre.toInteger()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
+						|| ((dni.toInteger()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
+						|| ((fape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
+						|| ((pa.getApellido().split(" ").length>1)?((sape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
 								) {
 				} else {
 					pacientes.remove(pa);
@@ -213,8 +213,8 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		vt.getRey4().setVisible(true);
 	}
 	
-	private boolean aumentar(MutableInteger i) {
-		i.setValue(i.getValue()+1);
+	private boolean aumentar(MutableInt i) {
+		i.setValue(i.toInteger()+1);
 		return true;
 	}
 
