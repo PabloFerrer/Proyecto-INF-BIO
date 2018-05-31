@@ -225,6 +225,13 @@ public class ECG {
 			quicksort(L,x+1,fin);
 		}
 	}
+	public void setPuntosporsec(int puntosporsec) {
+		this.puntosporsec = puntosporsec;
+	}
+	public void setPuntos(String puntos) {
+		this.puntos = puntos;
+	}
+	
 	
 
 }

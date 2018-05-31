@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
@@ -27,6 +28,7 @@ import Model.Conexion;
 import Model.Constantes;
 import Model.Mensaje;
 import Model.Paciente;
+import Model.Usuario;
 import Model.Utilidades;
 
 public class VentanaMensajes extends JFrame{
@@ -37,6 +39,7 @@ public class VentanaMensajes extends JFrame{
 	private JTextField emisor;
 	private JTextArea texto;
 	private JList<Mensaje> list;
+	private JList<Mensaje> envlist;
 	private Fondo fon;
 	private JPanel central;
 	private JButton atras;
@@ -102,39 +105,51 @@ public class VentanaMensajes extends JFrame{
 		fon.add(aux,BorderLayout.NORTH);
 	}
 	
-		public void VentanaMensajesTodos(Paciente p,ControladorMensaje control){
+		public void VentanaMensajesTodos(Paciente p,ControladorMensaje control,Usuario us){
 			System.out.println(p.getApellido());
 			p.setMensajes(Conexion.consultarMensajes(p));
 			atras.setEnabled(false);
-			 list=new JList<Mensaje>(p.getMensajes());
+			Vector<Mensaje> recibidos=(Vector<Mensaje>) p.getMensajes().clone();
+			Vector<Mensaje> enviados=new Vector<Mensaje>();
+			for(int i=recibidos.size()-1;i>=0;i--) {
+				if(recibidos.get(i).getDniUsuario()==us.getDni()) {
+					enviados.add(recibidos.get(i));
+					recibidos.remove(i);
+				}
+			}
+			 list=new JList<Mensaje>(recibidos);
+			 envlist=new JList<Mensaje>(enviados);
+			 envlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			 
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			JScrollPane scr=new JScrollPane();
+			JScrollPane scr2=new JScrollPane();
 			scr.setViewportView(list);
+			scr2.setViewportView(envlist);
 			
-			 list.setCellRenderer(new DefaultListCellRenderer() {
+			DefaultListCellRenderer a=(new DefaultListCellRenderer() {
+                public Component getListCellRendererComponent(JList list, Object value, int index,
+                          boolean isSelected, boolean cellHasFocus) {
+                     Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                     if (value instanceof Mensaje) {
+                   	  Mensaje nextUser = (Mensaje) value;
+                          if (nextUser.getLeido()==Constantes.LEIDO) {
+                               setBackground(Color.GREEN);
+                          } else {
+                               setBackground(Color.RED);
+                          }
+                          if (isSelected) {
+                               setBackground(getBackground().darker());
+                          }
+                     } 
+                     return c;
+                }
 
-                 @Override
-                 public Component getListCellRendererComponent(JList list, Object value, int index,
-                           boolean isSelected, boolean cellHasFocus) {
-                      Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                      if (value instanceof Mensaje) {
-                    	  Mensaje nextUser = (Mensaje) value;
-                           if (nextUser.getLeido()==Constantes.LEIDO) {
-                                setBackground(Color.GREEN);
-                           } else {
-                                setBackground(Color.RED);
-                           }
-                           if (isSelected) {
-                                setBackground(getBackground().darker());
-                           }
-                      } 
-                      return c;
-                 }
-
-            });
-			
+           });
+			 list.setCellRenderer(a);
+			envlist.setCellRenderer(a);
 			list.addListSelectionListener(control);
+			envlist.addListSelectionListener(control);
 			
 			JPanel datos=new JPanel();
 			datos.setLayout(new BorderLayout());
@@ -174,7 +189,20 @@ public class VentanaMensajes extends JFrame{
 			central.setVisible(false);
 			central.setOpaque(false);
 			central.setLayout(new BorderLayout());
-			central.add(scr,BorderLayout.WEST);
+			
+			JPanel mens=new JPanel();
+			JPanel envi=new JPanel();
+			envi.setLayout(new BorderLayout());
+			JPanel reci=new JPanel();
+			reci.setLayout(new BorderLayout());
+			envi.add(scr2,BorderLayout.CENTER);
+			envi.add(new JLabel("Mensajes Enviados"),BorderLayout.NORTH);
+			reci.add(scr,BorderLayout.CENTER);
+			reci.add(new JLabel("Mensajes Recibidos"),BorderLayout.NORTH);
+			mens.setLayout(new BorderLayout());
+			mens.add(reci,BorderLayout.CENTER);
+			mens.add(envi,BorderLayout.SOUTH);
+			central.add(mens,BorderLayout.WEST);
 			central.add(info,BorderLayout.CENTER);
 			
 			fon.add(central,BorderLayout.CENTER);
@@ -244,6 +272,12 @@ public class VentanaMensajes extends JFrame{
 
 		public JTextArea getTexto() {
 			return texto;
+		}
+		public JList<Mensaje> getEnvlist() {
+			return envlist;
+		}
+		public void setEnvlist(JList<Mensaje> reclist) {
+			this.envlist = reclist;
 		}
 		
 		

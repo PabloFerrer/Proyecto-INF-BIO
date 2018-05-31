@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-	private static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight\";";
+	private static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
 	private static String user = "pi2_heartlight";
 	private static String pass = "pepino_fresco";
 	public static Connection c = null;
@@ -126,7 +126,7 @@ public class Conexion {
 		
 		try{
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Administrador.vencimientoClave "
@@ -148,7 +148,7 @@ public class Conexion {
 		
 		try{
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Tecnico.turno "
@@ -222,7 +222,7 @@ public class Conexion {
 		return pac;
 	}
 	
-	static public Usuario consultaLogin(String nick, String pass) {
+	static public Usuario consultaLogin(String nick, String passw) {
 		Usuario a=new Usuario(null,null,null,0);
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");

@@ -277,7 +277,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_ENTER) {
-			if(!usuario.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
+			if(user.getUser()==null || !usuario.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
 				user=Conexion.consultaLogin(usuario.getText(), contrasena.getText());
 			}
 			darAcceso();

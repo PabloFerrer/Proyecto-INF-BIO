@@ -44,6 +44,7 @@ public class DetallePaciente extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNewLabel_1;
 	private JButton btnTomarDatos;
+	private JButton btnStop;
 	private JButton btnEnivar;
 	private JLabel lblNewLabel;
 	private JLabel lblApellidos ;
@@ -111,9 +112,7 @@ public class DetallePaciente extends JPanel {
 		return lblDni;
 	}
 	
-	public void addMensajesControl(ControladorPanelM cont) {
-		
-	}
+
 	
 	/**
 	 * Constructor de la clase DetallePaciente en el cual
@@ -139,6 +138,8 @@ public class DetallePaciente extends JPanel {
 		lblNewLabel_1.setIcon(new ImageIcon("Resource/Imagenes/hombre.png"));
 		btnTomarDatos = new JButton("Tomar datos");
 		btnTomarDatos.setActionCommand(ControladorFicha.TOMAR);
+		btnStop=new JButton("STOP");
+		btnStop.setActionCommand(ControladorFicha.STOP);
 		btnEnivar = new JButton("Enviar");
 		btnEnivar.setActionCommand(ControladorFicha.ENVIAR);
 		lblNewLabel = new JLabel(p.getNombre());
@@ -234,7 +235,11 @@ public class DetallePaciente extends JPanel {
 	    pa.setLayout(fl2);
 	    JPanel boton=new JPanel();
 	    boton.setLayout(new BorderLayout());
-	    boton.add(btnTomarDatos, BorderLayout.SOUTH);
+	    JPanel aux2=new JPanel();
+	    aux2.setLayout(new FlowLayout());
+	    aux2.add(btnTomarDatos);
+	    aux2.add(btnStop);
+	    boton.add(aux2, BorderLayout.SOUTH);
 	    boton.add(button, BorderLayout.NORTH);
 	    pa.add(boton);
 	    
@@ -297,7 +302,8 @@ public class DetallePaciente extends JPanel {
 		button.addActionListener(cf);
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
-		
+		ecg.addControllerTec(cf);
+		btnStop.addActionListener(cf);
 	}
 	
 	/**
@@ -325,6 +331,12 @@ public class DetallePaciente extends JPanel {
 				con.setUs(us);
 			}
 		}
+	}
+	public JButton getBtnStop() {
+		return btnStop;
+	}
+	public void setBtnStop(JButton btnStop) {
+		this.btnStop = btnStop;
 	}
 
 

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -31,11 +32,12 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 	public static String NEWMENSAJE ="NEWMENSAJE";
 	
 	public void valueChanged(ListSelectionEvent e) {
-		Mensaje men=ven.getList().getSelectedValue();
-		men.setLeido(Constantes.LEIDO);
-		Conexion.sentenciaSQL("UPdate mensaje set leido="+Constantes.LEIDO+" where id="+men.getId()+";");
+		Mensaje men=((JList<Mensaje>) e.getSource()).getSelectedValue();
+		if(men.getDniUsuario()!=us.getDni() && men.getLeido()!=Constantes.LEIDO) {
+			men.setLeido(Constantes.LEIDO);
+			Conexion.sentenciaSQL("Update mensaje set leido="+Constantes.LEIDO+" where id="+men.getId()+";");
+		}
 		ven.actInfo(men);
-		
 	}
 
 	@Override
@@ -48,12 +50,12 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			}
 			
 			ven=new VentanaMensajes(this);
-			ven.VentanaMensajesTodos(p, this);
+			ven.VentanaMensajesTodos(p, this,us);
 			ven.setVisible(true);
 		} else if(cmd.equals(NEWMENSAJE)) {
 			ven.mensajeNuevo(this);
 		} else if(cmd.equals(ATRASMENS)) {
-			ven.VentanaMensajesTodos(p, this);
+			ven.VentanaMensajesTodos(p, this,us);
 		} else if(cmd.equals(SENDMENS)) {
 			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
 			if(mon.length()<2) {
@@ -66,7 +68,7 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			Conexion.sentenciaSQL("Insert into mensaje(datos,leido,dniUsuario,dniPaciente,fecha,asunto) values('"+ven.getTexto().getText()+"',"
 					+Constantes.NO_LEIDO+","+us.getDni()+","+p.getDni().substring(0, p.getDni().length()-1)+","+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"
 					+ven.getAsunto().getText()+"');");
-			ven.VentanaMensajesTodos(p, this);
+			ven.VentanaMensajesTodos(p, this,us);
 		}
 		
 	}

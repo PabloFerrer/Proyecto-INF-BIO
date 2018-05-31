@@ -54,7 +54,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	public ControladorPanel(VentanaTecnico vt,Paciente p,Tecnico t){
 		this.vt = vt;
 		this.p=p;
-		this.us=us;
+		this.us=t;
 		
 	}
 	
