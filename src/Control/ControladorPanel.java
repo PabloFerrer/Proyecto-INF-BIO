@@ -16,6 +16,7 @@ import Model.Conexion;
 import Model.Constantes;
 import Model.Mensaje;
 import Model.Paciente;
+import Model.Tecnico;
 import Model.Usuario;
 import Model.Utilidades;
 import View.VentanaMensajes;
@@ -50,7 +51,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param vt VentanaTecnico 
 	 * @param p PacienteTecnico 
 	 */
-	public ControladorPanel(VentanaTecnico vt,Paciente p,Usuario us){
+	public ControladorPanel(VentanaTecnico vt,Paciente p,Tecnico t){
 		this.vt = vt;
 		this.p=p;
 		this.us=us;

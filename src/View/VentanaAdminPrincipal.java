@@ -23,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 import Control.ControladorAdmin;
 import Control.ControladorPanel;
+import Model.Administrador;
 import Model.Usuario;
 /**
  * Elemento grafico que incorpora todas las funciones/opciones que puede realizar un Administrador
@@ -64,7 +65,7 @@ public class VentanaAdminPrincipal extends JFrame{
 	 * Constructor que incluye la creacion de la UI del administrador
 	 * @param usuario Administrador del cual se obtienen datos 
 	 */
-	public VentanaAdminPrincipal(Usuario usuario){
+	public VentanaAdminPrincipal(Administrador ad){
 		ImageIcon img = new ImageIcon("Resource/Imagenes/usados/usado-cardio-finito100x100.png");
 		
 		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
@@ -182,7 +183,7 @@ public class VentanaAdminPrincipal extends JFrame{
 		Menu menu=new Menu();
 		menu.setOpaque(false);
 		
-		JLabel bien=new JLabel("Bienvenido "+usuario.getUser());
+		JLabel bien=new JLabel("Bienvenido "+ad.getNombre());
 		bien.setFont(new Font("", Font.BOLD,25));
 		
 		JPanel ajust=new JPanel();

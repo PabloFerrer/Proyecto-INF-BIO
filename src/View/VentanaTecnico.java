@@ -17,6 +17,7 @@ import Control.ControladorFicha;
 import Control.ControladorPanel;
 import Control.ControladorTecnico;
 import Model.Paciente;
+import Model.Tecnico;
 import Model.Usuario;
 
 /**
@@ -54,6 +55,7 @@ public class VentanaTecnico extends JFrame {
 	private Fondo bcg ;
 	private DetallePaciente ficha;
 	private Usuario au;
+	private Tecnico tec;
 	private JTextField buscador;
 	private JPanel rey4;
 	private JScrollPane jsp;
@@ -117,8 +119,8 @@ public class VentanaTecnico extends JFrame {
 	 * Constructor de la clase VentanaTecnico
 	 * @param au Usuario 
 	 */
-	public VentanaTecnico(Usuario au){
-		this.au=au;
+	public VentanaTecnico(Tecnico tec){
+		this.tec=tec;
 		
 		
 	}
@@ -132,7 +134,7 @@ public class VentanaTecnico extends JFrame {
 	 * 
 	 * @param pacientes ArrayList de PacienteTecnico
 	 */
-	public void crearVista(ArrayList<Paciente> pacientes,Usuario us){
+	public void crearVista(ArrayList<Paciente> pacientes,Tecnico t){
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
@@ -267,7 +269,7 @@ public class VentanaTecnico extends JFrame {
 		System.out.println(pacientes.get(i).getDni());
 			PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 			pan.setBorder(new LineBorder(Color.gray, 2));
-			ControladorPanel cp = new ControladorPanel(this,pacientes.get(i),us);
+			ControladorPanel cp = new ControladorPanel(this,pacientes.get(i),t);
 			pan.addMouseListener(cp);
 			rey4.add(pan);	
 		}

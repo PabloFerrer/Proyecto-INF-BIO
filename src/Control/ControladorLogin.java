@@ -16,10 +16,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Model.Administrador;
 import Model.Conexion;
 import Model.Lectura;
 import Model.Medico;
 import Model.Paciente;
+import Model.Tecnico;
 import Model.Usuario;
 import View.VentanaAdminPrincipal;
 import View.VentanaHelp;
@@ -208,19 +210,21 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 					usuario.setText("Bienvenido "+user.getRol());
 					frame.getLogo().stop();
 					if(user.getRol().equals("admin")){
-						VentanaAdminPrincipal ven=new VentanaAdminPrincipal(user);
+						Administrador ad = Conexion.obtenerAdmin(user);
+						VentanaAdminPrincipal ven=new VentanaAdminPrincipal(ad);
 						ven.setLocation(frame.getLocation());
 						ven.setSize(frame.getSize());
 						ControladorAdmin con=new ControladorAdmin(ven);
 						ven.asignarControlador(con);
 						ven.ver();
 					}else if(user.getRol().equals("tecnico")){
-						VentanaTecnico vt = new VentanaTecnico(user);
+						Tecnico te = Conexion.obtenerTecnico(user);
+						VentanaTecnico vt = new VentanaTecnico(te);
 						ArrayList<Paciente> pac=Conexion.consultaPacTec();
 						ControladorTecnico ct = new ControladorTecnico(vt,user,pac);
 						vt.setSize(frame.getSize());
 						vt.setLocation(frame.getLocation());
-						vt.crearVista(pac,user);
+						vt.crearVista(pac,te);
 						vt.addController(ct);
 						vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 						vt.ver();

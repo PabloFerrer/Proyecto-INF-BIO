@@ -119,6 +119,51 @@ public class Conexion {
 		
 	}
 	
+	public static Administrador obtenerAdmin(Usuario us){
+		Administrador a = new Administrador(us,0);
+		
+		try{
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Administrador.vencimientoClave "
+					+ "from Administrador "
+					+ "where Administrador.dni = " + us.getDni() + ";");
+			if(rs.next()){
+				int vc = rs.getInt("vencimientoClave");
+				
+				a = new Administrador(us,vc);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );	
+		}
+		return a;
+	}
+
+	public static Tecnico obtenerTecnico(Usuario us){
+		Tecnico t = new Tecnico(us,0);
+		
+		try{
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Tecnico.turno,Tecnico.estado "
+					+ "from Tecnico "
+					+ "where Tecnico.dni = " + us.getDni() + ";");
+			if(rs.next()){
+				int tur = rs.getInt("turno");
+				
+				t = new Tecnico(us,tur);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );	
+		}
+		return t;
+	}
+	
+	
 	static public ArrayList<Paciente> consultaPacMed(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
