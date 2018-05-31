@@ -22,8 +22,8 @@ public class Conexion {
 
 	public static boolean sentenciaSQL(String sql) {
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			stmt = c.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -36,8 +36,8 @@ public class Conexion {
 	}
 	static public void InsertarNuevoECG(ECG ecg) {
 		try {
-//			Class.forName("org.sqlite.JDBC");
-//			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+//			Class.forName("org.mariadb.jdbc.Driver");
+//			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco"+BBDDName);
 //
 //			c.setAutoCommit(false);
 		    
@@ -64,8 +64,8 @@ public class Conexion {
 	static public Vector<Usuario> consultarUsuarios(){
 		Vector<Usuario> users=new Vector<Usuario>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
@@ -99,8 +99,8 @@ public class Conexion {
 	public static Medico consultaMed(Usuario us){
 		Medico m= new Medico(us,0,0);
 		try{
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Medico.nColegiado,Medico.nTelefono "
@@ -122,8 +122,8 @@ public class Conexion {
 	static public ArrayList<Paciente> consultaPacMed(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion\r\n" + 
@@ -153,8 +153,8 @@ public class Conexion {
 	static public ArrayList<Paciente> consultaPacTec() {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion FROM Paciente;");
@@ -178,8 +178,8 @@ public class Conexion {
 	static public Usuario consultaLogin(String nick, String pass) {
 		Usuario a=new Usuario(null,null,null,0);
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM USUARIO where nick like '"+nick+"';");
@@ -216,8 +216,8 @@ public class Conexion {
 	static public Vector<Mensaje> consultarMensajes(Paciente pac){
 		Vector<Mensaje> men=new Vector<Mensaje>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
@@ -236,8 +236,8 @@ public class Conexion {
 	static public Vector<ECG> consultaECG(Paciente pac) {
 		Vector<ECG> ecg=new Vector<ECG>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
@@ -260,8 +260,8 @@ public class Conexion {
 	static public String getUserName(int dni) {
 		String name="";
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT nombre,apellido FROM usuario where dni="+dni+";");
