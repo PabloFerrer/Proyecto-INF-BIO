@@ -216,10 +216,11 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 						ven.ver();
 					}else if(user.getRol().equals("tecnico")){
 						VentanaTecnico vt = new VentanaTecnico(user);
-						ControladorTecnico ct = new ControladorTecnico(vt,user);
+						ArrayList<Paciente> pac=Conexion.consultaPacTec();
+						ControladorTecnico ct = new ControladorTecnico(vt,user,pac);
 						vt.setSize(frame.getSize());
 						vt.setLocation(frame.getLocation());
-						vt.crearVista(Conexion.consultaPacTec(),user);
+						vt.crearVista(pac,user);
 						vt.addController(ct);
 						vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 						vt.ver();

@@ -23,6 +23,7 @@ import View.PanelPaciente;
 import View.VentanaHelp;
 import View.VentanaLogin;
 import View.VentanaTecnico;
+import sun.java2d.xr.MutableInteger;
 /**
  * ControladorTecnico es la clase que se encargara de ejercer como controlador de 
  * la clase VentanaTecnico. Su funcion es asignar una accion dependiendo del boton 
@@ -54,9 +55,10 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	 * Constructor de la clase ControladorTecnico
 	 * @param vt VentanaTecnico 
 	 */
-	public ControladorTecnico (VentanaTecnico vt, Usuario us){
+	public ControladorTecnico (VentanaTecnico vt, Usuario us,ArrayList<Paciente> aux){
 		this.vt = vt;
 		this.us=us;
+		pacientes=aux;
 	}
 
 	/**
@@ -138,24 +140,23 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		}
 		
 		
+		MutableInteger nombre=new MutableInteger(0);
+		MutableInteger dni=new MutableInteger(0);
+		MutableInteger fape=new MutableInteger(0);
+		MutableInteger sape=new MutableInteger(0);
+		
 		@SuppressWarnings("unchecked")
-		ArrayList<Paciente> pacientesaux = ((ArrayList<Paciente>) this.pacientes.clone());
-		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.pacientes.clone());
 		for (int j = 0; j < aux.size(); j++) {
-			for (int i = 0; i < pacientesaux.size(); i++) {
-				Paciente pa = pacientesaux.get(i);
-				if (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())
-						|| pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())
-						|| pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())
-						|| pa.getApellido().toLowerCase().toString().split(" ")[1]
-								.startsWith(aux.get(j).toLowerCase())) {
-					if (!pacientes.contains(pa))
-						pacientes.add(pa);
+			for (int i = pacientes.size()-1; i >=0 ; i--) {
+				Paciente pa = pacientes.get(i);
+				if (((nombre.getValue()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
+						|| ((dni.getValue()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
+						|| ((fape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
+						|| ((pa.getApellido().split(" ").length>1)?((sape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
+								) {
 				} else {
-					pacientesaux.remove(pa);
 					pacientes.remove(pa);
-					i--;
-
 				}
 			}
 			}
@@ -210,6 +211,11 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		}
 
 		vt.getRey4().setVisible(true);
+	}
+	
+	private boolean aumentar(MutableInteger i) {
+		i.setValue(i.getValue()+1);
+		return true;
 	}
 
 	//METODO QUE LEE DEL TXT Y LO PASA A UN ARRAYLIST

@@ -48,6 +48,7 @@ public class Formulario extends JFrame{
 	private JTextField apellido1;
 	private JTextField apellido2;
 	private JTextField dni;
+	private JTextField letra;
 	private JTextField lugar;
 	private JTextField direccion;
 	private JTextField ss;
@@ -250,6 +251,11 @@ public class Formulario extends JFrame{
 				dn.setFont(font);
 				d.add(dn);
 				d.add(dni);
+				letra=new JTextField(2);
+				JLabel guion=new JLabel("-");
+				letra.addKeyListener(control);
+				d.add(guion);
+				d.add(letra);
 				formu.add(d);
 				
 				JPanel ape=new JPanel();
@@ -301,6 +307,7 @@ public class Formulario extends JFrame{
 				nombre.setName("N");
 				apellido1.setName("N");
 				apellido2.setName("N");
+				letra.setName("N");
 				
 				JPanel num=new JPanel();
 				num.setOpaque(false);
@@ -468,6 +475,11 @@ public class Formulario extends JFrame{
 				dn.setFont(font);
 				d.add(dn);
 				d.add(dni);
+				letra=new JTextField(2);
+				JLabel guion=new JLabel("-");
+				letra.addKeyListener(control);
+				d.add(guion);
+				d.add(letra);
 				formu.add(d);
 				
 				
@@ -529,6 +541,7 @@ public class Formulario extends JFrame{
 				formu.setOpaque(false);
 				
 				nombre.setName("N");
+				letra.setName("N");
 				apellido1.setName("N");
 				apellido2.setName("N");
 				dni.setName("C");
@@ -784,6 +797,9 @@ public class Formulario extends JFrame{
 			 */
 			public void ver(){
 				this.setVisible(true);
+			}
+			public JTextField getLetra() {
+				return letra;
 			}
 			
 			

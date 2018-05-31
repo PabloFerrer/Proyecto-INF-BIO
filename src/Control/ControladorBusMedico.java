@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 import View.BuscadorMedico;
 import View.PanelPaciente;
 import View.VentanaMedico;
+import sun.java2d.xr.MutableInteger;
 import Model.Medico;
 import Model.Paciente;
 
@@ -99,25 +100,23 @@ public class ControladorBusMedico implements  KeyListener {
 			}
 		}
 		
+		MutableInteger nombre=new MutableInteger(0);
+		MutableInteger dni=new MutableInteger(0);
+		MutableInteger fape=new MutableInteger(0);
+		MutableInteger sape=new MutableInteger(0);
 		
 		@SuppressWarnings("unchecked")
-		ArrayList<Paciente> pacientesaux = ((ArrayList<Paciente>) this.m.getPacientes().clone());
-		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.m.getPacientes().clone());
 		for (int j = 0; j < aux.size(); j++) {
-			for (int i = 0; i < pacientesaux.size(); i++) {
-				Paciente pa = pacientesaux.get(i);
-				if (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())
-						|| pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())
-						|| pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())
-						|| ((pa.getApellido().split(" ").length>1)?pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase()):false)
+			for (int i = pacientes.size()-1; i >=0 ; i--) {
+				Paciente pa = pacientes.get(i);
+				if (((nombre.getValue()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
+						|| ((dni.getValue()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
+						|| ((fape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
+						|| ((pa.getApellido().split(" ").length>1)?((sape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
 								) {
-					if (!pacientes.contains(pa))
-						pacientes.add(pa);
 				} else {
-					pacientesaux.remove(pa);
 					pacientes.remove(pa);
-					i--;
-
 				}
 			}
 			}
@@ -132,8 +131,8 @@ public class ControladorBusMedico implements  KeyListener {
 
 						ControladorPanelM cpm = new ControladorPanelM(vm, m.getPacientes().get(i),m);
 						pan.addMouseListener(cpm);
-						JLabel invi = new JLabel("lalalalalal");
-						invi.setVisible(false);
+						JPanel invi = new JPanel();
+						invi.setOpaque(false);
 
 						bm.getRey5().add(pan);
 						bm.getRey5().add(invi);
@@ -177,6 +176,10 @@ public class ControladorBusMedico implements  KeyListener {
 		
 	}
 
+	private boolean aumentar(MutableInteger i) {
+		i.setValue(i.getValue()+1);
+		return true;
+	}
 
 	
 }

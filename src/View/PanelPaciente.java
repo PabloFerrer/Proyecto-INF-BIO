@@ -120,7 +120,7 @@ public class PanelPaciente extends JPanel {
 	    	aux.add(new JPanel(), BorderLayout.WEST);
 	    	aux.add(btnNewButton,BorderLayout.CENTER);
 			
-			btnNewButton.setIcon(new ImageIcon("Resource/Imagenes/hombre.png"));
+			btnNewButton.setIcon(new ImageIcon(nada));
 			btnNewButton.setOpaque(false);
 			
 			

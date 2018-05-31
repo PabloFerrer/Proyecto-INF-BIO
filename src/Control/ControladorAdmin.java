@@ -164,6 +164,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.dispose();
 		} else if(cmd.equals(ENVIARME)){
 			boolean bien=true;
+			boolean dni=true;
 			if(aux1.getNombre().getText().isEmpty()){
 				aux1.getNombre().setBackground(Color.RED);
 				bien=false;
@@ -186,7 +187,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
-				aux1.getDni().setBackground(Color.WHITE);
+				if(!aux1.getLetra().getText().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
+					aux1.getDni().setBackground(Color.red);
+					aux1.getLetra().setBackground(Color.RED);
+					dni=true;
+				} else {
+					aux1.getDni().setBackground(Color.WHITE);
+				}
 			}
 			if(aux1.getLugar().getText().isEmpty()){
 				aux1.getLugar().setBackground(Color.RED);
@@ -228,18 +235,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 			
 			if(bien==true){
-				String con1="";
-				for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
-					con1=con1+aux1.getContrasena1().getPassword()[j];
-				}
-				String con2="";
-				for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
-					con2=con2+aux1.getContrasena2().getPassword()[j];
-				}
-				if(!(con1.equals(con2))){
+				if(!dni) {
+					JOptionPane.showMessageDialog(null, "El dni es erroneo", "Error", JOptionPane.ERROR_MESSAGE);
+				} 
+				
+				if(!(pss.equals(pss2))){
 					aux1.getContrasena2().setBackground(Color.RED);
 					aux1.getContrasena1().setBackground(Color.RED);
-					JOptionPane.showMessageDialog(null, "Las passwords no coinciden", "error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(aux1, "Las passwords no coinciden", "error", JOptionPane.ERROR_MESSAGE);
 					
 				}else{
 					int i=0;
@@ -256,24 +259,26 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 						}
 						st=st+i;
 					}
-					con1="";
-					for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
-						con1=con1+aux1.getContrasena1().getPassword()[j];
-					}
+					
 					//escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
 					String sentencia=" insert into Medico ( dni, nColegiado, nTelefono) values ("+aux1.getDni().getText()+","+aux1.getNumero().getText()+","+aux1.getTelefono().getText()+");";
 					Conexion.sentenciaSQL(sentencia);
-					sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
+					sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.MEDICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+pss+"','"+aux1.getLugar().getText()+"');";
 					Conexion.sentenciaSQL(sentencia);
-					usuario.add(new Usuario(st,"medico",con1,Integer.parseInt(aux1.getDni().getText())));
+					usuario.add(new Usuario(st,"medico",pss,Integer.parseInt(aux1.getDni().getText())));
 					JOptionPane.showMessageDialog(null, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				if(dni) {
+					JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "El DNI es erronea y por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} else if(cmd.equals(ENVIARTEC)){
 			boolean bien=true;
+			boolean dni=true;
 			if(aux1.getNombre().getText().isEmpty()){
 				aux1.getNombre().setBackground(Color.RED);
 				bien=false;
@@ -296,7 +301,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
-				aux1.getDni().setBackground(Color.WHITE);
+				if(!aux1.getLetra().getText().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
+					aux1.getDni().setBackground(Color.red);
+					aux1.getLetra().setBackground(Color.RED);
+					dni=false;
+				} else {
+					aux1.getDni().setBackground(Color.WHITE);
+				}
 			}
 			if(aux1.getLugar().getText().isEmpty()){
 				aux1.getLugar().setBackground(Color.RED);
@@ -325,18 +336,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getContrasena2().setBackground(Color.WHITE);
 			}
 			if(bien==true){
-				String con1="";
-				for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
-					con1=con1+aux1.getContrasena1().getPassword()[j];
-				}
-				String con2="";
-				for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
-					con2=con2+aux1.getContrasena2().getPassword()[j];
-				}
-				if(!(con1.equals(con2))){
+				if(!dni) {
+					JOptionPane.showMessageDialog(null, "El dni es erroneo", "Error", JOptionPane.ERROR_MESSAGE);
+				} 
+				
+				if(!(pss.equals(pss2))){
 				aux1.getContrasena2().setBackground(Color.RED);
 				aux1.getContrasena1().setBackground(Color.RED);
-				JOptionPane.showMessageDialog(null, "Las passwords no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(aux1, "Las passwords no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
 			} else{
 				elimi=new Vector<Usuario>();
 				usuario=Conexion.consultarUsuarios();
@@ -352,24 +359,26 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					}
 					st=st+i;
 				}
-				con1="";
-				for(int j=0;j<aux1.getContrasena1().getPassword().length;j++) {
-					con1=con1+aux1.getContrasena1().getPassword()[j];
-				}
+				
 				
 				//sql
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				String sentencia=" insert into Tecnico ( dni, turno) values ("+aux1.getDni().getText()+","+Constantes.turno+");";
 				Conexion.sentenciaSQL(sentencia);
-				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.TECNICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+con1+"','"+aux1.getLugar().getText()+"');";
+				sentencia=" insert into Usuario(dni, rol, apellido, nombre, nick, contrasena, ubicacion) values ("+aux1.getDni().getText()+","+Constantes.TECNICO+",'"+aux1.getApellido1().getText()+" "+aux1.getApellido2().getText()+"','"+aux1.getNombre().getText()+"','"+st+"','"+pss+"','"+aux1.getLugar().getText()+"');";
 				Conexion.sentenciaSQL(sentencia);
-				usuario.add(new Usuario(st,"tecnico",con1,Integer.parseInt(aux1.getDni().getText())));
+				usuario.add(new Usuario(st,"tecnico",pss,Integer.parseInt(aux1.getDni().getText())));
 				JOptionPane.showMessageDialog(null, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				
 			}
 			} else {
-				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				if(dni) {
+					JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "El DNI es erronea y por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		} else if(cmd.equals(USUARIOS)){
 			elimi=new Vector<Usuario>();
