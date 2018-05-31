@@ -48,7 +48,7 @@ public class Formulario extends JFrame{
 	private JTextField apellido1;
 	private JTextField apellido2;
 	private JTextField dni;
-	private JTextField letra;
+	private JComboBox<String> letra;
 	private JTextField lugar;
 	private JTextField direccion;
 	private JTextField ss;
@@ -251,7 +251,8 @@ public class Formulario extends JFrame{
 				dn.setFont(font);
 				d.add(dn);
 				d.add(dni);
-				letra=new JTextField(2);
+				letra=new JComboBox<String>("A-B-C-D-E-F-G-H-I-J-Q-L-M-N-O-P-Q-R-S-T-U-V-W-X-Y-Z".split("-"));
+			
 				JLabel guion=new JLabel("-");
 				letra.addKeyListener(control);
 				d.add(guion);
@@ -475,7 +476,7 @@ public class Formulario extends JFrame{
 				dn.setFont(font);
 				d.add(dn);
 				d.add(dni);
-				letra=new JTextField(2);
+				letra=new JComboBox<String>("A-B-C-D-E-F-G-H-I-J-Q-L-M-N-O-P-Q-R-S-T-U-V-W-X-Y-Z".split("-"));
 				JLabel guion=new JLabel("-");
 				letra.addKeyListener(control);
 				d.add(guion);
@@ -798,7 +799,7 @@ public class Formulario extends JFrame{
 			public void ver(){
 				this.setVisible(true);
 			}
-			public JTextField getLetra() {
+			public JComboBox<String> getLetra() {
 				return letra;
 			}
 			

@@ -1,11 +1,14 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +24,7 @@ import Control.ControladorMensaje;
 import Control.ControladorPanel;
 import Control.ControladorPanelM;
 import Model.Conexion;
+import Model.Constantes;
 import Model.Mensaje;
 import Model.Paciente;
 import Model.Utilidades;
@@ -103,10 +107,32 @@ public class VentanaMensajes extends JFrame{
 			p.setMensajes(Conexion.consultarMensajes(p));
 			atras.setEnabled(false);
 			 list=new JList<Mensaje>(p.getMensajes());
+			 
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			JScrollPane scr=new JScrollPane();
 			scr.setViewportView(list);
 			
+			 list.setCellRenderer(new DefaultListCellRenderer() {
+
+                 @Override
+                 public Component getListCellRendererComponent(JList list, Object value, int index,
+                           boolean isSelected, boolean cellHasFocus) {
+                      Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                      if (value instanceof Mensaje) {
+                    	  Mensaje nextUser = (Mensaje) value;
+                           if (nextUser.getLeido()==Constantes.LEIDO) {
+                                setBackground(Color.GREEN);
+                           } else {
+                                setBackground(Color.RED);
+                           }
+                           if (isSelected) {
+                                setBackground(getBackground().darker());
+                           }
+                      } 
+                      return c;
+                 }
+
+            });
 			
 			list.addListSelectionListener(control);
 			

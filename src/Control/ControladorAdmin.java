@@ -187,7 +187,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
-				if(!aux1.getLetra().getText().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
+				if(!aux1.getLetra().getSelectedItem().toString().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
 					aux1.getDni().setBackground(Color.red);
 					aux1.getLetra().setBackground(Color.RED);
 					dni=true;
@@ -301,7 +301,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
-				if(!aux1.getLetra().getText().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
+				if(!aux1.getLetra().getSelectedItem().toString().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
 					aux1.getDni().setBackground(Color.red);
 					aux1.getLetra().setBackground(Color.RED);
 					dni=false;

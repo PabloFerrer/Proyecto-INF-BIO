@@ -18,6 +18,7 @@ import View.PanelPaciente;
 import View.VentanaMedico;
 import sun.java2d.xr.MutableInteger;
 import Model.Medico;
+import Model.MutableInt;
 import Model.Paciente;
 
 /**
@@ -100,20 +101,20 @@ public class ControladorBusMedico implements  KeyListener {
 			}
 		}
 		
-		MutableInteger nombre=new MutableInteger(0);
-		MutableInteger dni=new MutableInteger(0);
-		MutableInteger fape=new MutableInteger(0);
-		MutableInteger sape=new MutableInteger(0);
+		MutableInt nombre=new MutableInt(0);
+		MutableInt dni=new MutableInt(0);
+		MutableInt fape=new MutableInt(0);
+		MutableInt sape=new MutableInt(0);
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.m.getPacientes().clone());
 		for (int j = 0; j < aux.size(); j++) {
 			for (int i = pacientes.size()-1; i >=0 ; i--) {
 				Paciente pa = pacientes.get(i);
-				if (((nombre.getValue()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
-						|| ((dni.getValue()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
-						|| ((fape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
-						|| ((pa.getApellido().split(" ").length>1)?((sape.getValue()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
+				if (((nombre.toInteger()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
+						|| ((dni.toInteger()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
+						|| ((fape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
+						|| ((pa.getApellido().split(" ").length>1)?((sape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
 								) {
 				} else {
 					pacientes.remove(pa);
@@ -176,8 +177,8 @@ public class ControladorBusMedico implements  KeyListener {
 		
 	}
 
-	private boolean aumentar(MutableInteger i) {
-		i.setValue(i.getValue()+1);
+	private boolean aumentar(MutableInt nombre) {
+		nombre.setValue(nombre.toInteger()+1);
 		return true;
 	}
 
