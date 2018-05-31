@@ -121,6 +121,51 @@ public class Conexion {
 		
 	}
 	
+	public static Administrador obtenerAdmin(Usuario us){
+		Administrador a = new Administrador(us,0);
+		
+		try{
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Administrador.vencimientoClave "
+					+ "from Administrador"
+					+ " where Administrador.dni = " + us.getDni() + ";");
+			if(rs.next()){
+				int vc = rs.getInt("vencimientoClave");
+				
+				a = new Administrador(us,vc);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );	
+		}
+		return a;
+	}
+
+	public static Tecnico obtenerTecnico(Usuario us){
+		Tecnico t = new Tecnico(us,0);
+		
+		try{
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Tecnico.turno "
+					+ "from tecnico"
+					+ " where tecnico.dni = " + us.getDni() + ";");
+			if(rs.next()){
+				int tur = rs.getInt("turno");
+				
+				t = new Tecnico(us,tur);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );	
+		}
+		return t;
+	}
+	
+	
 	static public ArrayList<Paciente> consultaPacMed(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {

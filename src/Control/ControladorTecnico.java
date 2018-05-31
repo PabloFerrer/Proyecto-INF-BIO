@@ -19,6 +19,7 @@ import javax.swing.border.LineBorder;
 
 import Model.MutableInt;
 import Model.Paciente;
+import Model.Tecnico;
 import Model.Usuario;
 import View.PanelPaciente;
 import View.VentanaHelp;
@@ -50,12 +51,13 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	private ArrayList<Paciente> pacientes;
 	private VentanaHelp help;
 	private Usuario us;
+	private Tecnico tec;
 	
 	/**
 	 * Constructor de la clase ControladorTecnico
 	 * @param vt VentanaTecnico 
 	 */
-	public ControladorTecnico (VentanaTecnico vt, Usuario us,ArrayList<Paciente> aux){
+	public ControladorTecnico (VentanaTecnico vt, Tecnico tec,ArrayList<Paciente> aux){
 		this.vt = vt;
 		this.us=us;
 		pacientes=aux;
@@ -169,7 +171,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 						PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 
-						ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),us);
+						ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),tec);
 						pan.addMouseListener(cp);
 						JLabel invi = new JLabel("lalalalalal");
 						invi.setVisible(false);
@@ -186,7 +188,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 				PanelPaciente pan = new PanelPaciente(this.pacientes.get(i));
 
 				pan.setBorder(new LineBorder(Color.gray, 2));
-				ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),us);
+				ControladorPanel cp = new ControladorPanel(vt, pacientes.get(i),tec);
 				pan.addMouseListener(cp);
 				JLabel invi = new JLabel("lalalalalal");
 				invi.setVisible(false);

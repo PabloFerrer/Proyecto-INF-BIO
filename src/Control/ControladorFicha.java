@@ -96,7 +96,7 @@ public class ControladorFicha implements ActionListener {
 			if(abierto!=null){
 				
 				
-				Object[] aux=Lectura.lecturaEcg(abierto,d.getP(),vt.getAu().getUser());
+				Object[] aux=Lectura.lecturaEcg(abierto,d.getP(),vt.getTec().getNombre());
 				
 				
 				arch=(String) aux[0];
@@ -122,7 +122,7 @@ public class ControladorFicha implements ActionListener {
 			}
 			System.out.println("HOLA"+d.getP().getDni());
 			System.out.println(Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)));
-			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
+			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getTec().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
 			Conexion.InsertarNuevoECG(ecg);
 			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 			vt.getFicha().getEcg().cleanGraph();
