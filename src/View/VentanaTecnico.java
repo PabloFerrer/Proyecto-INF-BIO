@@ -238,7 +238,7 @@ public class VentanaTecnico extends JFrame {
 	bienvenido.setFont(new Font("",Font.BOLD,19));
 	
 	//CREAR Y DAR CARACTERISTICAS A LA LABEL USUARIO
-	usuario = new JLabel("Sr./Sra. " +au.getUser());
+	usuario = new JLabel("Sr./Sra. " +tec.getNombre());
 	//usuario.setText(vl.user.getText());
 	usuario.setFont(new Font("",Font.BOLD,14));
 	
@@ -322,6 +322,10 @@ public class VentanaTecnico extends JFrame {
 	
 	}
 	
+	public Tecnico getTec() {
+		return tec;
+	}
+
 	/**
 	 * Getter del usuario que recibe la clase
 	 * @return Usuario au

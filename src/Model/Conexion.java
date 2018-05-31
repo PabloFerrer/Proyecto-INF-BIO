@@ -123,13 +123,13 @@ public class Conexion {
 		Administrador a = new Administrador(us,0);
 		
 		try{
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Administrador.vencimientoClave "
-					+ "from Administrador "
-					+ "where Administrador.dni = " + us.getDni() + ";");
+					+ "from Administrador"
+					+ " where Administrador.dni = " + us.getDni() + ";");
 			if(rs.next()){
 				int vc = rs.getInt("vencimientoClave");
 				
@@ -145,13 +145,13 @@ public class Conexion {
 		Tecnico t = new Tecnico(us,0);
 		
 		try{
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select Tecnico.turno,Tecnico.estado "
-					+ "from Tecnico "
-					+ "where Tecnico.dni = " + us.getDni() + ";");
+			ResultSet rs = stmt.executeQuery("select Tecnico.turno "
+					+ "from tecnico"
+					+ " where tecnico.dni = " + us.getDni() + ";");
 			if(rs.next()){
 				int tur = rs.getInt("turno");
 				

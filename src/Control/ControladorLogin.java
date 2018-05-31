@@ -221,7 +221,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 						Tecnico te = Conexion.obtenerTecnico(user);
 						VentanaTecnico vt = new VentanaTecnico(te);
 						ArrayList<Paciente> pac=Conexion.consultaPacTec();
-						ControladorTecnico ct = new ControladorTecnico(vt,user,pac);
+						ControladorTecnico ct = new ControladorTecnico(vt,te,pac);
 						vt.setSize(frame.getSize());
 						vt.setLocation(frame.getLocation());
 						vt.crearVista(pac,te);
