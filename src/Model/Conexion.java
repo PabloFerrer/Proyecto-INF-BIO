@@ -16,14 +16,16 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-	private static String BBDDName = "DataBase/Proyecto2.1.db";;
+	private static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight\";";
+	private static String user = "pi2_heartlight";
+	private static String pass = "pepino_fresco";
 	public static Connection c = null;
 	private static Statement stmt = null;
 
 	public static boolean sentenciaSQL(String sql) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			stmt = c.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -65,7 +67,7 @@ public class Conexion {
 		Vector<Usuario> users=new Vector<Usuario>();
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
@@ -100,7 +102,7 @@ public class Conexion {
 		Medico m= new Medico(us,0,0);
 		try{
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Medico.nColegiado,Medico.nTelefono "
@@ -123,7 +125,7 @@ public class Conexion {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion\r\n" + 
@@ -154,7 +156,7 @@ public class Conexion {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion FROM Paciente;");
@@ -179,7 +181,7 @@ public class Conexion {
 		Usuario a=new Usuario(null,null,null,0);
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM USUARIO where nick like '"+nick+"';");
@@ -217,7 +219,7 @@ public class Conexion {
 		Vector<Mensaje> men=new Vector<Mensaje>();
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
@@ -237,7 +239,7 @@ public class Conexion {
 		Vector<ECG> ecg=new Vector<ECG>();
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
@@ -261,7 +263,7 @@ public class Conexion {
 		String name="";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco");
+			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT nombre,apellido FROM usuario where dni="+dni+";");
