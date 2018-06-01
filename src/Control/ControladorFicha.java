@@ -90,6 +90,11 @@ public class ControladorFicha implements ActionListener {
 	public void actionPerformed(ActionEvent a) {
 		String cmd=a.getActionCommand().toString();
 		if(cmd.equals(ControladorFicha.ATRAS)){
+			try {
+				if(d.getEcg().getIno()!=null)
+					d.getEcg().getIno().killArduinoConnection();
+			} catch (ArduinoException e) {
+			}
 			d.getBtnEnivar().setEnabled(false);
 			ecg=null;
 			d.getEcg().cleanGraph();
@@ -115,8 +120,9 @@ public class ControladorFicha implements ActionListener {
 //				}
 //				d.getEcg().addGraphic(ecg);
 			Thread aux=new Thread(d.getEcg());
-			aux.start();
+			d.getBtnEnivar().setEnabled(false);
 			d.getBtnStop().setEnabled(true);
+			aux.start();
 			((GraphController) d.getEcg().getSl().getChangeListeners()[d.getEcg().getSl().getChangeListeners().length-1]).stateChanged(new ChangeEvent(d.getEcg().getSl()));
 			
 		} else if(cmd.equals(ControladorFicha.ENVIAR)){
@@ -134,7 +140,7 @@ public class ControladorFicha implements ActionListener {
 			}
 			System.out.println("HOLA"+d.getP().getDni());
 			System.out.println(Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)));
-			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getAu().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
+			ecg=new ECG(Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day),vt.getTec().getDni(),Integer.parseInt(d.getP().getDni().substring(0, d.getP().getDni().length()-1)),d.getObser().getText(),ecg.getPuntosporsec(),ecg.getPuntos(),false);
 			Conexion.InsertarNuevoECG(ecg);
 			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 			vt.getFicha().getEcg().cleanGraph();
@@ -142,8 +148,15 @@ public class ControladorFicha implements ActionListener {
 			ecg=null;
 			}
 		} else if(cmd.equals(ControladorFicha.STOP)) {
-			GraficaECG.setFin(true);
-			d.getBtnEnivar().setEnabled(true);
+			try {
+				d.getEcg().getIno().killArduinoConnection();
+				d.getBtnEnivar().setEnabled(true);
+				d.getBtnStop().setEnabled(false);
+				if(ecg!=null && ecg.getPuntos()!=null && !ecg.getPuntos().isEmpty())
+					d.getBtnEnivar().setEnabled(true);
+			} catch (ArduinoException e) {
+				
+			}
 		}
 			
 	}
@@ -154,6 +167,10 @@ public class ControladorFicha implements ActionListener {
 
 	public void setEcg(ECG ecg) {
 		this.ecg = ecg;
+	}
+
+	public VentanaTecnico getVt() {
+		return vt;
 	}
 }
 

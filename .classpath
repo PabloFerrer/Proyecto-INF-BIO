@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="lib/jfreechart-1.0-2.19/jfreechart-1.0.19-demo.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.21.0.jar"/>
 	<classpathentry kind="lib" path="lib/mariadb-java-client-2.2.5.jar"/>
-	<classpathentry kind="lib" path="PanamaHitek_Arduino-3.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/PanamaHitek_Arduino-3.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

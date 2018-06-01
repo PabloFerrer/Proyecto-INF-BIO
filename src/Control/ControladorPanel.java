@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.panamahitek.ArduinoException;
+
 import Model.Conexion;
 import Model.Constantes;
 import Model.Mensaje;
@@ -103,6 +105,11 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		vt.getFicha().MensajeCont(new ControladorMensaje(p,us));
 		if(respuesta!=null){
 		if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
+			try {
+				if(vt.getFicha().getEcg().getIno()!=null)
+					vt.getFicha().getEcg().getIno().killArduinoConnection();
+			} catch (ArduinoException e) {
+			}
 			vt.getFicha().getLblNewLabel().setText(p.getNombre());
 			vt.getFicha().getLblApellidos().setText(p.getApellido());
 			vt.getFicha().getLblDni().setText(p.getDni());

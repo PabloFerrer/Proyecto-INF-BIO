@@ -54,7 +54,6 @@ public class VentanaTecnico extends JFrame {
 	private JLabel paciente;
 	private Fondo bcg ;
 	private DetallePaciente ficha;
-	private Usuario au;
 	private Tecnico tec;
 	private JTextField buscador;
 	private JPanel rey4;
@@ -223,7 +222,7 @@ public class VentanaTecnico extends JFrame {
 	rey6.setOpaque(false);
 	
 	//CREO LA FICHA 
-	ficha = new DetallePaciente(new Paciente("","","",""));
+	ficha = new DetallePaciente(new Paciente("","","","",0));
 	ficha.addController(new ControladorFicha(ficha,this));
 	colocar.add(ficha);
 	ficha.setVisible(false);
@@ -326,13 +325,7 @@ public class VentanaTecnico extends JFrame {
 		return tec;
 	}
 
-	/**
-	 * Getter del usuario que recibe la clase
-	 * @return Usuario au
-	 */
-	public Usuario getAu() {
-		return au;
-	}
+
 
 	/**
 	 * Metodo que implementamos para hacer visible el panel

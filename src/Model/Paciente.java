@@ -13,6 +13,7 @@ import java.util.Vector;
  */
 public class Paciente {
 	private String id;
+	private int genero;
 	private String nombre;
 	private String apellido;
 	private String dni;
@@ -48,12 +49,13 @@ public class Paciente {
 		mensajes=new Vector<Mensaje>();
 	}
 	
-	public Paciente(String nombre,String apellido,String dni,String ubicacion){
+	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero){
 		this.poblacion=ubicacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		mensajes=new Vector<Mensaje>();
+		this.genero=genero;
 	}
 	
 	public Paciente(){
@@ -171,6 +173,10 @@ public class Paciente {
 
 	public void setMensajes(Vector<Mensaje> mensajes) {
 		this.mensajes = mensajes;
+	}
+
+	public int getGenero() {
+		return genero;
 	}
 
 	

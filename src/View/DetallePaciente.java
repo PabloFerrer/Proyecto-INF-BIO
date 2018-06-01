@@ -139,6 +139,7 @@ public class DetallePaciente extends JPanel {
 		btnTomarDatos = new JButton("Tomar datos");
 		btnTomarDatos.setActionCommand(ControladorFicha.TOMAR);
 		btnStop=new JButton("STOP");
+		btnStop.setEnabled(false);
 		btnStop.setActionCommand(ControladorFicha.STOP);
 		btnEnivar = new JButton("Enviar");
 		btnEnivar.setActionCommand(ControladorFicha.ENVIAR);

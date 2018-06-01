@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Control.ControladorPanel;
+import Model.Constantes;
 import Model.ECG;
 import Model.Paciente;
 import Model.Usuario;
@@ -59,10 +60,14 @@ public class PanelPaciente extends JPanel {
 	    	setLayout(new BorderLayout(10, 0));
 	    	JPanel aux=new JPanel();
 	    	aux.setLayout(new BorderLayout(3,0));
-	    	JLabel btnNewButton = new JLabel();
+	    	JPanel btnNewButton = new JPanel();
+	    	Logo foto=new Logo(btnNewButton,"Resource/Imagenes/hombre.png");
+	    	JButton invi=new JButton();
+	    	foto.add(invi);
+	    	btnNewButton.setLayout(new BorderLayout(0, 0));
+	    	btnNewButton.add(foto,BorderLayout.CENTER);
 	    	aux.add(new JPanel(), BorderLayout.WEST);
 	    	aux.add(btnNewButton,BorderLayout.CENTER);
-			btnNewButton.setIcon(new ImageIcon("Resource/Imagenes/hombre.png"));
 			btnNewButton.setOpaque(false);
 			
 			
@@ -116,11 +121,19 @@ public class PanelPaciente extends JPanel {
 	    	setLayout(new BorderLayout(10, 0));
 	    	JPanel aux=new JPanel();
 	    			aux.setLayout(new BorderLayout(3,0));
-	    	JLabel btnNewButton = new JLabel();
+	    	JPanel btnNewButton = new JPanel();
+	    	Logo foto=new Logo(btnNewButton,nada);
+	    	btnNewButton.setLayout(new BorderLayout(0, 0));
+	    	btnNewButton.add(foto,BorderLayout.CENTER);
 	    	aux.add(new JPanel(), BorderLayout.WEST);
 	    	aux.add(btnNewButton,BorderLayout.CENTER);
 			
-			btnNewButton.setIcon(new ImageIcon(nada));
+	    	foto.setLayout(new BorderLayout());
+	    	JButton invi=new JButton();
+	    	invi.setOpaque(false);
+	    	invi.setContentAreaFilled(false);
+	    	invi.setBorderPainted(false);
+	    	foto.add(invi);
 			btnNewButton.setOpaque(false);
 			
 			
@@ -150,13 +163,25 @@ public class PanelPaciente extends JPanel {
 	    	setLayout(new BorderLayout(10, 0));
 	    	JPanel aux=new JPanel();
 	    			aux.setLayout(new BorderLayout(3,0));
-	    	JLabel btnNewButton = new JLabel();
+			JPanel btnNewButton = new JPanel();
+			Logo foto;
+			if(p.getGenero()==Constantes.FEMENINO) {
+				foto=new Logo(btnNewButton,"Resource/Imagenes/Mujer.png");
+			} else {
+				foto=new Logo(btnNewButton,"Resource/Imagenes/hombre.png");
+			}
+	    	btnNewButton.setLayout(new BorderLayout(0, 0));
+	    	btnNewButton.add(foto,BorderLayout.CENTER);
 	    	aux.add(new JPanel(), BorderLayout.WEST);
 	    	aux.add(btnNewButton,BorderLayout.CENTER);
 			add(aux, BorderLayout.WEST);
-			btnNewButton.setIcon(new ImageIcon("Resource/Imagenes/hombre.png"));
 			btnNewButton.setOpaque(false);
-			
+			foto.setLayout(new BorderLayout());
+	    	JButton invi=new JButton();
+	    	invi.setOpaque(false);
+	    	invi.setContentAreaFilled(false);
+	    	invi.setBorderPainted(false);
+	    	foto.add(invi);
 			
 			JPanel panel = new JPanel();
 			panel.setOpaque(false);

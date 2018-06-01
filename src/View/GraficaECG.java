@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
@@ -54,9 +55,8 @@ import jssc.SerialPortException;
  */
 public class GraficaECG extends JPanel implements Runnable {
 
-	private static volatile boolean fin=false;
 	private static final long serialVersionUID = 1L;
-	private static PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
+	private PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
 	private double mayor = 0;
 	private JSpinner esca;
 	private int num=0;
@@ -279,7 +279,9 @@ public class GraficaECG extends JPanel implements Runnable {
 		XYSeries series = new XYSeries(ecg.getNombre());
 		double mili = 0;
 		String[] aux=ecg.getPuntos().split(";");
+		
 		for (int i = 0; i < aux.length; i++) {
+			System.out.println(ecg.getId()+" "+aux[i]);
 			series.add(mili, Double.parseDouble(aux[i]));
 			mili += 1000 / ecg.getPuntosporsec();
 		}
@@ -420,75 +422,74 @@ public class GraficaECG extends JPanel implements Runnable {
 				stop = false;
 				butstop.setEnabled(false);
 				sl.setEnabled(true);
-
 			}
 		} else {
 			//LECTURA DEL TECNICO CONCURRENTE POSTERIORMENTE
+			num=0;
+			cleanGraph();
+			mayor=Integer.parseInt(esca.getValue().toString());
 			try {
 				if(dataset.getSeries().isEmpty()) {
 					dataset.addSeries(new XYSeries("ECG"));
 				} 
-				ino.arduinoRXTX(ino.getSerialPorts().get(0), 9600, new SerialPortEventListener() {
-
+				ino.arduinoRXTX(ino.getSerialPorts().get(0), 57600, new SerialPortEventListener() {
 					public void serialEvent(SerialPortEvent arg0) {
 						 try {
 							  if(controlficha.getEcg()==null) {
-								  controlficha.setEcg(new ECG(1,"",""));
+								  controlficha.setEcg(new ECG(60,"","0"));
 							  }
-				                  //Se imprime el mensaje recibido en la consola
-				            	 if (GraficaECG.ino.isMessageAvailable()) {
-					              	String aux=GraficaECG.ino.printMessage();
-					              	System.out.println(aux);
-					              	 controlficha.getEcg().setPuntos(controlficha.getEcg().getPuntos()+";"+aux);
-					              addPunto(Double.parseDouble(aux), num);
-					              
-					              if(num > Integer.parseInt(esca.getValue().toString())/2) {
-					            	  mayor=num;
-//					            		  chart.getXYPlot().getDomainAxis().setRange(
-//											num - ((int) esca.getValue() / 2),
-//											num + ((int) esca.getValue() / 2));
-					              } else {
-//					            	  chart.getXYPlot().getDomainAxis().setRange(0,(double) esca.getValue());
-					              }
-//					              chart.getXYPlot().getRangeAxis().setRange(chart.getXYPlot().get, upper);
-					              sl.setMaximum(num);
-					              sl.setValue(num);
-					              
-					        		num += controlficha.getEcg().getPuntosporsec();
-				            	 }
-				          } catch (SerialPortException | ArduinoException ex) {
-				              
-				          }
+							// Se imprime el mensaje recibido en la consola
+							if (ino.isMessageAvailable()) {
+								try {
+								Double aux = Double.parseDouble(ino.printMessage());
+										controlficha.getEcg().setPuntos(controlficha.getEcg().getPuntos() + ";" + aux);
+										addPunto(aux, num);
+										if (num > Integer.parseInt(esca.getValue().toString()) / 2) {
+											mayor = num;
+											sl.setMaximum((getMayor()>4000)?(int)getMayor()-(int)esca.getValue()/2:0);
+											sl.setValue(num);
+										}
+										
+										num += 1000 /controlficha.getEcg().getPuntosporsec();
+								
+							}catch(NumberFormatException exc) {
+								
+							}
+							}
+						} catch (SerialPortException | ArduinoException ex) {
+
+						}
 					}
 					
 				});
-				while(!fin) {
-					try {
-						Thread.sleep(1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				try {
+					ino.sendData("0");
+				} catch (SerialPortException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				ino.killArduinoConnection();
+				
 			} catch (ArduinoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch(IndexOutOfBoundsException e) {
+				JOptionPane.showMessageDialog(controlficha.getVt(), "Ha habido un problema conectando con el sensor", "Error", JOptionPane.WARNING_MESSAGE);
+				controlficha.getVt().getFicha().getBtnStop().setEnabled(false);
+				controlficha.getVt().getFicha().getBtnEnivar().setEnabled(true);
 			}
 		}
 	}
 	
 	public void addPunto(double d,int x) {
-		
+		if(dataset.getSeriesCount()>0) {
 		XYSeries aux=(XYSeries) dataset.getSeries().get(dataset.getSeriesCount()-1);
 		aux.add(x, d);
+		}
 	}
 
-	public static boolean isFin() {
-		return fin;
-	}
 
-	public static void setFin(boolean fin) {
-		GraficaECG.fin = fin;
+
+	public PanamaHitek_Arduino getIno() {
+		return ino;
 	}
 }

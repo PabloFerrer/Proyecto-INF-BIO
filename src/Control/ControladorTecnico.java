@@ -17,6 +17,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import com.panamahitek.ArduinoException;
+
 import Model.MutableInt;
 import Model.Paciente;
 import Model.Tecnico;
@@ -72,6 +74,11 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 	public void actionPerformed(ActionEvent a) {
 		String cmd=a.getActionCommand().toString();
 		if(cmd.equals(LOGOUT)){
+			try {
+				if(vt.getFicha().getEcg().getIno()!=null)
+					vt.getFicha().getEcg().getIno().killArduinoConnection();
+			} catch (ArduinoException e) {
+			}
 			if(help!=null){
 				help.dispose();
 			}
@@ -201,7 +208,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		
 		if (pacientes.size() < 10) {
 			for (int i = pacientes.size(); i < 10; i++) {
-				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " "), "");
+				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " ",0), "");
 
 				JLabel invi = new JLabel("lalalalalal");
 				invi.setVisible(false);
@@ -220,26 +227,4 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		return true;
 	}
 
-	//METODO QUE LEE DEL TXT Y LO PASA A UN ARRAYLIST
-	/**
-	 * METODO QUE LEE DEL TXT Y LO PASA A UN ARRAYLIST los pacientes del Tecnico
-	 * @return ArrayList de Pacientes Tecnicos
-	 */
-//	public ArrayList<Paciente> leeTxt() {
-//		pacientes = new ArrayList<Paciente>();
-//		File file = null;
-//		file = new File("Resource/Pacientes/pacientes.txt");
-//		try(Scanner sc = new Scanner(new FileReader(file))) {
-//			while(sc.hasNextLine()){
-//				String[] array ;
-//				String palabra = sc.nextLine();
-//				array = palabra.split(";");
-//				Paciente p = new Paciente(array[0],array[1],array[2],array[3]);
-//				pacientes.add(p);	
-//			}
-//		}catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return pacientes;
-//	}
 }
