@@ -61,9 +61,18 @@ public class PanelPaciente extends JPanel {
 	    	JPanel aux=new JPanel();
 	    	aux.setLayout(new BorderLayout(3,0));
 	    	JPanel btnNewButton = new JPanel();
-	    	Logo foto=new Logo(btnNewButton,"Resource/Imagenes/hombre.png");
+	    	Logo foto;
+	    	if(p.getGenero()==Constantes.FEMENINO) {
+				foto=new Logo(btnNewButton,"Resource/Imagenes/Mujer.png");
+			} else {
+				foto=new Logo(btnNewButton,"Resource/Imagenes/hombre.png");
+			}
+	    	foto.setLayout(new BorderLayout());
 	    	JButton invi=new JButton();
 	    	foto.add(invi);
+	    	invi.setOpaque(false);
+	    	invi.setContentAreaFilled(false);
+	    	invi.setBorderPainted(false);
 	    	btnNewButton.setLayout(new BorderLayout(0, 0));
 	    	btnNewButton.add(foto,BorderLayout.CENTER);
 	    	aux.add(new JPanel(), BorderLayout.WEST);
