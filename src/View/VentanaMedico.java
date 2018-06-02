@@ -10,7 +10,6 @@ import javax.swing.*;
 
 import Control.ControladorMedico;
 import Model.Medico;
-import Pruebas.MemoCalendar;
 
 public class VentanaMedico extends JFrame{
 	/**
@@ -68,7 +67,7 @@ public class VentanaMedico extends JFrame{
 		this.med=au;
 	}
 
-	public void crearVista(MemoCalendar memo){
+	public void crearVista(){
 		//BASICO
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -151,7 +150,6 @@ public class VentanaMedico extends JFrame{
 		centro=new JPanel();
 		centro.setOpaque(false);
 		centro.setLayout(new BorderLayout());
-		centro.add(memo);
 		//centro.setMinimumSize(new Dimension(100,100));
 		
 		
