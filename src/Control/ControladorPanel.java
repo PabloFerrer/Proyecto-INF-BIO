@@ -110,6 +110,9 @@ public class ControladorPanel implements ActionListener, MouseListener {
 					vt.getFicha().getEcg().getIno().killArduinoConnection();
 			} catch (ArduinoException e) {
 			}
+			vt.getFicha().getBtnEnivar().setEnabled(false);
+			vt.getFicha().getBtnStop().setEnabled(false);
+			vt.getFicha().getBtnTomarDatos().setEnabled(true);
 			vt.getFicha().getLblNewLabel().setText(p.getNombre());
 			vt.getFicha().getLblApellidos().setText(p.getApellido());
 			vt.getFicha().getLblDni().setText(p.getDni());

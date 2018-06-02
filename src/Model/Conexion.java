@@ -327,4 +327,49 @@ public class Conexion {
 		}
 		return name;
 	}
+	
+	static public Object[] getAgenda(int fecha,int dni) {
+		Object[] aux=new Object[4];
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(BBDDName, user, pass);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String a="SELECT data,id,fecha,dniMedico FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";";
+			ResultSet rs = stmt.executeQuery(a);
+			if (rs.next()) {
+				
+				aux[0]=rs.getString("data");
+				aux[1]=rs.getInt("id");
+				aux[2]=rs.getInt("fecha");
+				aux[3]=rs.getInt("dniMedico");
+				System.out.println("LEIDO"+aux[1]);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return aux;
+	}
+	static public boolean dayHaveSomething(int fecha,int dni) {
+		boolean hay=false;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(BBDDName, user, pass);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";");
+			if (rs.next()) {
+				hay=true;
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return hay;
+	}
 }
