@@ -339,6 +339,9 @@ public class DetallePaciente extends JPanel {
 	public void setBtnStop(JButton btnStop) {
 		this.btnStop = btnStop;
 	}
+	public JButton getBtnTomarDatos() {
+		return btnTomarDatos;
+	}
 
 
 

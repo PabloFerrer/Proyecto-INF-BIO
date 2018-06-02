@@ -121,6 +121,7 @@ public class ControladorFicha implements ActionListener {
 //				d.getEcg().addGraphic(ecg);
 			Thread aux=new Thread(d.getEcg());
 			d.getBtnEnivar().setEnabled(false);
+			d.getBtnTomarDatos().setEnabled(false);
 			d.getBtnStop().setEnabled(true);
 			aux.start();
 			((GraphController) d.getEcg().getSl().getChangeListeners()[d.getEcg().getSl().getChangeListeners().length-1]).stateChanged(new ChangeEvent(d.getEcg().getSl()));
@@ -150,6 +151,7 @@ public class ControladorFicha implements ActionListener {
 		} else if(cmd.equals(ControladorFicha.STOP)) {
 			try {
 				d.getEcg().getIno().killArduinoConnection();
+				d.getBtnTomarDatos().setEnabled(true);
 				d.getBtnEnivar().setEnabled(true);
 				d.getBtnStop().setEnabled(false);
 				if(ecg!=null && ecg.getPuntos()!=null && !ecg.getPuntos().isEmpty())

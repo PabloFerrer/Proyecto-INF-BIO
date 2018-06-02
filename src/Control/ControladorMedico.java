@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,6 +32,7 @@ import Model.Medico;
 import Model.Paciente;
 import Model.Usuario;
 import Model.Utilidades;
+import Pruebas.MemoCalendar;
 import View.BuscadorMedico;
 import View.CompararECG;
 import View.Formulario;
@@ -81,6 +84,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private VentanaLogin ven;
 	private Medico med;
 	private VentanaHelp help;
+	private MemoCalendar memo;
 	
 	
 	
@@ -90,25 +94,21 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	 * @param vm VentanaMedico 
 	 * @param us Medico 
 	 */
-	public ControladorMedico(VentanaMedico vm, Medico us) {
+	public ControladorMedico(VentanaMedico vm, Medico us,MemoCalendar memo) {
+		this.memo=memo;
 		this.vm=vm;
 		med= us;
 	}
-	/**
-	 * Segundo constructor de la clase ControladorMedico
-	 * @param vm VentanaMedico 
-	 * @param us Usuario 
-	 */
-	public ControladorMedico(VentanaMedico vm, Usuario us) {
-		this.vm=vm;
-		med=Conexion.consultaMed(us);
-	}
+
 
 	/**
 	 * Metodo actionPerformed propio de un ActionListener
 	 * @param e ActionEvent  
 	 */
 	public void actionPerformed(ActionEvent e) {
+		if(memo!=null) {
+			memo.getCalendar().save();
+		}
 		String cmd = e.getActionCommand().toString();
 		if(cmd.equals(ControladorMedico.ALTA)) {
 			vm.cleanButton();
@@ -179,6 +179,8 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getCentro().setVisible(false);
 			vm.getCentro().removeAll();
 			vm.getMenu().ladoIzq();
+			memo=new MemoCalendar(med);
+			vm.getCentro().add(memo);
 			vm.getCentro().setVisible(true);
 		}
 		else if (cmd.equals(ControladorMedico.PAC)) {
@@ -479,6 +481,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 		}catch(Exception exc){
 		}
 	}
+
 
 }
 
