@@ -118,20 +118,26 @@ public class VentanaMedico extends JFrame{
 		btnRevisarEcg.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, new Color(0,133,255)));
 		btnBuscarPacientes.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, new Color(0,133,255)));
 		
-		if(System.getProperty("os.name").toString().toLowerCase().contains("mac")){
-			btnRevisarEcg.setContentAreaFilled(false);
-			btnDardeAlta.setContentAreaFilled(false);
-			btnBuscarPacientes.setContentAreaFilled(false);
-			btnInicio.setContentAreaFilled(false);
+         
+//		if(System.getProperty("os.name").toString().toLowerCase().contains("mac")){
+//			
+//			menu.esMac();
+//		} 
+         btnRevisarEcg.setContentAreaFilled(false);
+		btnDardeAlta.setContentAreaFilled(false);
+		btnBuscarPacientes.setContentAreaFilled(false);
+		btnInicio.setContentAreaFilled(false);
 			
-			btnRevisarEcg.setOpaque(false);
-			btnDardeAlta.setOpaque(false);
-			btnBuscarPacientes.setOpaque(false);
-			btnInicio.setOpaque(false);
-			menu.esMac();
-		} 
+		btnRevisarEcg.setOpaque(true);
+		btnDardeAlta.setOpaque(true);
+		btnBuscarPacientes.setOpaque(true);
+		btnInicio.setOpaque(true);
 		
+		btnRevisarEcg.setBorderPainted(false);
 		btnDardeAlta.setBorderPainted(false);
+		btnBuscarPacientes.setBorderPainted(false);
+		btnInicio.setBorderPainted(false);
+		
 		btnRevisarEcg.setBackground(new Color(51,153,255));
 		
 		

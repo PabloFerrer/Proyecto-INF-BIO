@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import org.jsoup.Jsoup;
 
@@ -30,7 +32,6 @@ import Model.Medico;
 
 
 public class MemoCalendar extends CalendarDataManager {
-    ImageIcon icon;
     JPanel central;
     JPanel calOpPanel;
     JButton todayBut;
@@ -40,7 +41,6 @@ public class MemoCalendar extends CalendarDataManager {
     JLabel curMMYYYYLab;
     JButton nMonBut;
     JButton nYearBut;
-    ListenForCalOpButtons lForCalOpButtons;
     JPanel calPanel;
     JButton[] weekDaysName;
     JButton[][] dateButs;
@@ -48,20 +48,8 @@ public class MemoCalendar extends CalendarDataManager {
     JPanel infoPanel;
     JLabel infoClock;
     JPanel memoPanel;
-    JLabel selectedDate;
-    JTextArea memoArea;
-    JPanel memoAreaSP;
-    JPanel frameBottomPanel;
     JLabel bottomInfo;
     String[] WEEK_DAY_NAME;
-    String title = "Memo Calendar ver 1.0";
-    String SaveButMsg1 = " saved in MemoData folder.";
-    String SaveButMsg2 = "Write something first.";
-    String SaveButMsg3 = "<html><font color=red>ERROR : failed to write a file</html>";
-    String DelButMsg1 = "Memo deleted.";
-    String DelButMsg2 = "There is nothing to delete.";
-    String DelButMsg3 = "<html><font color=red>ERROR : failed to delete a file</html>";
-    String ClrButMsg1 = "Text Area cleared.";
    private MainWindow  calendar;
 
    
@@ -70,19 +58,11 @@ public class MemoCalendar extends CalendarDataManager {
     	central=new JPanel();
     	central.setLayout(new BorderLayout());
         //this.icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("icon.png")));
-        this.lForCalOpButtons = new ListenForCalOpButtons(this, null);
+    	ListenForCalOpButtons lForCalOpButtons = new ListenForCalOpButtons(this, null);
         this.dateButs = new JButton[6][7];
         this.lForDateButs = new listenForDateButs(this, null);
         this.bottomInfo = new JLabel("Welcome to Memo Calendar!");
         this.WEEK_DAY_NAME = new String[]{"SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT"};
-        this.title = "Memo Calendar ver 1.0";
-        this.SaveButMsg1 = " saved in MemoData folder.";
-        this.SaveButMsg2 = "Write something first.";
-        this.SaveButMsg3 = "<html><font color=red>ERROR : failed to write a file</html>";
-        this.DelButMsg1 = "Memo deleted.";
-        this.DelButMsg2 = "There is nothing to delete.";
-        this.DelButMsg3 = "<html><font color=red>ERROR : failed to delete a file</html>";
-        this.ClrButMsg1 = "Text Area cleared.";
         this.setOpaque(false);
        // this.this.setIconImage(this.icon.getImage());
 //        try {
@@ -96,21 +76,21 @@ public class MemoCalendar extends CalendarDataManager {
         calOpPanel.setOpaque(false);
         this.todayBut = new JButton("Today");
         this.todayBut.setToolTipText("Today");
-        this.todayBut.addActionListener(this.lForCalOpButtons);
-        this.todayLab = new JLabel(String.valueOf(this.today.get(2) + 1) + "/" + this.today.get(5) + "/" + this.today.get(1));
+        this.todayBut.addActionListener(lForCalOpButtons);
+        this.todayLab = new JLabel("    "+String.valueOf(this.today.get(2) + 1) + "/" + this.today.get(5) + "/" + this.today.get(1));
         this.lYearBut = new JButton("<<");
         this.lYearBut.setToolTipText("Previous Year");
-        this.lYearBut.addActionListener(this.lForCalOpButtons);
+        this.lYearBut.addActionListener(lForCalOpButtons);
         this.lMonBut = new JButton("<");
         this.lMonBut.setToolTipText("Previous Month");
-        this.lMonBut.addActionListener(this.lForCalOpButtons);
-        this.curMMYYYYLab = new JLabel("<html><table width=100><tr><th><font size=5>" + (this.calMonth + 1 < 10 ? "&nbsp;" : "") + (this.calMonth + 1) + " / " + this.calYear + "</th></tr></table></html>");
+        this.lMonBut.addActionListener(lForCalOpButtons);
+        this.curMMYYYYLab = new JLabel("<html><table width=100><tr><th><font size=4>" + (this.calMonth + 1 < 10 ? "&nbsp;" : "") + (this.calMonth + 1) + " / " + this.calYear + "</th></tr></table></html>");
         this.nMonBut = new JButton(">");
         this.nMonBut.setToolTipText("Next Month");
-        this.nMonBut.addActionListener(this.lForCalOpButtons);
+        this.nMonBut.addActionListener(lForCalOpButtons);
         this.nYearBut = new JButton(">>");
         this.nYearBut.setToolTipText("Next Year");
-        this.nYearBut.addActionListener(this.lForCalOpButtons);
+        this.nYearBut.addActionListener(lForCalOpButtons);
         this.calOpPanel.setLayout(new GridBagLayout());
         GridBagConstraints calOpGC = new GridBagConstraints();
         calOpGC.gridx = 1;
@@ -153,6 +133,8 @@ public class MemoCalendar extends CalendarDataManager {
         int i = 0;
         while (i < 7) {
             this.weekDaysName[i] = new JButton(this.WEEK_DAY_NAME[i].charAt(0)+"");
+            this.weekDaysName[i].setHorizontalAlignment(SwingConstants.LEFT);
+            this.weekDaysName[i].setText("<html><font size=\"6\">" + this.WEEK_DAY_NAME[i].charAt(0)+"" + "</font></html>");
             this.weekDaysName[i].setBorderPainted(false);
             this.weekDaysName[i].setContentAreaFilled(false);
             this.weekDaysName[i].setForeground(Color.WHITE);
@@ -192,25 +174,16 @@ public class MemoCalendar extends CalendarDataManager {
         this.infoClock = new JLabel("", 4);
         this.infoClock.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.infoPanel.add((Component)this.infoClock, "North");
-        this.selectedDate = new JLabel("<Html><font size=3>" + (this.today.get(2) + 1) + "/" + this.today.get(5) + "/" + this.today.get(1) + "&nbsp;(Today)</html>", 2);
-        this.selectedDate.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         this.memoPanel = new JPanel();
         memoPanel.setOpaque(false);
         this.memoPanel.setBorder(BorderFactory.createTitledBorder("Memo"));
-        this.memoArea = new JTextArea();
-        this.memoArea.setLineWrap(true);
-        this.memoArea.setWrapStyleWord(true);
         calendar=new MainWindow(m);
-        this.memoAreaSP = new JPanel();
-        memoAreaSP.setOpaque(false);
-        memoAreaSP.setLayout(new BorderLayout());
-        memoAreaSP.add(calendar);
         this.calendar.open();
       
         
         this.memoPanel.setLayout(new BorderLayout());
 		
-        this.memoPanel.add((Component)this.memoAreaSP, "Center");
+        this.memoPanel.add((Component)calendar, "Center");
         JPanel frameSubPanelWest = new JPanel();
         Dimension calOpPanelSize = this.calOpPanel.getPreferredSize();
         calOpPanelSize.height = 90;
@@ -218,7 +191,6 @@ public class MemoCalendar extends CalendarDataManager {
         frameSubPanelWest.setLayout(new BorderLayout());
         frameSubPanelWest.add((Component)this.calOpPanel, "North");
         frameSubPanelWest.add((Component)this.calPanel, "Center");
-        frameSubPanelWest.add(new JLabel("                                                                                                        "),BorderLayout.SOUTH);
         
         JPanel frameSubPanelEast = new JPanel();
         Dimension infoPanelSize = this.infoPanel.getPreferredSize();
@@ -228,7 +200,7 @@ public class MemoCalendar extends CalendarDataManager {
         frameSubPanelEast.add((Component)this.infoPanel, "North");
         frameSubPanelEast.add((Component)this.memoPanel, "Center");
         Dimension frameSubPanelWestSize = frameSubPanelWest.getPreferredSize();
-        frameSubPanelWestSize.width = 410;
+        frameSubPanelWestSize.width = 390;
         frameSubPanelWest.setPreferredSize(frameSubPanelWestSize);
        this.setLayout(new BorderLayout());
         frameSubPanelWest.setOpaque(false);
@@ -322,7 +294,7 @@ private class ListenForCalOpButtons implements ActionListener {
                 this.this$0.moveMonth(12);
             }
             
-            this.this$0.curMMYYYYLab.setText("<html><table width=100><tr><th><font size=5>" + (this.this$0.calMonth + 1 < 10 ? "&nbsp;" : "") + (this.this$0.calMonth + 1) + " / " + this.this$0.calYear + "</th></tr></table></html>");
+            this.this$0.curMMYYYYLab.setText("<html><table width=100><tr><th><font size=4>" + (this.this$0.calMonth + 1 < 10 ? "&nbsp;" : "") + (this.this$0.calMonth + 1) + " / " + this.this$0.calYear + "</th></tr></table></html>");
           
             this.this$0.showCal(this.this$0.calendar.getMe());
             int i = 5;
@@ -434,8 +406,7 @@ private class ListenForCalOpButtons implements ActionListener {
                 dDayString = "D+" + dDay * -1;
             }
             this.this$0.calendar.calendar.setDate(new DateTime(this.this$0.calYear,this.this$0.calMonth+1,this.this$0.calDayOfMon));
-            this.this$0.selectedDate.setText("<Html><font size=3>" + (this.this$0.calMonth + 1) + "/" + this.this$0.calDayOfMon + "/" + this.this$0.calYear + "&nbsp;(" + dDayString + ")</html>");
-            this.this$0.calendar.open();
+           this.this$0.calendar.open();
         }
         	
         public listenForDateButs(MemoCalendar memoCalendar, listenForDateButs listenForDateButs2) {

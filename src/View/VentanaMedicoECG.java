@@ -6,7 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.Vector;
 
-
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -147,15 +147,13 @@ public class VentanaMedicoECG extends JPanel {
 		//rey6.add(rey1,BorderLayout.EAST);
 
 		JPanel filtro=new JPanel();
+		filtro.setBorder(BorderFactory.createTitledBorder("Filtrado"));
 		filtro.setOpaque(false);
-		filtro.setLayout(new BoxLayout(filtro,BoxLayout.Y_AXIS));
+		filtro.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPanel lee=new JPanel();
 		lee.setOpaque(false);
 		lee.setLayout(new BoxLayout(lee,BoxLayout.Y_AXIS));
 		
-		lee.add(new JLabel(" "));
-		lee.add(new JLabel("Filtrar por vistos:"));
-		lee.add(new JLabel(" "));
 		JRadioButton leido=new JRadioButton("Leido");
 		leido.setOpaque(false);
 		
@@ -164,21 +162,22 @@ public class VentanaMedicoECG extends JPanel {
 		lee.add(leido);
 		lee.add(noleido);
 		
-		lee.add(new JLabel(" "));
-		lee.add(new JLabel(" "));
-		lee.add(new JLabel("Filtrar por diagnosticado:            "));
-		lee.add(new JLabel(" "));
+		JPanel di=new JPanel();
+		di.setLayout(new BoxLayout(di,BoxLayout.Y_AXIS));
+		di.setOpaque(false);
 		JRadioButton diag=new JRadioButton("Diagnosticado");
 		JRadioButton nodiag=new JRadioButton("Sin Diagnosticar");
 		diag.setOpaque(false);
 		nodiag.setOpaque(false);
-		lee.add(diag);
-		lee.add(nodiag);
-		filtro.add(lee);
-		lee.add(new JLabel(" "));
-		lee.add(new JLabel(" "));
+		di.add(diag);
+		di.add(nodiag);
 		JButton filtrar=new JButton("Filtrar");
 		filtrar.addActionListener(new ControladorFiltrado(leido,noleido,diag,nodiag,vm,m,this,auxec,auxpac));
+		filtro.add(new JLabel("          "));
+		filtro.add(lee);
+		filtro.add(new JLabel("                         "));
+		filtro.add(di);
+		filtro.add(new JLabel("                         "));
 		filtro.add(filtrar);
 		
 		JButton invi=new JButton();
@@ -197,7 +196,7 @@ public class VentanaMedicoECG extends JPanel {
 		
 		
 		
-		rey6.add(filtro,BorderLayout.EAST);
+		rey6.add(filtro,BorderLayout.NORTH);
 		this.add(rey6,BorderLayout.CENTER);
 		this.add(invi,BorderLayout.NORTH);
 		this.add(invi2,BorderLayout.WEST);
@@ -242,7 +241,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 		} else  {
 			if(leido==-1) {
 				if(diag==-1) {
-					if(auxec.get(i).isLeido()==false && auxec.get(i).getDiagnostico().isEmpty()) {
+					if(auxec.get(i).isLeido()==false && (auxec.get(i).getDiagnostico()== null || auxec.get(i).getDiagnostico().isEmpty())) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));
@@ -253,7 +252,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 						cont++;
 					}
 				} else if(diag==1){
-					if(auxec.get(i).isLeido()==false && !auxec.get(i).getDiagnostico().isEmpty()) {
+					if(auxec.get(i).isLeido()==false && (auxec.get(i).getDiagnostico()!= null && !auxec.get(i).getDiagnostico().isEmpty())) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));
@@ -278,7 +277,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 				
 			} else if(leido==1){
 				if(diag==-1) {
-					if(auxec.get(i).isLeido()==true && auxec.get(i).getDiagnostico().isEmpty()) {
+					if(auxec.get(i).isLeido()==true && (auxec.get(i).getDiagnostico()== null || auxec.get(i).getDiagnostico().isEmpty())) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));
@@ -289,7 +288,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 						cont++;
 					}
 				} else if(diag==1){
-					if(auxec.get(i).isLeido()==true && !auxec.get(i).getDiagnostico().isEmpty()) {
+					if(auxec.get(i).isLeido()==true && auxec.get(i).getDiagnostico()!= null && !auxec.get(i).getDiagnostico().isEmpty()) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));
@@ -313,7 +312,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 				}
 			} else if(leido==0) {
 				if(diag==-1) {
-					if(auxec.get(i).getDiagnostico().isEmpty()) {
+					if(auxec.get(i).getDiagnostico()== null || auxec.get(i).getDiagnostico().isEmpty()) {
 						PanelPaciente pan = new PanelPaciente(auxpac.get(i),auxec.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 						pan.addMouseListener(new ControladorPanelM(vm,auxpac.get(i), m,auxec.get(i),0));

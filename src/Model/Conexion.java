@@ -15,8 +15,8 @@ import java.sql.SQLException;
 
 
 public class Conexion {
-	private static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight";
-//	private static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
+//	private static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight";
+	private static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
 	private static String user = "pi2_heartlight";
 	private static String pass = "pepino_fresco";
 	public static Connection c = null;
@@ -187,7 +187,7 @@ public class Conexion {
 				String ubicacion=rs.getString("Ubicacion");
 				int genero=rs.getInt("genero");
 				
-				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero));//añadir nss, cambiar en el constructor!
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss));//añadir nss, cambiar en el constructor!
 			}
 			rs.close();
 			stmt.close();
@@ -205,15 +205,16 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion,genero FROM Paciente;");
+			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nSS,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion,genero FROM Paciente;");
 			while (rs.next()) {
 				int dni = rs.getInt("dni");
 				String nombre = rs.getString("nombre");
 				String ape=rs.getString("apellido");
 				String ubicacion=rs.getString("Ubicacion");
 				int genero=rs.getInt("genero");
+				int nss = rs.getInt("nss");
 				
-				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero));
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss));
 			}
 			rs.close();
 			stmt.close();

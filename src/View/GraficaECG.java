@@ -281,7 +281,6 @@ public class GraficaECG extends JPanel implements Runnable {
 		String[] aux=ecg.getPuntos().split(";");
 		
 		for (int i = 0; i < aux.length; i++) {
-			System.out.println(ecg.getId()+" "+aux[i]);
 			series.add(mili, Double.parseDouble(aux[i]));
 			mili += 1000 / ecg.getPuntosporsec();
 		}

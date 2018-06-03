@@ -49,10 +49,11 @@ public class Paciente {
 		mensajes=new Vector<Mensaje>();
 	}
 	
-	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero){
+	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero,int ss){
 		this.poblacion=ubicacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.ss=ss;
 		this.dni = dni;
 		mensajes=new Vector<Mensaje>();
 		this.genero=genero;

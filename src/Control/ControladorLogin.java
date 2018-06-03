@@ -72,7 +72,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 		 */
 	public ControladorLogin(VentanaLogin frame){
 		 
-			user=new Usuario("","","",0);
+			user=new Usuario(null,null,null,0);
 			this.usuario=frame.getUser();
 			this.contrasena=frame.getPass();
 			this.frame=frame;

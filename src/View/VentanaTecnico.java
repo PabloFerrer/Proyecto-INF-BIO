@@ -222,7 +222,7 @@ public class VentanaTecnico extends JFrame {
 	rey6.setOpaque(false);
 	
 	//CREO LA FICHA 
-	ficha = new DetallePaciente(new Paciente("","","","",0));
+	ficha = new DetallePaciente(new Paciente("","","","",0,0));
 	ficha.addController(new ControladorFicha(ficha,this));
 	colocar.add(ficha);
 	ficha.setVisible(false);

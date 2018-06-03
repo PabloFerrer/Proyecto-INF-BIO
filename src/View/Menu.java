@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 public class Menu extends JPanel{
 	private boolean iz=false;
 	private boolean de=false;
-	private boolean esMac=false;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -29,7 +28,6 @@ public class Menu extends JPanel{
 	        g.setColor(new Color(51,153,255));
 	        g.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 30,30);
 	        g.setColor(new Color(51,153,255).darker());
-	        if(!esMac)
 	        if(iz==true) {
 	        	 g.fillRoundRect(0, 0, (int) (this.getWidth()*0.1), this.getHeight(), 30,30);
 	        } else if(de==true){
@@ -52,9 +50,6 @@ public class Menu extends JPanel{
 		iz=false;
 		this.repaint();
 		
-	}
-	public void esMac() {
-		esMac=true;
 	}
 
 }
