@@ -62,7 +62,7 @@ public class MemoCalendar extends CalendarDataManager {
         this.dateButs = new JButton[6][7];
         this.lForDateButs = new listenForDateButs(this, null);
         this.bottomInfo = new JLabel("Welcome to Memo Calendar!");
-        this.WEEK_DAY_NAME = new String[]{"SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT"};
+        this.WEEK_DAY_NAME = new String[]{"D", "L", "M", "M", "J", "V", "S"};
         this.setOpaque(false);
        // this.this.setIconImage(this.icon.getImage());
 //        try {

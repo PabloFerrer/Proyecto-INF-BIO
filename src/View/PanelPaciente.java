@@ -1,6 +1,8 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
@@ -61,12 +63,15 @@ public class PanelPaciente extends JPanel {
 	    	JPanel aux=new JPanel();
 	    	aux.setLayout(new BorderLayout(3,0));
 	    	JPanel btnNewButton = new JPanel();
-	    	Logo foto;
-	    	if(p.getGenero()==Constantes.FEMENINO) {
-				foto=new Logo(btnNewButton,"Resource/Imagenes/Mujer.png");
-			} else {
-				foto=new Logo(btnNewButton,"Resource/Imagenes/hombre.png");
-			}
+	    	Logo foto = new Logo(btnNewButton,p.getFoto());
+			
+	    	btnNewButton.setLayout(new BorderLayout(0, 0));
+	    	int h=80;
+	    	double w= 55;
+	    	foto.centrado(true);
+	    	foto.setPreferredSize(new Dimension((int) w,h));
+	    	foto.setBackground(Color.WHITE);
+	    	btnNewButton.setPreferredSize(new Dimension(80,80));
 	    	foto.setLayout(new BorderLayout());
 	    	JButton invi=new JButton();
 	    	foto.add(invi);
@@ -176,17 +181,18 @@ public class PanelPaciente extends JPanel {
 			Logo foto = new Logo(btnNewButton,p.getFoto());
 			
 	    	btnNewButton.setLayout(new BorderLayout(0, 0));
+	    	int h=80;
+	    	double w= 55;
+	    	foto.centrado(true);
+			aux.setBackground(Color.WHITE);
+	    	foto.setPreferredSize(new Dimension((int) w,h));
+	    	foto.setBackground(Color.WHITE);
+	    	btnNewButton.setPreferredSize(new Dimension(80,80));
 	    	btnNewButton.add(foto,BorderLayout.CENTER);
 	    	aux.add(new JPanel(), BorderLayout.WEST);
 	    	aux.add(btnNewButton,BorderLayout.CENTER);
 			add(aux, BorderLayout.WEST);
-			btnNewButton.setOpaque(false);
 			foto.setLayout(new BorderLayout());
-	    	JButton invi=new JButton();
-	    	invi.setOpaque(false);
-	    	invi.setContentAreaFilled(false);
-	    	invi.setBorderPainted(false);
-	    	foto.add(invi);
 			
 			JPanel panel = new JPanel();
 			panel.setOpaque(false);

@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.Calendar;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -116,6 +118,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 			vt.getFicha().getLblNewLabel().setText(p.getNombre());
 			vt.getFicha().getLblApellidos().setText(p.getApellido());
 			vt.getFicha().getLblDni().setText(p.getDni());
+			vt.getFicha().getLblNewLabel_1().setImage((BufferedImage) p.getFoto());
 			vt.getFicha().setP(p);
 			vt.getFicha().getBtnEnivar().setEnabled(false);
 			vt.getFicha().getEcg().cleanGraph();

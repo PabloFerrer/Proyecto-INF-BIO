@@ -290,5 +290,38 @@ public class Logo extends JPanel implements Runnable{
 	public void setStop(boolean stop) {
 		this.stop = stop;
 	}
+	/**
+	 * @return the image
+	 */
+	public BufferedImage getImage() {
+		return image;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(BufferedImage image) {
+		this.image = image;
+		 CO=image.getHeight();
+         CA=image.getWidth();
+         ang=(Math.atan((double)CO/CA));
+	}
+	/**
+	 * @return the cO
+	 */
+	public int getCO() {
+		return CO;
+	}
+	/**
+	 * @return the cA
+	 */
+	public int getCA() {
+		return CA;
+	}
+	/**
+	 * @return the ang
+	 */
+	public double getAng() {
+		return ang;
+	}
 
 }

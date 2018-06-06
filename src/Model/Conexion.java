@@ -26,7 +26,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 	public static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight";
-	//public static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
+//	public static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
 	public static String user = "pi2_heartlight";
 	public static String pass = "pepino_fresco";
 	public static Connection c = null;
@@ -279,7 +279,7 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nSS,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion,genero FROM Paciente;");
+			ResultSet rs = stmt.executeQuery("SELECT Paciente.dni,Paciente.nSS,Paciente.nombre,Paciente.apellido,Paciente.Ubicacion,genero,foto FROM Paciente;");
 			while (rs.next()) {
 				int dni = rs.getInt("dni");
 				String nombre = rs.getString("nombre");
@@ -354,9 +354,9 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Mensaje where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
+			ResultSet rs = stmt.executeQuery("SELECT Mensaje.id,Mensaje.DniUsuario,Mensaje.dniPaciente,Mensaje.leido,Mensaje.datos,Mensaje.fecha,Mensaje.asunto,Usuario.Nombre,Usuario.apellido,Usuario.rol FROM Mensaje join Usuario on Usuario.dni=Mensaje.DniUsuario where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
 			while (rs.next()) {
-				men.add(new Mensaje(rs.getInt("id"),rs.getInt("DniUsuario"),rs.getInt("dniPaciente"),rs.getInt("leido"),rs.getString("datos"),rs.getInt("fecha"),rs.getString("asunto")));
+				men.add(new Mensaje(rs.getInt("Mensaje.id"),rs.getInt("Mensaje.DniUsuario"),rs.getInt("Mensaje.dniPaciente"),rs.getInt("Mensaje.leido"),rs.getString("Mensaje.datos"),rs.getInt("Mensaje.fecha"),rs.getString("Mensaje.asunto"),rs.getString("Usuario.Nombre")+" "+rs.getString("Usuario.apellido"),rs.getInt("Usuario.rol")));
 			}
 			rs.close();
 			stmt.close();
@@ -374,7 +374,7 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by id desc;");
 			while (rs.next()) {
 				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),(rs.getInt("leido")==Constantes.LEIDO),rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
 						,rs.getString("comentarioTecnico"),rs.getInt("pulsaciones"),rs.getString("diagnostico"),rs.getInt("puntoSegundo")

@@ -123,7 +123,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 		if(cmd.equals(ControladorLogin.ACCEDER)){
 			if(help!=null)
 				help.dispose();
-			if(!usuario.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
+			if(user.getUser()!=null && !usuario.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
 				user=Conexion.consultaLogin(usuario.getText(), contrasena.getText());
 			}
 			darAcceso();

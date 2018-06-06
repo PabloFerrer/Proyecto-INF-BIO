@@ -144,7 +144,7 @@ public class VentanaMedicoECG extends JPanel {
 		
 		//rey6.add(rey5,BorderLayout.NORTH);
 		rey6.add(jsp, BorderLayout.CENTER);
-		//rey6.add(rey1,BorderLayout.EAST);
+		rey6.add(rey1,BorderLayout.EAST);
 
 		JPanel filtro=new JPanel();
 		filtro.setBorder(BorderFactory.createTitledBorder("Filtrado"));
@@ -188,6 +188,10 @@ public class VentanaMedicoECG extends JPanel {
 		invi2.setContentAreaFilled(false);
 		invi2.setOpaque(false);
 		invi2.setBorderPainted(false);
+		JButton invi4=new JButton();
+		invi4.setContentAreaFilled(false);
+		invi4.setOpaque(false);
+		invi4.setBorderPainted(false);
 		
 		JButton invi3=new JButton();
 		invi3.setContentAreaFilled(false);
@@ -198,6 +202,7 @@ public class VentanaMedicoECG extends JPanel {
 		
 		rey6.add(filtro,BorderLayout.NORTH);
 		this.add(rey6,BorderLayout.CENTER);
+		this.add(invi4,BorderLayout.EAST);
 		this.add(invi,BorderLayout.NORTH);
 		this.add(invi2,BorderLayout.WEST);
 		this.add(invi3,BorderLayout.SOUTH);
@@ -370,7 +375,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 		
 		int p=L.get(ini).getFecha();
 		for(int j=ini+1;j<=fin;++j){
-			if(L.get(j).getFecha()<=p){
+			if(L.get(j).getFecha()>=p){
 				i++;
 				if(i!=j){
 					ECG aux=L.get(j);

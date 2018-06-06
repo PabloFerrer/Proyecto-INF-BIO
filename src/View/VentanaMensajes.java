@@ -213,11 +213,17 @@ public class VentanaMensajes extends JFrame{
 			return list;
 		}
 		public void actInfo(Mensaje men) {
+			String rol="";
+			if(men.getRol()==Constantes.TECNICO) {
+				rol="Tecnico";
+			} else if(men.getRol()==Constantes.MEDICO) {
+				rol="Medico";
+			}
 			asunto.setText(men.getAsunto());
 			System.out.println(Conexion.getUserName(men.getDniUsuario())+" "+men.getDniUsuario()+Utilidades.letraDNI(men.getDniUsuario()));
-			emisor.setText(Conexion.getUserName(men.getDniUsuario())+" "+men.getDniUsuario()+Utilidades.letraDNI(men.getDniUsuario()));
+			emisor.setText(men.getUsuario()+" "+men.getDniUsuario()+Utilidades.letraDNI(men.getDniUsuario()));
 			texto.setText(men.getData());
-			fecha.setText(String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");
+			fecha.setText(rol+"    "+String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");
 			
 		}
 

@@ -6,6 +6,8 @@ import Model.Paciente;
 import Model.Utilidades;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -219,6 +221,10 @@ public class FichaPaciente extends JPanel {
 		atras.setActionCommand(ControladorPanelM.ATRAS);
 		
 		//AQUI A�ADO ELEMENTOS EN CADA PANEL O PANELES A MAS PANELEs
+		int h=110;
+    	double w= 70;
+    	imagen.setPreferredSize(new Dimension((int) w,h));
+    	imagen.setBackground(Color.WHITE);
 		pan3.add(imagen);
 		
 		pan2.add(new JLabel("        "));

@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -42,7 +43,7 @@ import Model.Usuario;
  */
 public class DetallePaciente extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JLabel lblNewLabel_1;
+	private Logo lblNewLabel_1;
 	private JButton btnTomarDatos;
 	private JButton btnStop;
 	private JButton btnEnivar;
@@ -134,8 +135,20 @@ public class DetallePaciente extends JPanel {
 		obser.setWrapStyleWord(true);
 		button = new JButton("<- Atras");
 		button.setActionCommand(ControladorFicha.ATRAS);
-		lblNewLabel_1 = new JLabel();
-		lblNewLabel_1.setIcon(new ImageIcon(p.getFoto()));
+		JPanel fo=new JPanel();
+		if(p.getFoto()!=null) {
+			lblNewLabel_1=new Logo(fo,p.getFoto());
+		} else {
+			lblNewLabel_1=new Logo(fo,"Resource/Imagenes/Hombre.png");
+		}
+		int h=110;
+    	double w= 85;
+    	lblNewLabel_1.centrado(true);
+    	lblNewLabel_1.setPreferredSize(new Dimension((int) w,h));
+    	lblNewLabel_1.setBackground(Color.WHITE);
+		lblNewLabel_1.setLayout(new BorderLayout());
+		fo.setLayout(new BorderLayout());
+		
 		btnTomarDatos = new JButton("Tomar datos");
 		btnTomarDatos.setActionCommand(ControladorFicha.TOMAR);
 		btnStop=new JButton("STOP");
@@ -175,7 +188,7 @@ public class DetallePaciente extends JPanel {
 		
 		iz.setLayout(izl);
 		
-		JPanel fo=new JPanel();
+		
 		JPanel datos=new JPanel();
 		datos.setOpaque(false);
 		datos.setLayout(new BoxLayout(datos, BoxLayout.Y_AXIS));
@@ -341,6 +354,12 @@ public class DetallePaciente extends JPanel {
 	}
 	public JButton getBtnTomarDatos() {
 		return btnTomarDatos;
+	}
+	/**
+	 * @return the lblNewLabel_1 / FOTO
+	 */
+	public Logo getLblNewLabel_1() {
+		return lblNewLabel_1;
 	}
 
 
