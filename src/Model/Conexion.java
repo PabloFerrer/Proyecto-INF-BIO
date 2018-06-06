@@ -1,7 +1,10 @@
 package Model;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,15 +13,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+
+import Control.ControladorMedico;
+import View.Formulario;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 public class Conexion {
-//	private static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight";
-	private static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
-	private static String user = "pi2_heartlight";
-	private static String pass = "pepino_fresco";
+	public static String BBDDName = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight";
+	//public static String BBDDName = "jdbc:mariadb://127.0.0.1:3306/p2_heartlight";
+	public static String user = "pi2_heartlight";
+	public static String pass = "pepino_fresco";
 	public static Connection c = null;
 	private static Statement stmt = null;
 
@@ -61,6 +71,57 @@ public class Conexion {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage()+" "+e.getCause() );
 		}
+	}
+	
+	public static void crearPaciente(Formulario formulario,Medico med,ControladorMedico cm){
+		String numDni = formulario.getDni().getText();
+		int numm=Integer.parseInt(numDni);
+		
+		String numSS = formulario.getSs().getText();
+		int numm2= Integer.parseInt(numSS);
+		
+		String apellidos = formulario.getApellido1().getText()+" "+formulario.getApellido2().getText();
+		
+		String nombre = formulario.getNombre().getText();
+		
+		String sqql = "insert into Paciente (dni,nSS,apellido,nombre,ubicacion,genero,foto) values (?,?,?,?,?,?,?)";
+		PreparedStatement pst; 
+		try {
+			
+			Class.forName("org.mariadb.jdbc.Driver");
+			Conexion.c = DriverManager.getConnection(Conexion.BBDDName, Conexion.user, Conexion.pass);
+			pst = Conexion.c.prepareStatement(sqql);
+			pst.setInt(1,numm);
+			pst.setInt(2,numm2);
+			pst.setString(3,apellidos);
+			pst.setString(4, formulario.getNombre().getText());
+			pst.setString(5,formulario.getLugar().getText());
+			pst.setInt(6, ((formulario.getRdbtnMasculino().isSelected())? Constantes.MASCULINO:Constantes.FEMENINO));
+			pst.setBinaryStream(7, cm.getFis() );
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		
+		String sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
+		Conexion.sentenciaSQL(sentencia);
+	
+		try {
+			med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Integer.parseInt(formulario.getSs().getText()),formulario.getLugar().getText(),ImageIO.read(cm.getImagen()),new Vector<ECG>()));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
+		JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+nombre, "Creado", JOptionPane.INFORMATION_MESSAGE);
+		formulario.dispose();
 	}
 	
 	static public Vector<Usuario> consultarUsuarios(){
@@ -168,12 +229,13 @@ public class Conexion {
 	
 	static public ArrayList<Paciente> consultaPacMed(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+		Image foto = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion,genero\r\n" + 
+			ResultSet rs = stmt.executeQuery("select Paciente.dni,Paciente.nSS,Paciente.apellido,Paciente.nombre,Paciente.ubicacion,Paciente.genero,Paciente.foto\r\n" + 
 					"from Paciente\r\n" + 
 					"join medicoPaciente on Paciente.dni = medicoPaciente.dniPaciente\r\n" + 
 					"join Medico on Medico.dni = medicoPaciente.dniMedico"
@@ -186,8 +248,19 @@ public class Conexion {
 				String nombre = rs.getString("nombre");
 				String ubicacion=rs.getString("Ubicacion");
 				int genero=rs.getInt("genero");
+				InputStream is = rs.getBinaryStream("foto");
 				
-				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss));//añadir nss, cambiar en el constructor!
+				if(is!=null){
+					foto = ImageIO.read(is);	
+				}else if(genero == Constantes.MASCULINO){
+					foto = ImageIO.read(new File("Resource/Imagenes/Hombre.png"));
+				}else{
+					foto = ImageIO.read(new File("Resource/Imagenes/Mujer.png"));
+				}
+				
+				
+				
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss,foto));//añadir nss, cambiar en el constructor!
 			}
 			rs.close();
 			stmt.close();
@@ -200,6 +273,7 @@ public class Conexion {
 	//public Paciente(String id,String nombre,String apellido,String dni)
 	static public ArrayList<Paciente> consultaPacTec() {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+		Image foto = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			c = DriverManager.getConnection(BBDDName, user, pass);
@@ -213,8 +287,18 @@ public class Conexion {
 				String ubicacion=rs.getString("Ubicacion");
 				int genero=rs.getInt("genero");
 				int nss = rs.getInt("nss");
+				InputStream is = rs.getBinaryStream("foto");
 				
-				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss));
+				if(is!=null){
+					foto = ImageIO.read(is);	
+				}else if(genero == Constantes.MASCULINO){
+					foto = ImageIO.read(new File("Resource/Imagenes/Hombre.png"));
+				}else{
+					foto = ImageIO.read(new File("Resource/Imagenes/Mujer.png"));
+				}
+				
+				
+				pac.add(new Paciente(nombre,ape,dni+Utilidades.letraDNI(dni),ubicacion,genero,nss,foto));
 			}
 			rs.close();
 			stmt.close();

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import Control.ControladorAdmin;
 import Control.ControladorMedico;
@@ -600,13 +601,24 @@ public class Formulario extends JFrame{
 			public JPanel paciente(ControladorMedico control){
 				
 				JButton invi = new JButton();
+				invi.setFont(new Font("",0,30));
 				invi.setOpaque(false);
+				invi.setBorderPainted(false);
+				invi.setContentAreaFilled(false);
+				
+				JButton invi2=new JButton(" ");
+				invi2.setFont(new Font("",0,30));
+				invi2.setOpaque(false);
+				invi2.setBorderPainted(false);
+				invi2.setContentAreaFilled(false);
 				
 				JPanel panel = new JPanel();
-				panel.setLayout(new BoxLayout(panel,BoxLayout.LINE_AXIS));
 				panel.setOpaque(false);
-
 				
+				JPanel contenedor = new JPanel();
+				contenedor.setOpaque(false);
+				contenedor.setLayout(new BorderLayout());
+//				contenedor.setBorder(new LineBorder(Color.BLACK,3));
 				
 				BorderLayout bor=new BorderLayout();
 				panel.setLayout(bor);
@@ -621,8 +633,8 @@ public class Formulario extends JFrame{
 				flow.setAlignment(FlowLayout.RIGHT);
 				FlowLayout flow2=new FlowLayout();
 				flow2.setAlignment(FlowLayout.LEFT);
-				basu1.setLayout(flow);
-				basu2.setLayout(flow2);
+				basu1.setLayout(flow2);
+				basu2.setLayout(flow);
 				
 				agregar=new JButton("Agregar imagen:");
 				enviar=new JButton();
@@ -743,7 +755,7 @@ public class Formulario extends JFrame{
 				se.add(rdbtnMasculino);
 				formu.add(se);
 				
-				//formu.add(agregar);
+				formu.add(agregar);
 				
 				/*JPanel c0 = new JPanel();
 				c0.setOpaque(false);
@@ -756,14 +768,21 @@ public class Formulario extends JFrame{
 				c0.add(c1);
 				c0.add(urgencia);
 				formu.add(c0);*/
+				
 				formu.setOpaque(false);
 				
 				nombre.setName("T");
 				apellido1.setName("T");
 				apellido2.setName("T");
 				
-				panel.add(formu,BorderLayout.CENTER);
-				panel.add(aux,BorderLayout.NORTH);
+				contenedor.add(formu,BorderLayout.CENTER);
+				contenedor.add(aux,BorderLayout.SOUTH);
+				
+				panel.add(invi,BorderLayout.EAST);
+				panel.add(invi2,BorderLayout.WEST);
+				panel.add(contenedor);
+//				panel.add(formu,BorderLayout.CENTER);
+//				panel.add(aux,BorderLayout.SOUTH);
 				
 				ss.setName("N");
 				dni.setName("N");

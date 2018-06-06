@@ -208,7 +208,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		
 		if (pacientes.size() < 10) {
 			for (int i = pacientes.size(); i < 10; i++) {
-				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " ",0,0), "");
+				PanelPaciente pan = new PanelPaciente(new Paciente(""," ", " ", " ",0,0,null), "");
 
 				JLabel invi = new JLabel("lalalalalal");
 				invi.setVisible(false);

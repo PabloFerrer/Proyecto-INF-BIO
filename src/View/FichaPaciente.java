@@ -107,7 +107,7 @@ public class FichaPaciente extends JPanel {
 		
 		//AQUI CREO OBJETOS
 		
-		imagen = new Logo(pan3,"Resource/Imagenes/hombre.png");
+		imagen = new Logo(pan3,p.getFoto());
 		imagen.centrado(true);
 		
 		nombre = new JLabel(p.getNombre());

@@ -1,6 +1,7 @@
 package View;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -108,6 +109,14 @@ public class Logo extends JPanel implements Runnable{
         } catch (IOException ex) {
      	   
         }
+       
+     }
+    public Logo(JPanel b, Image x) {
+        this.b=b;
+           image = (BufferedImage) x;
+           CO=image.getHeight();
+           CA=image.getWidth();
+           ang=(Math.atan((double)CO/CA));
        
      }
     /**

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -76,9 +77,14 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	public static String ENVIAR="ENVIAR";
 	public static String CANCEL="CANCEL";
 	public static String AGREGAR="AGREGAR";
-	public static String nombre = null;
+	private String nombre = null;
+	private FileInputStream fis;
+	private File imagen;
+
+
 	public static int s = 0;
-	public static byte[] imagenPersona = null;
+
+
 	private VentanaMedico vm;
 	private Formulario formulario=null;
 	private VentanaLogin ven;
@@ -268,16 +274,15 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			
 			try{
 				
-				File imagen = new File(nombre);
-				FileInputStream fis = new FileInputStream(imagen);
-				ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
-				byte[] buf = new byte[1024];
+				imagen = new File(nombre);
+				fis = new FileInputStream(imagen);
 				
-				for(int leer; (leer=fis.read(buf))!=-1;){
-					bos.write(buf,0,leer);
-				}
-				
-				imagenPersona = bos.toByteArray();
+//				ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
+//				byte[] buf = new byte[1024];
+//				
+//				for(int leer; (leer=fis.read(buf))!=-1;){
+//					bos.write(buf,0,leer);
+//				}				
 				
 			}catch (Exception o){
 				JOptionPane.showMessageDialog(null,o);
@@ -329,47 +334,9 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.getSs().setBackground(Color.WHITE);
 			}
 			if(bien==true) {
-//					String numDni = formulario.getDni().getText();
-//					int numm=Integer.parseInt(numDni);
-//					
-//					String numSS = formulario.getSs().getText();
-//					int numm2= Integer.parseInt(numSS);
-//					
-//					String apellidos = formulario.getApellido1().getText()+" "+formulario.getApellido2().getText();
-//					
-//					String sqql = "insert into Paciente (dni,nSS,apellido,nombre,ubicacion,foto) values (?,?,?,?,?,?)";
-//					PreparedStatement pst; 
-//					try {
-//						pst = Conexion.c.prepareStatement(sqql);
-//						pst.setInt(1,numm);
-//						pst.setInt(2,numm2);
-//						pst.setString(3,apellidos);
-//						pst.setString(4, formulario.getNombre().getText());
-//						pst.setString(5,formulario.getLugar().getText());
-//						pst.setBytes(6, imagenPersona);
-//						pst.execute(sqql);
-//						pst.close();
-//					} catch (SQLException e1) {
-//						e1.printStackTrace();
-//					}
+				Conexion.crearPaciente(formulario, med,this);
 				
-					String st=formulario.getNombre().getText()+ " " +formulario.getApellido1().getText();
-					String sentencia=" insert into Paciente (dni,nSS,apellido,nombre,ubicacion,genero) values ("
-					+ formulario.getDni().getText()+ ","
-					+ formulario.getSs().getText()+ ",'"
-					+ formulario.getApellido1().getText()+" "+formulario.getApellido2().getText()+"','"
-					+ formulario.getNombre().getText()+ "','"
-					+ formulario.getLugar().getText()+"',"
-					+ ((formulario.getRdbtnMasculino().isSelected())? Constantes.MASCULINO:Constantes.FEMENINO) +");";
-					System.out.println("pruebo");
-					Conexion.sentenciaSQL(sentencia);
-					sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
-					Conexion.sentenciaSQL(sentencia);
-					med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Integer.parseInt(formulario.getSs().getText()),formulario.getLugar().getText(),null,new Vector<ECG>()));
-					System.out.println("funciono");
-					//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
-					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
-					formulario.dispose();
+					
 			} else {
 				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -482,6 +449,13 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 		}
 	}
 
+	public FileInputStream getFis() {
+		return fis;
+	}
+	
+	public File getImagen() {
+		return imagen;
+	}
 
 }
 

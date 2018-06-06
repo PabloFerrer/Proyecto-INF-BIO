@@ -49,7 +49,7 @@ public class Paciente {
 		mensajes=new Vector<Mensaje>();
 	}
 	
-	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero,int ss){
+	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero,int ss,Image foto){
 		this.poblacion=ubicacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -57,6 +57,7 @@ public class Paciente {
 		this.dni = dni;
 		mensajes=new Vector<Mensaje>();
 		this.genero=genero;
+		this.foto=foto;
 	}
 	
 	public Paciente(){

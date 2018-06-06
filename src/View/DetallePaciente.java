@@ -135,7 +135,7 @@ public class DetallePaciente extends JPanel {
 		button = new JButton("<- Atras");
 		button.setActionCommand(ControladorFicha.ATRAS);
 		lblNewLabel_1 = new JLabel();
-		lblNewLabel_1.setIcon(new ImageIcon("Resource/Imagenes/hombre.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(p.getFoto()));
 		btnTomarDatos = new JButton("Tomar datos");
 		btnTomarDatos.setActionCommand(ControladorFicha.TOMAR);
 		btnStop=new JButton("STOP");
