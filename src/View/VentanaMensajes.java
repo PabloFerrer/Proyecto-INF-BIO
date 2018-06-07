@@ -43,6 +43,7 @@ public class VentanaMensajes extends JFrame{
 	private Fondo fon;
 	private JPanel central;
 	private JButton atras;
+	private JButton orden;
 	private JButton nuevo;
 	
 	public VentanaMensajes(ControladorMensaje control) {
@@ -69,8 +70,16 @@ public class VentanaMensajes extends JFrame{
 		nuevo=new JButton("New Message");
 		nuevo.addActionListener(control);
 		nuevo.setActionCommand(ControladorMensaje.NEWMENSAJE);
+		orden=new JButton("^ fecha");
+		orden.setActionCommand(ControladorMensaje.ORDENAR);
+		orden.addActionListener(control);
+		JPanel p=new JPanel();
+		p.setLayout(new FlowLayout(FlowLayout.LEFT));
+		p.setOpaque(false);
+		p.add(orden);
 		aux.add(atras,BorderLayout.WEST);
 		aux.add(nuevo,BorderLayout.EAST);
+		aux.add(p,BorderLayout.CENTER);
 		central=new JPanel();
 		
 		fon.add(aux,BorderLayout.NORTH);
@@ -98,8 +107,16 @@ public class VentanaMensajes extends JFrame{
 		nuevo=new JButton("New Message");
 		nuevo.addActionListener(control);
 		nuevo.setActionCommand(ControladorMensaje.NEWMENSAJE);
+		orden=new JButton("Mas recientes");
+		orden.setActionCommand(ControladorMensaje.ORDENAR);
+		orden.addActionListener(control);
+		JPanel p=new JPanel();
+		p.setOpaque(false);
+		p.setLayout(new FlowLayout(FlowLayout.LEFT));
+		p.add(orden);
 		aux.add(atras,BorderLayout.WEST);
 		aux.add(nuevo,BorderLayout.EAST);
+		aux.add(p,BorderLayout.CENTER);
 		central=new JPanel();
 		
 		fon.add(aux,BorderLayout.NORTH);
@@ -109,6 +126,7 @@ public class VentanaMensajes extends JFrame{
 			System.out.println(p.getApellido());
 			p.setMensajes(Conexion.consultarMensajes(p));
 			atras.setEnabled(false);
+			orden.setEnabled(true);
 			Vector<Mensaje> recibidos=(Vector<Mensaje>) p.getMensajes().clone();
 			Vector<Mensaje> enviados=new Vector<Mensaje>();
 			for(int i=recibidos.size()-1;i>=0;i--) {
@@ -284,6 +302,12 @@ public class VentanaMensajes extends JFrame{
 		}
 		public void setEnvlist(JList<Mensaje> reclist) {
 			this.envlist = reclist;
+		}
+		/**
+		 * @return the orden
+		 */
+		public JButton getOrden() {
+			return orden;
 		}
 		
 		
