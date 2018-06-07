@@ -3,6 +3,7 @@ package View;
 import Model.Conexion;
 import Model.ECG;
 import Model.Paciente;
+import Model.Usuario;
 import Model.Utilidades;
 
 import java.awt.BorderLayout;
@@ -11,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.*;
 
@@ -268,7 +270,7 @@ public class FichaPaciente extends JPanel {
 		this.setOpaque(false);
 		this.setVisible(true);
 	}
-
+	
 	/**
 	 * Getter de la ventana del TabbedPane
 	 * @return JTabbedPane tab

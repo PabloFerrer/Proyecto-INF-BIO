@@ -73,6 +73,8 @@ public class Conexion {
 		}
 	}
 	
+	
+	
 	public static void crearPaciente(Formulario formulario,Medico med,ControladorMedico cm){
 		String numDni = formulario.getDni().getText();
 		int numm=Integer.parseInt(numDni);
@@ -133,9 +135,13 @@ public class Conexion {
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
 			while (rs.next()) {
-				String nick = rs.getString("nick");
+				String nickname = rs.getString("nick");
 				int dni=rs.getInt("dni");
 				String rol="";
+				String nombre = rs.getString("nombre");
+				String ape=rs.getString("apellido");
+				String password = rs.getString("contrasena");
+				String ubicacion=rs.getString("Ubicacion");
 				switch(rs.getInt("rol")){
 				case Constantes.ADMINISTRADOR:
 					rol="admin";
@@ -148,7 +154,7 @@ public class Conexion {
 					break;
 			}
 				
-				users.add(new Usuario(nick,rol,dni));
+				users.add(new Usuario(nombre,ape,nickname,rol,password,dni,ubicacion));
 			}
 			rs.close();
 			stmt.close();
@@ -158,6 +164,7 @@ public class Conexion {
 		}
 		return users;
 	}
+	
 	
 	public static Medico consultaMed(Usuario us){
 		Medico m= new Medico(us,0,0);

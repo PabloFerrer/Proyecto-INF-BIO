@@ -63,7 +63,15 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
 	private Vector<Usuario> elimi;
+	private Vector<String> querys = new Vector<String>();	
 	
+	/**
+	 * @return the querys
+	 */
+	public Vector<String> getQuerys() {
+		return querys;
+	}
+
 	/**
 	 * Getter de un vector que contiene todos los usuarios
 	 * @return Vector de Usuario
@@ -411,20 +419,24 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 			while(!elimi.isEmpty()) {
 				if(usuario.get(0).getRol().equals("medico")) {
-					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
+//					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
+					for(int i = 0; i <  querys.size();i++){
+						Conexion.sentenciaSQL(querys.get(i));
+						System.out.println(querys.get(i));
+					}
 				} else if(usuario.get(0).getRol().equals("tecnico")){
-					Conexion.sentenciaSQL("delete from tecnico where dni="+elimi.get(0).getDni());
+//					Conexion.sentenciaSQL("delete from tecnico where dni="+elimi.get(0).getDni());
 				} else {
-					Conexion.sentenciaSQL("delete from administrador where dni="+elimi.get(0).getDni());
+//					Conexion.sentenciaSQL("delete from administrador where dni="+elimi.get(0).getDni());
 				}
-				Conexion.sentenciaSQL("delete from Usuario where dni="+elimi.get(0).getDni());
+//				Conexion.sentenciaSQL("delete from Usuario where dni="+elimi.get(0).getDni());
 				usuario.remove(elimi.get(0));
 				elimi.remove(0);
 			}
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
 			for(int i=0;i<aux.length;i++){
-				a.getCentro().add(aux[i]);
+				a.getCentro().add(aux[i]);	
 			}
 			
 			a.getCentro().setVisible(true);

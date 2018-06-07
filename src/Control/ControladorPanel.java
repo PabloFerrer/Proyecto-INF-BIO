@@ -23,6 +23,7 @@ import Model.Paciente;
 import Model.Tecnico;
 import Model.Usuario;
 import Model.Utilidades;
+import View.VentanaAdminPrincipal;
 import View.VentanaMensajes;
 import View.VentanaTecnico;
 
@@ -48,8 +49,8 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	private Usuario us;
 	private ControladorAdmin c;
 	private JTextField fl;
+	private String query;
 	private Vector<Usuario> elimi;
-	
 	/**
 	 * Constructor de la clase ControladorPanel
 	 * @param vt VentanaTecnico 
@@ -84,17 +85,34 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		if(elimi.contains(us)) {
+			boolean encontrado=false;
+			int i=0;
+			while(encontrado==false && i<c.getQuerys().size()){
+				String[] aux=c.getQuerys().get(i).split(" ");
+				if(us.getDni()==Integer.parseInt(aux[aux.length-2])){
+					c.getQuerys().remove(i);
+					encontrado=true;
+				}
+			}
 			elimi.remove(us);
 			c.actPanel(fl.getText());
 		} else {
 			int resp = JOptionPane.showConfirmDialog(c.getA(), "Seguro que desea eliminar al usuario propietario del DNI: "+us.getDni()+Utilidades.letraDNI(us.getDni()), "Eliminacion de Usuario",JOptionPane.YES_NO_OPTION);
 			if(resp==JOptionPane.YES_OPTION) {
-				elimi.add(us);
+				
+				query = VentanaAdminPrincipal.seleccionMedico(elimi,us);
+				
+				if(query!=null){
+					elimi.add(us);
+					String[] datos = query.split(" ");
+					c.getQuerys().add("UPDATE medicopaciente SET medicopaciente.dniMedico = " + datos[0] + " WHERE medicopaciente.dniMedico = " + us.getDni() + " ;");
+				}
 				c.actPanel(fl.getText());
 			} 
 		}
 	}
 	
+
 	/**
 	 * Metodo mouseClicked propio de un MouseListener que permite realizar 
 	 * el doble check y obtener los datos del paciente que se halla clickado
@@ -162,9 +180,6 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-
 
 	
 	

@@ -12,8 +12,10 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -24,6 +26,8 @@ import javax.swing.border.LineBorder;
 import Control.ControladorAdmin;
 import Control.ControladorPanel;
 import Model.Administrador;
+import Model.Conexion;
+import Model.Constantes;
 import Model.Usuario;
 /**
  * Elemento grafico que incorpora todas las funciones/opciones que puede realizar un Administrador
@@ -222,6 +226,37 @@ public class VentanaAdminPrincipal extends JFrame{
 		this.add(fondo,BorderLayout.CENTER);
 		
 	}
+	
+	public static String seleccionMedico(Vector<Usuario> elimi,Usuario us){
+
+			String selec = null;
+			
+			Vector<Usuario> usuarios = new Vector<Usuario>();
+			usuarios = Conexion.consultarUsuarios();
+			Vector<String> aux = new Vector<String>();
+	
+			for(int i = 0;i<usuarios.size();i++){
+
+				if(usuarios.get(i).getRol() == "medico" && !elimi.contains(usuarios.get(i)) && usuarios.get(i).getDni()!=us.getDni()){
+					 aux.add(usuarios.get(i).getDni() + " " + usuarios.get(i).getNombre() + " " + usuarios.get(i).getApellido());  
+				}
+			}
+			
+		
+			
+			String[] auux = new String[aux.size()];
+
+			for(int j = 0; j < auux.length;j++){
+				auux[j]=aux.get(j);
+		
+			}
+		
+			selec= (String)JOptionPane.showInputDialog(null,"Seleccione un medico al que asignar los pacientes","Seleccionador",JOptionPane.DEFAULT_OPTION,null,auux,auux[0]);
+			 	
+			return selec;
+		
+	}
+	
 	/**
 	 * Asignacion del controlador a elementos de la UI
 	 * @param control Controlador que se encargará de todos los botones de la UI
