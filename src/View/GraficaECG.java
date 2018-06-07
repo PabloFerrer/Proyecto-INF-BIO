@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -69,6 +70,7 @@ public class GraficaECG extends JPanel implements Runnable {
 	private boolean running=false;
 	private boolean ecgready=false;
 	private ControladorFicha controlficha;
+	private JComboBox frecuencia;
 	
 	public boolean isPause() {
 		return pause;
@@ -156,6 +158,12 @@ public class GraficaECG extends JPanel implements Runnable {
 		rec.setContentAreaFilled(false);
 		rec.setOpaque(false);
 		rec.setBorderPainted(false);
+		frecuencia = new JComboBox();
+		frecuencia.addItem(25);
+		frecuencia.addItem(50);
+		frecuencia.addItem(75);
+		frecuencia.addItem(100);
+		frecuencia.addItem(125);
 
 		butstop.setActionCommand(GraphController.STOP);
 	}
@@ -175,6 +183,7 @@ public class GraficaECG extends JPanel implements Runnable {
 		((JSpinner.DefaultEditor) esca.getEditor()).getTextField().setEditable(false);
 
 		esca.setValue(5000);
+	
 
 		sl.setValue(0);
 		sl.setMinimum(0);
@@ -187,9 +196,12 @@ public class GraficaECG extends JPanel implements Runnable {
 		chart.getXYPlot().getDomainAxis().setRange(0, 5000);
 		chartPanel.setBackground(Color.white);
 		add(chartPanel, BorderLayout.CENTER);
+		aux.add(frecuencia);
+		aux.add(new JLabel("frecuencia"));
 		aux.add(sl);
 		aux.add(esca);
 		aux.add(new JLabel("msec"));
+	
 		add(aux, BorderLayout.SOUTH);
 	}
 	public boolean isStop() {
@@ -214,6 +226,7 @@ public class GraficaECG extends JPanel implements Runnable {
 		((JSpinner.DefaultEditor) esca.getEditor()).getTextField().setEditable(false);
 
 		esca.setValue(5000);
+		
 
 		rec.setIcon(new ImageIcon("Resource/Imagenes/playpause.png"));
 		butstop.setIcon(new ImageIcon("Resource/Imagenes/stop.png"));
@@ -231,11 +244,13 @@ public class GraficaECG extends JPanel implements Runnable {
 		
 
 		aux.add(sl);
-		aux.add(esca);
+		aux.add(new JLabel("frecuencia"));
+	    aux.add(esca);
 		aux.add(new JLabel("msec"));
 		aux.add(rec);
 		aux.add(butstop);
 		add(aux, BorderLayout.SOUTH);
+		
 	}
 	/**
 	 * Creacion de una grafica visualmente mas sencilla para miniaturas
@@ -262,6 +277,7 @@ public class GraficaECG extends JPanel implements Runnable {
 		sl.addChangeListener(control);
 		rec.addActionListener(control);
 		butstop.addActionListener(control);
+	
 	}
 /**
  * Getter del slider en el cual se puede seleccionar la escala
@@ -281,6 +297,7 @@ public class GraficaECG extends JPanel implements Runnable {
 		String[] aux=ecg.getPuntos().split(";");
 		
 		for (int i = 0; i < aux.length; i++) {
+			System.out.println(ecg.getId()+" "+aux[i]);
 			series.add(mili, Double.parseDouble(aux[i]));
 			mili += 1000 / ecg.getPuntosporsec();
 		}
@@ -431,16 +448,19 @@ public class GraficaECG extends JPanel implements Runnable {
 				if(dataset.getSeries().isEmpty()) {
 					dataset.addSeries(new XYSeries("ECG"));
 				} 
-				ino.arduinoRXTX(ino.getSerialPorts().get(0), 57600, new SerialPortEventListener() {
+				System.out.println(ino.getSerialPorts().size());
+				ino.arduinoRXTX(ino.getSerialPorts().get(0), 9600, new SerialPortEventListener() {
 					public void serialEvent(SerialPortEvent arg0) {
 						 try {
 							  if(controlficha.getEcg()==null) {
-								  controlficha.setEcg(new ECG(60,"","0"));
+								  controlficha.setEcg(new ECG(Integer.parseInt(frecuencia.getSelectedItem().toString()),"","0"));
 							  }
 							// Se imprime el mensaje recibido en la consola
 							if (ino.isMessageAvailable()) {
 								try {
 								Double aux = Double.parseDouble(ino.printMessage());
+								System.out.println(aux);
+								if(aux<1000000){
 										controlficha.getEcg().setPuntos(controlficha.getEcg().getPuntos() + ";" + aux);
 										addPunto(aux, num);
 										if (num > Integer.parseInt(esca.getValue().toString()) / 2) {
@@ -450,20 +470,31 @@ public class GraficaECG extends JPanel implements Runnable {
 										}
 										
 										num += 1000 /controlficha.getEcg().getPuntosporsec();
+								}
 								
 							}catch(NumberFormatException exc) {
 								
 							}
 							}
+								
 						} catch (SerialPortException | ArduinoException ex) {
 
 						}
+						 
 					}
 					
 				});
 				try {
-					ino.sendData("0");
+					
+					while(!ino.isMessageAvailable()){
+						Thread.sleep(10);
+							ino.sendData(frecuencia.getSelectedItem().toString());
+						
+					}
 				} catch (SerialPortException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
