@@ -1,11 +1,11 @@
-     Bienvenido a la aplicación de Heartlight, a continuacion encontrara 
+     Bienvenido a la aplicacion de Heartlight, a continuacion encontrara 
      la ventana de control de usuarios.
      En esta podra loguearse como tecnico, medico o bien como 
      administrador dependiendo de las credenciales que introduzca.
 
      Para loguearse introduzca su nombre de usuario en el campo de 
-     texto con la etiqueta "Usuario" y su contraseña en el campo de 
-     texto con la etiqueta "Contraseña".
+     texto con la etiqueta "Usuario" y su contraseï¿½a en el campo de 
+     texto con la etiqueta "Contrasena".
      Puede hacer uso de atajos en el teclado para moverse con mayor 
      facilidad durante su estancia.
 

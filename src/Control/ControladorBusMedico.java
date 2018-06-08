@@ -102,24 +102,32 @@ public class ControladorBusMedico implements  KeyListener {
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.m.getPacientes().clone());
+		MutableInt nombre;
+		MutableInt dni;
+		MutableInt fape;
+		MutableInt sape;
 		
-			for (int i = pacientes.size()-1; i >=0 ; i--) {
-				MutableInt nombre=new MutableInt(0);
-				MutableInt dni=new MutableInt(0);
-				MutableInt fape=new MutableInt(0);
-				MutableInt sape=new MutableInt(0);
-				for (int j = 0; j < aux.size(); j++) {
-				Paciente pa = pacientes.get(i);
-				if (((nombre.toInteger()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
-						|| ((dni.toInteger()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
-						|| ((fape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
-						|| ((pa.getApellido().split(" ").length>1)?((sape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
-								) {
-				} else {
-					pacientes.remove(pa);
-				}
+		for (int i = pacientes.size()-1; i >=0 ; i--) {
+			nombre=new MutableInt(0);
+			 dni=new MutableInt(0);
+			 fape=new MutableInt(0);
+			 sape=new MutableInt(0);
+			 boolean noMatch=false;
+			 int j = 0; 
+			 while(j < aux.size() && !noMatch) {
+			Paciente pa = pacientes.get(i);
+			if (((nombre.toInteger()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
+					|| ((dni.toInteger()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)
+					|| ((fape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[0].startsWith(aux.get(j).toLowerCase())? aumentar(fape):false):false)
+					|| ((pa.getApellido().split(" ").length>1)?((sape.toInteger()==0)?(pa.getApellido().toLowerCase().toString().split(" ")[1].startsWith(aux.get(j).toLowerCase())? aumentar(sape):false):false):false)
+							) {
+			} else {
+				noMatch=true;
+				pacientes.remove(pa);
 			}
-			}
+			j++;
+		}
+		}
 	
 		bm.getRey5().setVisible(false);
 		if (aux.size() != 0) {
