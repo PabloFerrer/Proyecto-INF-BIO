@@ -149,15 +149,17 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		}
 		
 		
-		MutableInt nombre=new MutableInt(0);
-		MutableInt dni=new MutableInt(0);
-		MutableInt fape=new MutableInt(0);
-		MutableInt sape=new MutableInt(0);
+		
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Paciente> pacientes = ((ArrayList<Paciente>) this.pacientes.clone());
-		for (int j = 0; j < aux.size(); j++) {
+		
 			for (int i = pacientes.size()-1; i >=0 ; i--) {
+				MutableInt nombre=new MutableInt(0);
+				MutableInt dni=new MutableInt(0);
+				MutableInt fape=new MutableInt(0);
+				MutableInt sape=new MutableInt(0);
+				for (int j = 0; j < aux.size(); j++) {
 				Paciente pa = pacientes.get(i);
 				if (((nombre.toInteger()==0)? (pa.getNombre().toLowerCase().startsWith(aux.get(j).toLowerCase())? aumentar(nombre):false):false)
 						|| ((dni.toInteger()==0)?(pa.getDni().toLowerCase().toString().startsWith(aux.get(j).toLowerCase())? aumentar(dni):false):false)

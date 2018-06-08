@@ -166,6 +166,7 @@ public class Logo extends JPanel implements Runnable{
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if(image!=null){
         if(i==0 || re==true){
         if(a!=null)
         	this.setSize(a.getWidth()*porcentaje/100, a.getHeight()*porcentaje/100);
@@ -195,6 +196,7 @@ public class Logo extends JPanel implements Runnable{
             } else {
             	g.drawImage(resize(image,(int) (this.getHeight()/Math.tan(ang))+aumento,this.getHeight()+aumento), 0-aumento/2, 0-aumento/2, this); 
             }
+        }
         }
     }
     
