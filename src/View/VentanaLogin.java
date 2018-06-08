@@ -54,11 +54,14 @@ public class VentanaLogin extends JFrame{
 		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		int porceX=50;
 		int porceY=65;
+		
 
 		
 		this.setMinimumSize(new Dimension((int)(x*0.18),(int)(y*0.40)));
 		this.setLocation(x/2-(int) (x*porceX/100)/2,(int) (y/2)-(int) (y*porceY/100)/2);
 		this.setSize(x*porceX/100,y*porceY/100);
+
+		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		todo=new Fondo(this,fondo);
 		todo.setLayout(new BorderLayout());
 		ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
