@@ -57,6 +57,7 @@ public class DetallePaciente extends JPanel {
 	private GraficaECG ecg;
 	private JTextArea obser;
 	private JButton mens;
+	private JPanel pul;
 	
 	
 	
@@ -274,7 +275,7 @@ public class DetallePaciente extends JPanel {
 	    
 	    FlowLayout fl4=new FlowLayout();
 	     fl4.setAlignment(FlowLayout.RIGHT);
-	    JPanel pul=new JPanel();
+	    pul=new JPanel();
 	    pul.setLayout(fl4);
 	    pul.add(mens);
 	    bu.add(pul,BorderLayout.CENTER);

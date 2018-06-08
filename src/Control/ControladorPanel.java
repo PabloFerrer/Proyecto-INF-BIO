@@ -23,6 +23,7 @@ import Model.Paciente;
 import Model.Tecnico;
 import Model.Usuario;
 import Model.Utilidades;
+import View.DetallePaciente;
 import View.VentanaAdminPrincipal;
 import View.VentanaMensajes;
 import View.VentanaTecnico;
@@ -122,7 +123,6 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 */
 	public void mouseClicked(MouseEvent arg0) {
 		String respuesta = JOptionPane.showInputDialog("Escriba el DNI del paciente");
-		vt.getFicha().MensajeCont(new ControladorMensaje(p,us));
 		if(respuesta!=null){
 		if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
 			try {
@@ -130,17 +130,9 @@ public class ControladorPanel implements ActionListener, MouseListener {
 					vt.getFicha().getEcg().getIno().killArduinoConnection();
 			} catch (ArduinoException e) {
 			}
-			vt.getFicha().getBtnEnivar().setEnabled(false);
-			vt.getFicha().getBtnStop().setEnabled(false);
-			vt.getFicha().getBtnTomarDatos().setEnabled(true);
-			vt.getFicha().getLblNewLabel().setText(p.getNombre());
-			vt.getFicha().getLblApellidos().setText(p.getApellido());
-			vt.getFicha().getLblDni().setText(p.getDni());
-			vt.getFicha().getLblNewLabel_1().setImage((BufferedImage) p.getFoto());
-			vt.getFicha().setP(p);
-			vt.getFicha().getBtnEnivar().setEnabled(false);
-			vt.getFicha().getEcg().cleanGraph();
-			vt.getFicha().setVisible(true);
+			System.out.println("HOLA");
+			vt.setFicha(new DetallePaciente(p),p);
+			System.out.println("HOLA");
 		} else {
 			JOptionPane.showMessageDialog(vt, "El DNI introcido no concuerda con el del paciente seleccionado.", "Doble Confirmación fallida", JOptionPane.WARNING_MESSAGE);
 		}

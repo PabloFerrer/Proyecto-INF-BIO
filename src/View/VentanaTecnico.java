@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 
 import View.DetallePaciente;
 import Control.ControladorFicha;
+import Control.ControladorMensaje;
 import Control.ControladorPanel;
 import Control.ControladorTecnico;
 import Model.Paciente;
@@ -58,6 +59,7 @@ public class VentanaTecnico extends JFrame {
 	private JTextField buscador;
 	private JPanel rey4;
 	private JScrollPane jsp;
+	private JPanel colocar;
 	
 	
 	public DetallePaciente getFicha() {
@@ -68,8 +70,15 @@ public class VentanaTecnico extends JFrame {
 	 * Setter para la ficha del paciente 
 	 * @param ficha DetallePaciente 
 	 */
-	public void setFicha(DetallePaciente ficha) {
+	public void setFicha(DetallePaciente ficha,Paciente p) {
+		colocar.setVisible(false);
+		colocar.removeAll();
+		colocar.setLayout(new BorderLayout());
 		this.ficha = ficha;
+		ficha.addController(new ControladorFicha(this.ficha,this));
+		ficha.MensajeCont(new ControladorMensaje(p,tec));
+		colocar.add(ficha);
+		colocar.setVisible(true);
 	}
 
 	
@@ -183,8 +192,8 @@ public class VentanaTecnico extends JFrame {
 	pan1.add(aux,BorderLayout.CENTER);
 	
 	//PANEL QUE PONE FLOW AL CENTRO
-	JPanel colocar = new JPanel();
-	colocar.setLayout(new FlowLayout());
+	colocar = new JPanel();
+	colocar.setLayout(new BorderLayout());
 	colocar.setOpaque(false);
 	
 	//ESTE PANEL TIENE EL BOTON DE AYUDA 
@@ -225,6 +234,7 @@ public class VentanaTecnico extends JFrame {
 	ficha = new DetallePaciente(new Paciente("","","","",0,0,null));
 	ficha.addController(new ControladorFicha(ficha,this));
 	colocar.add(ficha);
+	ficha.MensajeCont(new ControladorMensaje(new Paciente("","","","",0,0,null),tec));
 	ficha.setVisible(false);
 	
 	//LABEL DE PACIENTES
@@ -314,7 +324,7 @@ public class VentanaTecnico extends JFrame {
 	bcg.add(rey1,BorderLayout.SOUTH);
 	bcg.add(rey2,BorderLayout.NORTH);
 	bcg.add(rey6,BorderLayout.WEST);
-	bcg.add(ficha,BorderLayout.CENTER);
+	bcg.add(colocar,BorderLayout.CENTER);
 	
 	
 	this.add(bcg);

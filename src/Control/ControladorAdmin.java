@@ -429,14 +429,16 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					elimi.removeAllElements();
 				}
 			}
+			for(int i = 0; i <  querys.size();i++){
+				Conexion.sentenciaSQL(querys.get(i));
+				System.out.println(querys.get(i));
+			}
+			querys.clear();
 			while(!elimi.isEmpty()) {
-				if(usuario.get(0).getRol().equals("medico")) {
+				if(elimi.get(0).getRol().equals("medico")) {
 //					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
-					for(int i = 0; i <  querys.size();i++){
-						Conexion.sentenciaSQL(querys.get(i));
-						System.out.println(querys.get(i));
-					}
-				} else if(usuario.get(0).getRol().equals("tecnico")){
+					
+				} else if(elimi.get(0).getRol().equals("tecnico")){
 //					Conexion.sentenciaSQL("delete from tecnico where dni="+elimi.get(0).getDni());
 				} else {
 //					Conexion.sentenciaSQL("delete from administrador where dni="+elimi.get(0).getDni());
