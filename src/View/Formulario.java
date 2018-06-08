@@ -600,28 +600,35 @@ public class Formulario extends JFrame{
 			 */
 			public JPanel paciente(ControladorMedico control){
 				
+				JPanel au = new JPanel();
+				au.setOpaque(false);
+				
 				JButton invi = new JButton();
 				invi.setFont(new Font("",0,30));
 				invi.setOpaque(false);
 				invi.setBorderPainted(false);
 				invi.setContentAreaFilled(false);
+				au.add(invi);
+				
+				JPanel au2 = new JPanel();
+				au2.setOpaque(false);
 				
 				JButton invi2=new JButton(" ");
 				invi2.setFont(new Font("",0,30));
 				invi2.setOpaque(false);
 				invi2.setBorderPainted(false);
 				invi2.setContentAreaFilled(false);
+				au2.add(invi2);
 				
 				JPanel panel = new JPanel();
 				panel.setOpaque(false);
+				panel.setLayout(new GridLayout(1,3));
 				
 				JPanel contenedor = new JPanel();
-				contenedor.setOpaque(false);
+//				contenedor.setOpaque(false);
 				contenedor.setLayout(new BorderLayout());
-//				contenedor.setBorder(new LineBorder(Color.BLACK,3));
+				contenedor.setBorder(new LineBorder(Color.BLACK,1));
 				
-				BorderLayout bor=new BorderLayout();
-				panel.setLayout(bor);
 				JPanel aux=new JPanel();
 				aux.setOpaque(false);
 				aux.setLayout(new GridLayout(1,2));
@@ -653,7 +660,6 @@ public class Formulario extends JFrame{
 				enviar.addActionListener(control);
 				cancel.addActionListener(control);
 				cancel.setActionCommand(ControladorMedico.CANCEL);
-				bor.minimumLayoutSize(enviar);
 				basu1.add(enviar);
 				basu2.add(cancel);
 				aux.add(basu2);
@@ -664,23 +670,26 @@ public class Formulario extends JFrame{
 				formu.setLayout(new BoxLayout(formu,BoxLayout.PAGE_AXIS  ));
 				Font font=new Font("",Font.BOLD,20);
 				
+				FlowLayout floow = new FlowLayout();
+				floow.setAlignment(FlowLayout.LEFT);
+				
 				JPanel nom=new JPanel();
 				nom.setOpaque(false);
-				nom.setLayout(new FlowLayout());
+				nom.setLayout(floow);
 				nombre=new JTextField(15);
 				JLabel name=new JLabel("Nombre: ");
 				name.setFont(font);
-				name.setForeground(Color.WHITE);
+				name.setForeground(Color.BLACK);
 				nom.add(name);
 				nom.add(nombre);
 				formu.add(nom);
 				
 				JPanel d=new JPanel();
 				d.setOpaque(false);
-				d.setLayout(new FlowLayout());
+				d.setLayout(floow);
 				dni=new JTextField(15);
 				JLabel dn=new JLabel("DNI/NIE: ");
-				dn.setForeground(Color.WHITE);
+				dn.setForeground(Color.BLACK);
 				dn.setFont(font);
 				d.add(dn);
 				d.add(dni);
@@ -689,10 +698,10 @@ public class Formulario extends JFrame{
 				
 				JPanel ape=new JPanel();
 				ape.setOpaque(false);
-				ape.setLayout(new FlowLayout());
+				ape.setLayout(floow);
 				apellido1=new JTextField(15);
 				JLabel ap=new JLabel("Primer Apellido: ");
-				ap.setForeground(Color.WHITE);
+				ap.setForeground(Color.BLACK);
 				ap.setFont(font);
 				ape.add(ap);
 				ape.add(apellido1);
@@ -700,10 +709,10 @@ public class Formulario extends JFrame{
 				
 				JPanel ape2=new JPanel();
 				ape2.setOpaque(false);
-				ape2.setLayout(new FlowLayout());
+				ape2.setLayout(floow);
 				apellido2=new JTextField(15);
 				JLabel ap2=new JLabel("Segundo Apellido: ");
-				ap2.setForeground(Color.WHITE);
+				ap2.setForeground(Color.BLACK);
 				ap2.setFont(font);
 				ape2.add(ap2);
 				ape2.add(apellido2);
@@ -711,10 +720,10 @@ public class Formulario extends JFrame{
 				
 				JPanel lug=new JPanel();
 				lug.setOpaque(false);
-				lug.setLayout(new FlowLayout());
+				lug.setLayout(floow);
 				lugar=new JTextField(15);
 				JLabel l=new JLabel("Poblacion: ");
-				l.setForeground(Color.WHITE);
+				l.setForeground(Color.BLACK);
 				l.setFont(font);
 				lug.add(l);
 				lug.add(lugar);
@@ -722,10 +731,10 @@ public class Formulario extends JFrame{
 
 				JPanel lug1=new JPanel();
 				lug1.setOpaque(false);
-				lug1.setLayout(new FlowLayout());
+				lug1.setLayout(floow);
 				ss=new JTextField(15);
 				JLabel l1=new JLabel("Seguridad Social: ");
-				l1.setForeground(Color.WHITE);
+				l1.setForeground(Color.BLACK);
 				l1.setFont(font);
 				lug1.add(l1);
 				lug1.add(ss);
@@ -733,10 +742,10 @@ public class Formulario extends JFrame{
 				
 				JPanel con=new JPanel();
 				con.setOpaque(false);
-				con.setLayout(new FlowLayout());
+				con.setLayout(floow);
 				direccion = new JTextField(15);
 				JLabel c=new JLabel("Direccion: ");
-				c.setForeground(Color.WHITE);
+				c.setForeground(Color.BLACK);
 				c.setFont(font);
 				con.add(c);
 				con.add(direccion);
@@ -744,18 +753,22 @@ public class Formulario extends JFrame{
 
 				JPanel se = new JPanel();
 				se.setOpaque(false);
-				se.setLayout(new FlowLayout());
+				se.setLayout(floow);
 				rdbtnFemenino= new JRadioButton("Femenino");
 				rdbtnMasculino= new JRadioButton("Masculino");
 				JLabel sex = new JLabel("Sexo: ");
 				sex.setFont(font);
-				sex.setForeground(Color.WHITE);
+				sex.setForeground(Color.BLACK);
 				se.add(sex);
 				se.add(rdbtnFemenino);
 				se.add(rdbtnMasculino);
 				formu.add(se);
 				
-				formu.add(agregar);
+				JPanel h = new JPanel();
+				h.setOpaque(false);
+				h.setLayout(floow);
+				h.add(agregar);
+				formu.add(h);
 				
 				/*JPanel c0 = new JPanel();
 				c0.setOpaque(false);
@@ -778,9 +791,10 @@ public class Formulario extends JFrame{
 				contenedor.add(formu,BorderLayout.CENTER);
 				contenedor.add(aux,BorderLayout.SOUTH);
 				
-				panel.add(invi,BorderLayout.EAST);
-				panel.add(invi2,BorderLayout.WEST);
+				panel.add(au);
 				panel.add(contenedor);
+				panel.add(au2);
+				
 //				panel.add(formu,BorderLayout.CENTER);
 //				panel.add(aux,BorderLayout.SOUTH);
 				

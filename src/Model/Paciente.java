@@ -17,7 +17,7 @@ public class Paciente {
 	private String nombre;
 	private String apellido;
 	private String dni;
-	private int ss;
+	private long ss;
 	private String poblacion;
 	private Image foto;
 	private Vector<ECG> ecgs;
@@ -36,7 +36,7 @@ public class Paciente {
   	* @param comentarios String 
   	* @param ecgs Vector de ECG 
   	*/
-	public Paciente(String nombre, String apellido, String dni, int ss, String poblacion,
+	public Paciente(String nombre, String apellido, String dni, long ss, String poblacion,
 			Image foto,Vector<ECG> ecgs) {
 		super();
 		this.nombre =nombre;
@@ -49,7 +49,7 @@ public class Paciente {
 		mensajes=new Vector<Mensaje>();
 	}
 	
-	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero,int ss,Image foto){
+	public Paciente(String nombre,String apellido,String dni,String ubicacion,int genero,long ss,Image foto){
 		this.poblacion=ubicacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -113,7 +113,7 @@ public class Paciente {
 	 * Getter del atributo ss del paciente
 	 * @return String numero
 	 */
-	public int getSs() {
+	public long getSs() {
 		return ss;
 	}
 	/**

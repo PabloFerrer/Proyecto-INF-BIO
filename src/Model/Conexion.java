@@ -80,7 +80,7 @@ public class Conexion {
 		int numm=Integer.parseInt(numDni);
 		
 		String numSS = formulario.getSs().getText();
-		int numm2= Integer.parseInt(numSS);
+		long numm2= Long.parseLong(numSS);
 		
 		String apellidos = formulario.getApellido1().getText()+" "+formulario.getApellido2().getText();
 		
@@ -94,7 +94,7 @@ public class Conexion {
 			Conexion.c = DriverManager.getConnection(Conexion.BBDDName, Conexion.user, Conexion.pass);
 			pst = Conexion.c.prepareStatement(sqql);
 			pst.setInt(1,numm);
-			pst.setInt(2,numm2);
+			pst.setLong(2,numm2);
 			pst.setString(3,apellidos);
 			pst.setString(4, formulario.getNombre().getText());
 			pst.setString(5,formulario.getLugar().getText());
@@ -113,7 +113,7 @@ public class Conexion {
 		Conexion.sentenciaSQL(sentencia);
 	
 		try {
-			med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Integer.parseInt(formulario.getSs().getText()),formulario.getLugar().getText(),ImageIO.read(cm.getImagen()),new Vector<ECG>()));
+			med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Long.parseLong(formulario.getSs().getText()),formulario.getLugar().getText(),ImageIO.read(cm.getImagen()),new Vector<ECG>()));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -250,7 +250,7 @@ public class Conexion {
 			while (rs.next()) {
 				int dni = rs.getInt("dni");
 				System.out.println(dni);
-				int nss = rs.getInt("nss");
+				long nss = rs.getLong("nss");
 				String ape=rs.getString("apellido");
 				String nombre = rs.getString("nombre");
 				String ubicacion=rs.getString("Ubicacion");
@@ -293,7 +293,7 @@ public class Conexion {
 				String ape=rs.getString("apellido");
 				String ubicacion=rs.getString("Ubicacion");
 				int genero=rs.getInt("genero");
-				int nss = rs.getInt("nss");
+				long nss = rs.getLong("nss");
 				InputStream is = rs.getBinaryStream("foto");
 				
 				if(is!=null){

@@ -24,6 +24,7 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Model.Conexion;
 import Model.Constantes;
@@ -136,7 +137,10 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			if(formulario!=null){
 				formulario.dispose();
 			}
-			formulario= new Formulario();			
+			formulario= new Formulario();		
+			JPanel a = new JPanel();
+			a.setOpaque(false);
+			vm.getCentro().add(a,BorderLayout.NORTH);
 			vm.getCentro().add(formulario.paciente(this),BorderLayout.CENTER);
 			
 		}
@@ -342,7 +346,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				Conexion.crearPaciente(formulario, med,this);
 				
 					
-			} else {
+			} else if(bien==false && comprobar == true){
 				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
