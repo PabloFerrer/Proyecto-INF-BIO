@@ -173,6 +173,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		} else if(cmd.equals(ENVIARME)){
 			boolean bien=true;
 			boolean dni=true;
+			boolean comprobar = Conexion.dniMedico(aux1);
 			if(aux1.getNombre().getText().isEmpty()){
 				aux1.getNombre().setBackground(Color.RED);
 				bien=false;
@@ -241,6 +242,11 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getContrasena2().setBackground(Color.WHITE);
 			}
+			if(comprobar == false){
+				JOptionPane.showMessageDialog(null, "Ya existe un mecnico con dni " + aux1.getDni().getText()
+						+ ". Porfavor introduzca el dni correcto", "Error", JOptionPane.ERROR_MESSAGE);
+				bien = false;
+			}
 			
 			if(bien==true){
 				if(!dni) {
@@ -287,6 +293,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		} else if(cmd.equals(ENVIARTEC)){
 			boolean bien=true;
 			boolean dni=true;
+			boolean comprobar = Conexion.dniTecnico(aux1);
 			if(aux1.getNombre().getText().isEmpty()){
 				aux1.getNombre().setBackground(Color.RED);
 				bien=false;
@@ -343,10 +350,15 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getContrasena2().setBackground(Color.WHITE);
 			}
+			if(comprobar == false){
+				JOptionPane.showMessageDialog(null, "Ya existe un tecnico con dni " + aux1.getDni().getText()
+						+ ". Porfavor introduzca el dni correcto", "Error", JOptionPane.ERROR_MESSAGE);
+				bien = false;
+			}
 			if(bien==true){
 				if(!dni) {
 					JOptionPane.showMessageDialog(null, "El dni es erroneo", "Error", JOptionPane.ERROR_MESSAGE);
-				} 
+				}
 				
 				if(!(pss.equals(pss2))){
 				aux1.getContrasena2().setBackground(Color.RED);

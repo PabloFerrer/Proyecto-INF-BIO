@@ -291,6 +291,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 		}
 		else if(cmd.equals(ControladorMedico.ENVIAR)) {
 			boolean bien=true;
+			boolean comprobar = Conexion.dniPaciente(formulario);
 			if(formulario.getNombre().getText().isEmpty()){
 				formulario.getNombre().setBackground(Color.RED);
 				bien=false;
@@ -332,6 +333,10 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				bien=false;
 			} else {
 				formulario.getSs().setBackground(Color.WHITE);
+			}if(comprobar==false){
+				JOptionPane.showMessageDialog(null, "Ya existe un paciente con dni " + formulario.getDni().getText()
+						+ ". Porfavor introduzca el dni correcto", "Error", JOptionPane.ERROR_MESSAGE);
+				bien = false;
 			}
 			if(bien==true) {
 				Conexion.crearPaciente(formulario, med,this);

@@ -464,4 +464,73 @@ public class Conexion {
 		}
 		return hay;
 	}
+	
+	public static boolean dniPaciente(Formulario form){
+		boolean comprobado = true;
+		try{
+			
+		Class.forName("org.mariadb.jdbc.Driver");
+		c = DriverManager.getConnection(BBDDName, user, pass);
+		c.setAutoCommit(false);
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT Paciente.dni FROM Paciente;");
+		while (rs.next()) {
+			int dni = rs.getInt("dni");
+			if(Integer.parseInt(form.getDni().getText())==dni){
+				comprobado = false;
+			}
+		}
+		}catch (Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		
+		
+		return comprobado;
+	}
+	
+	public static boolean dniTecnico(Formulario form){
+		boolean comprobado = true;
+		try{
+			
+		Class.forName("org.mariadb.jdbc.Driver");
+		c = DriverManager.getConnection(BBDDName, user, pass);
+		c.setAutoCommit(false);
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT Tecnico.dni FROM Tecnico;");
+		while (rs.next()) {
+			int dni = rs.getInt("dni");
+			if(Integer.parseInt(form.getDni().getText())==dni){
+				comprobado = false;
+			}
+		}
+		}catch (Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		
+		
+		return comprobado;
+	}
+	
+	public static boolean dniMedico(Formulario form){
+		boolean comprobado = true;
+		try{
+			
+		Class.forName("org.mariadb.jdbc.Driver");
+		c = DriverManager.getConnection(BBDDName, user, pass);
+		c.setAutoCommit(false);
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT Medico.dni FROM Medico;");
+		while (rs.next()) {
+			int dni = rs.getInt("dni");
+			if(Integer.parseInt(form.getDni().getText())==dni){
+				comprobado = false;
+			}
+		}
+		}catch (Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		
+		
+		return comprobado;
+	}
 }
