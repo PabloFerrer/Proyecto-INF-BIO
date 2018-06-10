@@ -338,16 +338,16 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			} else {
 				formulario.getSs().setBackground(Color.WHITE);
 			}if(comprobar==false){
-				JOptionPane.showMessageDialog(null, "Ya existe un paciente con dni " + formulario.getDni().getText()
+				JOptionPane.showMessageDialog(vm, "Ya existe un paciente con dni " + formulario.getDni().getText()
 						+ ". Porfavor introduzca el dni correcto", "Error", JOptionPane.ERROR_MESSAGE);
 				bien = false;
 			}
 			if(bien==true) {
 				Conexion.crearPaciente(formulario, med,this);
-				
+				JOptionPane.showMessageDialog(vm, "Paciente dado de alta con exito: "+formulario.getNombre().getText()+" "+formulario.getApellido1().getText(), "Creado", JOptionPane.INFORMATION_MESSAGE);
 					
 			} else if(bien==false && comprobar == true){
-				JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(vm, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

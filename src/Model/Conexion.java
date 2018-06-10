@@ -122,7 +122,7 @@ public class Conexion {
 			e.printStackTrace();
 		}
 		//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
-		JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+nombre, "Creado", JOptionPane.INFORMATION_MESSAGE);
+		
 		formulario.dispose();
 	}
 	
