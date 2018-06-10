@@ -421,20 +421,19 @@ public class Conexion {
 	}
 	
 	static public Object[] getAgenda(int fecha,int dni) {
-		Object[] aux=new Object[4];
+		Object[] aux=new Object[3];
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String a="SELECT data,id,fecha,dniMedico FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";";
+			String a="SELECT data,fecha,dniMedico FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";";
 			ResultSet rs = stmt.executeQuery(a);
 			if (rs.next()) {
 				
 				aux[0]=rs.getString("data");
-				aux[1]=rs.getInt("id");
-				aux[2]=rs.getInt("fecha");
-				aux[3]=rs.getInt("dniMedico");
+				aux[1]=rs.getInt("fecha");
+				aux[2]=rs.getInt("dniMedico");
 				System.out.println("LEIDO"+aux[1]);
 			}
 			rs.close();
@@ -452,7 +451,7 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT id FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";");
+			ResultSet rs = stmt.executeQuery("SELECT fecha FROM agenda where dniMedico="+dni+" AND fecha="+fecha+";");
 			if (rs.next()) {
 				hay=true;
 			}
@@ -464,6 +463,26 @@ public class Conexion {
 		}
 		return hay;
 	}
+	
+	static public Vector<Integer> dayofMonthWithSomething(int year, int month,int dni) {
+		Vector<Integer> hay=new Vector<Integer>();
+	try {
+		Class.forName("org.mariadb.jdbc.Driver");
+		c = DriverManager.getConnection(BBDDName, user, pass);
+		c.setAutoCommit(false);
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT fecha FROM agenda where dniMedico="+dni+" AND fecha like '"+year+""+(month < 10 ? "0" : "") +""+ month+"%' order by fecha;");
+		while (rs.next()) {
+			hay.add(rs.getInt("fecha"));
+		}
+		rs.close();
+		stmt.close();
+		c.close();
+	} catch ( Exception e ) {
+		System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	}
+	return hay;
+}
 	
 	public static boolean dniPaciente(Formulario form){
 		boolean comprobado = true;

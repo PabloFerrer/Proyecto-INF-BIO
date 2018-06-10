@@ -1,4 +1,4 @@
-package Pruebas;
+package View;
 
 
 import java.awt.MouseInfo;
@@ -30,18 +30,18 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 	{
 		super(m);
 		// Calendar initialization start
-		calendar.beginInit();
-		calendar.setTheme(ThemeType.Standard);
-		calendar.setCurrentView(CalendarView.Timetable);
+		getCalendar().beginInit();
+		getCalendar().setTheme(ThemeType.Standard);
+		getCalendar().setCurrentView(CalendarView.Timetable);
 
 		// Setup the dates displayed in the Schedule view
 		DateTime today = DateTime.today();
-		calendar.getTimetableSettings().getDates().clear();
-		calendar.getTimetableSettings().getDates().add(today);
-		calendar.endInit();
+		getCalendar().getTimetableSettings().getDates().clear();
+		getCalendar().getTimetableSettings().getDates().add(today);
+		getCalendar().endInit();
 		// Calendar initialization end
 
-		calendar.addCalendarListener(new CalendarAdapter() {
+		getCalendar().addCalendarListener(new CalendarAdapter() {
 			@Override
 			public void itemClick(ItemMouseEvent e) {
 				onItemClicked(e);
@@ -53,7 +53,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 			}
 		});
 
-		content.add(calendar);
+		content.add(getCalendar());
 
 		contextMenu = new JPopupMenu();
 		contextMenu.setEnabled(true);
@@ -135,7 +135,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 			newItem.setId(UUID.randomUUID().toString());
 
 			// Add the item to the schedule
-			calendar.getSchedule().getItems().add(newItem);
+			getCalendar().getSchedule().getItems().add(newItem);
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 		Item value = _clickedItem;
 		if (value != null)
 		{
-			calendar.getSchedule().getAllItems().remove(value);
+			getCalendar().getSchedule().getAllItems().remove(value);
 		}
 	}
 
@@ -157,8 +157,8 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
 			// Select the right-clicked item
-			calendar.getItemSelection().clear();
-			calendar.getItemSelection().add(e.getItem());
+			getCalendar().getItemSelection().clear();
+			getCalendar().getItemSelection().add(e.getItem());
 
 			// Remember the item
 			_clickedItem = e.getItem();
@@ -169,9 +169,9 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 			
 			// Pop-up the context menu
 			Point where = MouseInfo.getPointerInfo().getLocation();
-			where.x -= calendar.getLocationOnScreen().x;
-			where.y -= calendar.getLocationOnScreen().y;
-			contextMenu.show(calendar, where.x, where.y);
+			where.x -= getCalendar().getLocationOnScreen().x;
+			where.y -= getCalendar().getLocationOnScreen().y;
+			contextMenu.show(getCalendar(), where.x, where.y);
 		}
 	}
 
@@ -180,7 +180,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
 			// Select the right-clicked date
-			calendar.getSelection().set(e.getDate(), DateTime.op_Addition(e.getDate(), calendar.getTimetableSettings().getCellTime()));
+			getCalendar().getSelection().set(e.getDate(), DateTime.op_Addition(e.getDate(), getCalendar().getTimetableSettings().getCellTime()));
 			// Remember the date
 			_clickedDate = e.getDate();
 
@@ -210,9 +210,9 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 			
 			// Pop-up the context menu
 			Point where = MouseInfo.getPointerInfo().getLocation();
-			where.x -= calendar.getLocationOnScreen().x;
-			where.y -= calendar.getLocationOnScreen().y;
-			contextMenu.show(calendar, where.x, where.y);
+			where.x -= getCalendar().getLocationOnScreen().x;
+			where.y -= getCalendar().getLocationOnScreen().y;
+			contextMenu.show(getCalendar(), where.x, where.y);
 		}
 	}
 
@@ -230,7 +230,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 		}
         Element element = document.createElement("MyItem");
         document.appendChild(element);
-		XmlSerializationContext context = new XmlSerializationContext(calendar.getSchedule(), document);
+		XmlSerializationContext context = new XmlSerializationContext(getCalendar().getSchedule(), document);
 		item.saveTo(element, context);
 
 		StringWriter writer = new StringWriter();
@@ -270,7 +270,7 @@ public class MainWindow extends BaseWindow implements ClipboardOwner
 		{
 			return null;
 		}
-		XmlSerializationContext context = new XmlSerializationContext(calendar.getSchedule(), document);
+		XmlSerializationContext context = new XmlSerializationContext(getCalendar().getSchedule(), document);
         Element element = (Element)document.getFirstChild();
 
         Item item = new Appointment();

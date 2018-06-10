@@ -21,6 +21,7 @@ import Control.ControladorPanelM;
 import Model.ECG;
 import Model.Medico;
 import Model.Paciente;
+import Model.Utilidades;
 
 import javax.swing.border.LineBorder;
 /**
@@ -95,7 +96,7 @@ public class VentanaMedicoECG extends JPanel {
 			}
 		}
 
-		quicksort(auxec,auxpac,0,auxec.size()-1);
+		Utilidades.quicksort(auxec,auxpac,0,auxec.size()-1);
 
 		
 		for(int i= 0;i<auxec.size();i++){
@@ -359,65 +360,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 	rey4.setVisible(true);
 }
 
-	private static int pivotear( Vector<ECG>L, Vector<Paciente>M,int ini, int fin){
-		int i=ini;
-		int med=(fin+ini)/2;
-		ECG auxi=L.get(med);
-		Paciente auxi2=M.get(med);
-		M.remove(med);
-		M.insertElementAt(M.get(ini), med);
-		M.remove(ini);
-		M.insertElementAt(auxi2, ini);
-		L.remove(med);
-		L.insertElementAt(L.get(ini), med);
-		L.remove(ini);
-		L.insertElementAt(auxi, ini);
-		
-		int p=L.get(ini).getFecha();
-		for(int j=ini+1;j<=fin;++j){
-			if(L.get(j).getFecha()>=p){
-				i++;
-				if(i!=j){
-					ECG aux=L.get(j);
-					Paciente aux2=M.get(j);
-					M.remove(j);
-					M.insertElementAt(M.get(i), j);
-					M.remove(i);
-					M.insertElementAt(aux2, i);
-					L.remove(j);
-					L.insertElementAt(L.get(i), j);
-					L.remove(i);
-					L.insertElementAt(aux, i);
-				}
-			} 
-		} 
-		ECG aux=L.get(i);
-		Paciente aux2=M.get(i);
-		M.remove(i);
-		M.insertElementAt(M.get(ini), i);
-		M.remove(ini);
-		M.insertElementAt(aux2, ini);
-		L.remove(i);
-		L.insertElementAt(L.get(ini), i);
-		L.remove(ini);
-		L.insertElementAt(aux, ini);
-		
-		return i;
-	}
-	/**
-	 * Metodo de ordenacion para vector de ECG
-	 * @param L Vector de ECG a ordenar
-	 * @param m Vector de Pacientes a ordenar
-	 * @param ini indice del primer valor
-	 * @param fin indice del ultimo valor
-	 */
-	static void quicksort( Vector<ECG> L, Vector<Paciente> m,int ini, int fin){
-		if(ini<fin){
-			int x=pivotear(L,m,ini,fin);
-			quicksort(L,m,ini,x-1);
-			quicksort(L,m,x+1,fin);
-		}
-	}
+
 
 /**
  * Getter del panel donde estan los Paneles de Pacientes

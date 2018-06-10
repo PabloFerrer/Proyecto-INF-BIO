@@ -10,7 +10,6 @@ import javax.swing.*;
 
 import Control.ControladorMedico;
 import Model.Medico;
-import Pruebas.MemoCalendar;
 
 public class VentanaMedico extends JFrame{
 	/**

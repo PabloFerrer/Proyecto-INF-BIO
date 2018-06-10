@@ -34,7 +34,7 @@ import Model.Medico;
 import Model.Paciente;
 import Model.Usuario;
 import Model.Utilidades;
-import Pruebas.MemoCalendar;
+import View.MemoCalendar;
 import View.BuscadorMedico;
 import View.CompararECG;
 import View.Formulario;

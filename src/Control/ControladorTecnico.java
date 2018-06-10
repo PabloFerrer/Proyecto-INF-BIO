@@ -23,6 +23,7 @@ import Model.MutableInt;
 import Model.Paciente;
 import Model.Tecnico;
 import Model.Usuario;
+import Model.Utilidades;
 import View.PanelPaciente;
 import View.VentanaHelp;
 import View.VentanaLogin;
@@ -141,6 +142,7 @@ public class ControladorTecnico implements ActionListener,KeyListener {
 		}
 
 		String[] aux0 = auxi.split(" ");
+		Utilidades.quicksortPalabras(aux0, 0, aux0.length-1);
 		Vector<String> aux = new Vector<String>();
 		for (int i = 0; i < aux0.length; i++) {
 			if (!aux0[i].equals(" ") || !aux0[i].equals("")) {

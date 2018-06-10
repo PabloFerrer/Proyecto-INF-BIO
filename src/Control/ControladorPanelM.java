@@ -118,7 +118,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		if(aux==0) {
 			ecg.setLeido(true);
 			Conexion.sentenciaSQL("UPDATE ECG set leido="+Constantes.LEIDO+" Where id="+ecg.getId()+";");
-			int i=buscarECGBin(p,ecg,0,p.getEcgs().size()-1);
+			int i=Utilidades.buscarECGBin(p,ecg,0,p.getEcgs().size()-1);
 			
 			if(i>=-1) {
 				fp.getTab().setSelectedIndex(i);
@@ -135,24 +135,6 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		
 	}
 	
-	private int buscarECGBin(Paciente p, ECG ecg, int ini, int fin) {
-		if(ini==fin) {
-			if(p.getEcgs().get(ini).getId()==ecg.getId()) {
-				return ini;
-			} else {
-				return -1;
-			}
-		} else {
-			int m=(ini+fin)/2;
-			if(p.getEcgs().get(m).getId()==ecg.getId()) {
-				return m;
-			} else if(p.getEcgs().get(m).getId()<ecg.getId()) {
-				return buscarECGBin(p,ecg,ini,m-1);
-			} else {
-				return buscarECGBin(p,ecg,m+1,fin);
-			}
-		}
-	}
 	
 	/** 
 	 * Metodo mouseEntered propio de un mouseListener

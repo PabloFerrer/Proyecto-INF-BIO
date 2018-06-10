@@ -19,6 +19,7 @@ import View.VentanaMedico;
 import Model.Medico;
 import Model.MutableInt;
 import Model.Paciente;
+import Model.Utilidades;
 
 /**
  * La clase ControladorBusMedico se encarga de hacer de controlador para 
@@ -93,6 +94,7 @@ public class ControladorBusMedico implements  KeyListener {
 		}
 
 		String[] aux0 = auxi.split(" ");
+		Utilidades.quicksortPalabras(aux0, 0, aux0.length-1);
 		Vector<String> aux = new Vector<String>();
 		for (int i = 0; i < aux0.length; i++) {
 			if (!aux0[i].equals(" ") || !aux0[i].equals("")) {

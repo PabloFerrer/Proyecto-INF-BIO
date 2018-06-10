@@ -23,7 +23,7 @@ import Model.Medico;
 import Model.Paciente;
 import Model.Tecnico;
 import Model.Usuario;
-import Pruebas.MemoCalendar;
+import View.MemoCalendar;
 import View.VentanaAdminPrincipal;
 import View.VentanaHelp;
 import View.VentanaLogin;
