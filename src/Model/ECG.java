@@ -11,7 +11,7 @@ import java.util.Vector;
 public class ECG {
 	
 	public ECG(int id,int fecha, int fechaDiag, boolean leido, int dniMed, int dniTec, int dniPac,
-			String comentarios, int pulsa, String diagnostico, int puntosporsec, String puntos) {
+			String comentarios, int pulsa, String diagnostico, int puntosporsec, Vector<Double> puntos) {
 		super();
 		this.id=id;
 		this.nombre=fecha+"";
@@ -42,7 +42,7 @@ public class ECG {
 	private String Diagnostico;
 	private int puntosporsec;
 	private String nombre;
-	private String puntos;
+	private Vector<Double> puntos;
 	
 	
 	/**
@@ -63,7 +63,7 @@ public class ECG {
  * @param puntos Puntos del ECG
  */
 	public ECG(int fecha,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
-			String puntos) {
+			Vector<Double> puntos) {
 		this.dniTec=dniTec;
 		this.fecha = fecha;
 		Comentarios = comentarios;
@@ -85,7 +85,7 @@ public class ECG {
 	 * @param leido boolean si el medico lo ha leido o no
 	 */
 	public ECG(int fecha,int dniTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
-			String puntos,boolean leido) {
+			Vector<Double> puntos,boolean leido) {
 		this.dniTec=dniTec;
 		this.fecha = fecha;
 		Comentarios = comentarios;
@@ -96,7 +96,7 @@ public class ECG {
 		this.leido=leido;
 	}
 	public ECG(int fecha,int dniTec,int dniPac, String comentarios, int puntosporsec, 
-			String puntos,boolean leido) {
+			Vector<Double> puntos,boolean leido) {
 		this.dniTec=dniTec;
 		this.dniPac=dniPac;
 		this.fecha = fecha;
@@ -125,7 +125,7 @@ public class ECG {
  * @param puntos Puntos del ECG
  */
 	public ECG(int puntosporsec, String nombre,
-			String puntos) {
+			Vector<Double> puntos) {
 		this.puntosporsec = puntosporsec;
 		this.nombre = nombre;
 		this.puntos = puntos;
@@ -171,7 +171,7 @@ public class ECG {
 	 * Getter de todos los puntos que conforman el ECG
 	 * @return Puntos del ECG
 	 */
-	public String getPuntos() {
+	public Vector<Double> getPuntos() {
 		return puntos;
 	}
 
@@ -228,7 +228,7 @@ public class ECG {
 	public void setPuntosporsec(int puntosporsec) {
 		this.puntosporsec = puntosporsec;
 	}
-	public void setPuntos(String puntos) {
+	public void setPuntos(Vector<Double> puntos) {
 		this.puntos = puntos;
 	}
 	

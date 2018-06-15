@@ -51,6 +51,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	private ControladorAdmin c;
 	private JTextField fl;
 	private String query;
+	private VentanaAdminPrincipal va;
 	private Vector<Usuario> elimi;
 	/**
 	 * Constructor de la clase ControladorPanel
@@ -70,12 +71,12 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param c ControladorAdmin 
 	 * @param f JTextField 
 	 */
-	public ControladorPanel(Usuario vt,ControladorAdmin c,JTextField f,Vector<Usuario> elimi){
+	public ControladorPanel(Usuario vt,ControladorAdmin c,JTextField f,Vector<Usuario> elimi,VentanaAdminPrincipal va){
 		this.us = vt;
 		this.c=c;
 		fl=f;
 		this.elimi=elimi;
-		
+		this.va=va;
 	}
 	
 	/**
@@ -86,13 +87,15 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		if(elimi.contains(us)) {
-			boolean encontrado=false;
-			int i=0;
-			while(encontrado==false && i<c.getQuerys().size()){
-				String[] aux=c.getQuerys().get(i).split(" ");
-				if(us.getDni()==Integer.parseInt(aux[aux.length-2])){
-					c.getQuerys().remove(i);
-					encontrado=true;
+			if(us.getRol().equals("medico")) {
+				boolean encontrado=false;
+				int i=0;
+				while(encontrado==false && i<c.getQuerys().size()){
+					String[] aux=c.getQuerys().get(i).split(" ");
+					if(us.getDni()==Integer.parseInt(aux[aux.length-2])){
+						c.getQuerys().remove(i);
+						encontrado=true;
+					}
 				}
 			}
 			elimi.remove(us);
@@ -100,13 +103,16 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		} else {
 			int resp = JOptionPane.showConfirmDialog(c.getA(), "Seguro que desea eliminar al usuario propietario del DNI: "+us.getDni()+Utilidades.letraDNI(us.getDni()), "Eliminacion de Usuario",JOptionPane.YES_NO_OPTION);
 			if(resp==JOptionPane.YES_OPTION) {
-				
-				query = VentanaAdminPrincipal.seleccionMedico(elimi,us);
-				
-				if(query!=null){
+				if(us.getRol().equals("medico")) {
+					query = va.seleccionMedico(elimi,us);
+				}
+				System.out.println(us.getRol());
+				if(query!=null && us.getRol().equals("medico")){
 					elimi.add(us);
 					String[] datos = query.split(" ");
 					c.getQuerys().add("UPDATE medicopaciente SET medicopaciente.dniMedico = " + datos[0] + " WHERE medicopaciente.dniMedico = " + us.getDni() + " ;");
+				} else if(us.getRol().equals("tecnico") || us.getRol().equals("admin")) {
+					elimi.add(us);
 				}
 				c.actPanel(fl.getText());
 			} 

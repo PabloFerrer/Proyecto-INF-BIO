@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 
 import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
 
 import Model.Conexion;
 import Model.ECG;

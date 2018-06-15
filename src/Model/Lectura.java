@@ -68,44 +68,44 @@ public class Lectura{
 //		return new ECG(fecha,tec,dnitec,comen,diag,pun,f.getName().replaceAll(".txt", ""),puntos,lei);
 //		}
 	
-	/**
-	 * Metodo que nos permite obtener de un arhivo de texto plano que contiene un paciente
-	 * los electrocardiogramas de dicho paciente para poder operar con ellos posteriormente
-	 * en otros metodos o en otras clases.
-	 * 
-	 * @param f File 
-	 * @param pacien PacienteTecnico 
-	 * @param b String 
-	 * 
-	 * @return aux Object[] 
-	 */
-	public static Object[] lecturaEcg(File f, Paciente pacien, String b) {
-		Object[] aux=new Object[2];
-		Calendar c= Calendar.getInstance();
-		String no="ECG_"+Integer.toString(c.get(Calendar.YEAR))+""+Integer.toString(c.get(Calendar.MONTH))+""+Integer.toString(c.get(Calendar.DATE))+"_"+pacien.getId()+"_"+b;
-		int pun=-1;
-		String puntos="";
-		File archivo = f;
-		try(BufferedReader br = new BufferedReader(new FileReader (archivo))) {
-			
-					pun=Integer.parseInt(br.readLine());
-				
-					puntos=br.readLine();
-					
-					
-					aux[1]=new ECG(pun,no,puntos);
-					aux[0]=no;
-					return aux;
-		}
-			catch(Exception e){
-				JOptionPane.showMessageDialog(null, "El archivo no tiene el formato correcto");
-			}
-		aux[1]=new ECG(0,"","");
-		aux[0]="";
-		return aux;
-		}
-	
 //	/**
+//	 * Metodo que nos permite obtener de un arhivo de texto plano que contiene un paciente
+//	 * los electrocardiogramas de dicho paciente para poder operar con ellos posteriormente
+//	 * en otros metodos o en otras clases.
+//	 * 
+//	 * @param f File 
+//	 * @param pacien PacienteTecnico 
+//	 * @param b String 
+//	 * 
+//	 * @return aux Object[] 
+//	 */
+//	public static Object[] lecturaEcg(File f, Paciente pacien, String b) {
+//		Object[] aux=new Object[2];
+//		Calendar c= Calendar.getInstance();
+//		String no="ECG_"+Integer.toString(c.get(Calendar.YEAR))+""+Integer.toString(c.get(Calendar.MONTH))+""+Integer.toString(c.get(Calendar.DATE))+"_"+pacien.getId()+"_"+b;
+//		int pun=-1;
+//		String puntos="";
+//		File archivo = f;
+//		try(BufferedReader br = new BufferedReader(new FileReader (archivo))) {
+//			
+//					pun=Integer.parseInt(br.readLine());
+//				
+//					puntos=br.readLine();
+//					
+//					
+//					aux[1]=new ECG(pun,no,puntos);
+//					aux[0]=no;
+//					return aux;
+//		}
+//			catch(Exception e){
+//				JOptionPane.showMessageDialog(null, "El archivo no tiene el formato correcto");
+//			}
+//		aux[1]=new ECG(0,"","");
+//		aux[0]="";
+//		return aux;
+//		}
+//	
+////	/**
 //	 * Metodo que nos permite leer de un archivo plano el contenido de un medico, 
 //	 * a partir de este obtenemos los pacientes de dicho medico y finalmente
 //	 * obtenemos los electrocardiogramas de cada paciente.

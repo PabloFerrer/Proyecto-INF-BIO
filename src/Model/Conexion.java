@@ -1,10 +1,14 @@
 package Model;
 
 import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,6 +42,7 @@ public class Conexion {
 			c = DriverManager.getConnection(BBDDName, user, pass);
 			stmt = c.createStatement();
 			stmt.executeUpdate(sql);
+			c.commit();
 			stmt.close();
 			c.close();
 		} catch ( Exception e ) {
@@ -48,32 +53,37 @@ public class Conexion {
 	}
 	static public void InsertarNuevoECG(ECG ecg) {
 		try {
-//			Class.forName("org.mariadb.jdbc.Driver");
-//			c = DriverManager.getConnection("jdbc:mariadb://esp.uem.es:3306/pi2_bd_heartlight", "pi2_heartlight", "pepino_fresco"+BBDDName);
-//
-//			c.setAutoCommit(false);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(BBDDName, user, pass);
+
+			c.setAutoCommit(false);
 		    
-		    String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values('"+ecg.getFecha()+"',"+Constantes.NO_LEIDO+",'"+ecg.getPuntos()+"',"+ecg.getPuntosporsec()+",'"+ecg.getComentarios()+"',"+ecg.getDniTec()+","+ecg.getDniPac()+");";
-		    sentenciaSQL(sql);
-//		    PreparedStatement pst;
-//		    pst = c.prepareStatement(sql);
-//		    pst.setInt(1, ecg.getFecha());
-//		    pst.setInt(2, Constantes.NO_LEIDO);
-//		    pst.setString(3, ecg.getPuntos());
-//		    pst.setInt(4, ecg.getPuntosporsec());
-//		    pst.setString(5, ecg.getComentarios());
-//		    pst.setInt(6, ecg.getDniTec());
-//		    pst.setInt(7, ecg.getDniPac());
-//		    
-//		    pst.executeUpdate();
-//		    pst.close();
-//			c.close();
+//		    String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values('"+ecg.getFecha()+"',"+Constantes.NO_LEIDO+",'"+ecg.getPuntos()+"',"+ecg.getPuntosporsec()+",'"+ecg.getComentarios()+"',"+ecg.getDniTec()+","+ecg.getDniPac()+");";
+//		    sentenciaSQL(sql);
+		 String sql="insert into ECG(fecha,leido,puntos,puntosegundo,comentarioTecnico,dniTecnico,dniPaciente) values(?,?,?,?,?,?,?);";
+			   
+		    PreparedStatement pst;
+		    pst = c.prepareStatement(sql);
+		    pst.setInt(1, ecg.getFecha());
+		    pst.setInt(2, Constantes.NO_LEIDO);
+		    ByteArrayOutputStream bs=new ByteArrayOutputStream();
+		    ObjectOutputStream os=new ObjectOutputStream(bs);
+		    os.writeObject(ecg.getPuntos());
+		    os.close();
+		    pst.setBinaryStream(3, new ByteArrayInputStream(bs.toByteArray()));
+		    pst.setInt(4, ecg.getPuntosporsec());
+		    pst.setString(5, ecg.getComentarios());
+		    pst.setInt(6, ecg.getDniTec());
+		    pst.setInt(7, ecg.getDniPac());
+		    
+		    pst.executeUpdate();
+		    c.commit();
+		    pst.close();
+			c.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage()+" "+e.getCause() );
 		}
 	}
-	
-	
 	
 	public static void crearPaciente(Formulario formulario,Medico med,ControladorMedico cm){
 		String numDni = formulario.getDni().getText();
@@ -101,29 +111,29 @@ public class Conexion {
 			pst.setInt(6, ((formulario.getRdbtnMasculino().isSelected())? Constantes.MASCULINO:Constantes.FEMENINO));
 			pst.setBinaryStream(7, cm.getFis() );
 			pst.executeUpdate();
+			c.commit();
 			pst.close();
+			c.close();
+			String sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
+			Conexion.sentenciaSQL(sentencia);
+		
+			try {
+				med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Long.parseLong(formulario.getSs().getText()),formulario.getLugar().getText(),ImageIO.read(cm.getImagen()),new Vector<ECG>()));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			formulario.dispose();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-
 		
-		String sentencia=" insert into medicoPaciente(dnimedico,dnipaciente) values ("+med.getDni()+","+formulario.getDni().getText()+");";
-		Conexion.sentenciaSQL(sentencia);
-	
-		try {
-			med.aniadirpaciente(new Paciente(formulario.getNombre().getText(),formulario.getApellido1().getText()+" "+formulario.getApellido2().getText(),formulario.getDni().getText()+Utilidades.letraDNI(Integer.parseInt(formulario.getDni().getText())),Long.parseLong(formulario.getSs().getText()),formulario.getLugar().getText(),ImageIO.read(cm.getImagen()),new Vector<ECG>()));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//escribirPaciente(formulario.getNombre().getText(), formulario.getApellido1().getText(),formulario.getApellido2().getText(), formulario.getDni().getText(), formulario.getSs().getText(), formulario.getLugar().getText(),formulario.getDireccion().getText() , formulario.getUrgencia().getSelectedItem().toString());
-		
-		formulario.dispose();
 	}
 	
 	static public Vector<Usuario> consultarUsuarios(){
@@ -383,10 +393,17 @@ public class Conexion {
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM ECG where dniPaciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by id desc;");
 			while (rs.next()) {
+				InputStream aux=rs.getBinaryStream("puntos");
+				 byte[] targetArray = new byte[aux.available()];
+				 aux.read(targetArray);
+				ByteArrayInputStream bs=new ByteArrayInputStream(targetArray);
+				ObjectInputStream is=new ObjectInputStream(bs);
+				
 				ecg.add(new ECG(rs.getInt("id"),rs.getInt("fecha"),rs.getInt("fechadediagnostico"),(rs.getInt("leido")==Constantes.LEIDO),rs.getInt("dnimedico"),rs.getInt("dniTecnico"),rs.getInt("dniPaciente")
 						,rs.getString("comentarioTecnico"),rs.getInt("pulsaciones"),rs.getString("diagnostico"),rs.getInt("puntoSegundo")
-						,rs.getString("puntos")
+						,(Vector<Double>)is.readObject()
 						));
+						is.close();
 			}
 			rs.close();
 			stmt.close();

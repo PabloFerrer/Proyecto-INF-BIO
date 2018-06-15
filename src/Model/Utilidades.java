@@ -13,7 +13,21 @@ public class Utilidades {
     	int nif = Integer.valueOf(dni)%23;
         return letras[nif];
     }
-    
+   
+	/**
+	 * Metodo de ordenacion para vector de ECG
+	 * @param L Vector de ECG a ordenar
+	 * @param m Vector de Pacientes a ordenar
+	 * @param ini indice del primer valor
+	 * @param fin indice del ultimo valor
+	 */
+	public static void quicksort( Vector<ECG> L, Vector<Paciente> m,int ini, int fin){
+		if(ini<fin){
+			int x=pivotear(L,m,ini,fin);
+			quicksort(L,m,ini,x-1);
+			quicksort(L,m,x+1,fin);
+		}
+	}
 	private static int pivotear( Vector<ECG>L, Vector<Paciente>M,int ini, int fin){
 		int i=ini;
 		int med=(fin+ini)/2;
@@ -59,20 +73,7 @@ public class Utilidades {
 		
 		return i;
 	}
-	/**
-	 * Metodo de ordenacion para vector de ECG
-	 * @param L Vector de ECG a ordenar
-	 * @param m Vector de Pacientes a ordenar
-	 * @param ini indice del primer valor
-	 * @param fin indice del ultimo valor
-	 */
-	public static void quicksort( Vector<ECG> L, Vector<Paciente> m,int ini, int fin){
-		if(ini<fin){
-			int x=pivotear(L,m,ini,fin);
-			quicksort(L,m,ini,x-1);
-			quicksort(L,m,x+1,fin);
-		}
-	}
+
 	
 public static void mergesort(Mensaje[] L,int ini,int fin,char concept){
 		

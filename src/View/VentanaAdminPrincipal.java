@@ -227,7 +227,7 @@ public class VentanaAdminPrincipal extends JFrame{
 		
 	}
 	
-	public static String seleccionMedico(Vector<Usuario> elimi,Usuario us){
+	public String seleccionMedico(Vector<Usuario> elimi,Usuario us){
 
 			String selec = null;
 			
@@ -251,7 +251,7 @@ public class VentanaAdminPrincipal extends JFrame{
 		
 			}
 		
-			selec= (String)JOptionPane.showInputDialog(null,"Seleccione un medico al que asignar los pacientes","Seleccionador",JOptionPane.DEFAULT_OPTION,null,auux,auux[0]);
+			selec= (String)JOptionPane.showInputDialog(this,"Seleccione un medico al que asignar los pacientes","Seleccionador",JOptionPane.DEFAULT_OPTION,null,auux,auux[0]);
 			 	
 			return selec;
 		
@@ -392,7 +392,7 @@ public class VentanaAdminPrincipal extends JFrame{
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
 				if(i<medi.size()){
-					PanelPaciente pan = new PanelPaciente(medi.get(i),new ControladorPanel(medi.get(i),cont,buscador,elimi));
+					PanelPaciente pan = new PanelPaciente(medi.get(i),new ControladorPanel(medi.get(i),cont,buscador,elimi,this));
 					if(elimi.contains(medi.get(i))) {
 						pan.setBackground(new Color(255, 77, 77));
 						pan.setBorder(new LineBorder(new Color(255, 77, 77).darker(), 2));
@@ -450,7 +450,7 @@ public class VentanaAdminPrincipal extends JFrame{
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
 				if(i<tec.size()){
-					PanelPaciente pan = new PanelPaciente(tec.get(i),new ControladorPanel(tec.get(i),cont,buscador,elimi));
+					PanelPaciente pan = new PanelPaciente(tec.get(i),new ControladorPanel(tec.get(i),cont,buscador,elimi,this));
 					if(elimi.contains(tec.get(i))) {
 						pan.setBackground(new Color(255, 77, 77));
 						pan.setBorder(new LineBorder(new Color(255, 77, 77).darker(), 2));

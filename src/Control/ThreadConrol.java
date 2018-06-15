@@ -43,13 +43,14 @@ import View.MemoCalendar;
                         }
                         msgCntFlag = false;
                         this.this$0.getBottomInfo().setText(" ");
-                    } while (true);
+                        
+                    } while (this.this$0.isDisplayable());
                 }
                 catch (InterruptedException e) {
                     System.out.println("Thread:Error");
                     continue;
                 }
-            } while (true);
+            } while (this.this$0.isDisplayable());
         }
 
        public ThreadConrol(MemoCalendar memoCalendar) {

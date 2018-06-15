@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -57,7 +58,7 @@ import jssc.SerialPortException;
 public class GraficaECG extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
+	private PanamaHitek_Arduino ino;
 	private double mayor = 0;
 	private JSpinner esca;
 	private int num=0;
@@ -174,6 +175,7 @@ public class GraficaECG extends JPanel implements Runnable {
 	}
 	public void initUITEC() {
 		ecgready=false;
+		ino=new PanamaHitek_Arduino();
 		JPanel aux = new JPanel();
 		createChart();
 
@@ -294,11 +296,9 @@ public class GraficaECG extends JPanel implements Runnable {
 
 		XYSeries series = new XYSeries(ecg.getNombre());
 		double mili = 0;
-		String[] aux=ecg.getPuntos().split(";");
 		
-		for (int i = 0; i < aux.length; i++) {
-			System.out.println(ecg.getId()+" "+aux[i]);
-			series.add(mili, Double.parseDouble(aux[i]));
+		for (int i = 0; i < ecg.getPuntos().size(); i++) {
+			series.add(mili, ecg.getPuntos().get(i));
 			mili += 1000 / ecg.getPuntosporsec();
 		}
 
@@ -448,12 +448,23 @@ public class GraficaECG extends JPanel implements Runnable {
 				if(dataset.getSeries().isEmpty()) {
 					dataset.addSeries(new XYSeries("ECG"));
 				} 
-				System.out.println(ino.getSerialPorts().size());
-				ino.arduinoRXTX(ino.getSerialPorts().get(0), 9600, new SerialPortEventListener() {
+				String selec = (String)JOptionPane.showInputDialog(this,"Seleccione un medico al que asignar los pacientes","Seleccionador",JOptionPane.DEFAULT_OPTION,null,ino.getSerialPorts().toArray(),ino.getSerialPorts().toArray()[0]);
+				 boolean encon=false;
+				 int i=0;
+				 while(!encon && i<ino.getSerialPorts().size()) {
+					 if(ino.getSerialPorts().get(i).toString().equals(selec)) {
+						 encon=true;
+					 } else {
+						 i++;
+					 } 
+				 }
+				ino.arduinoRXTX(ino.getSerialPorts().get(i), 57600, new SerialPortEventListener() {
+					private double mayory=100;
+					private double menory=-100;
 					public void serialEvent(SerialPortEvent arg0) {
 						 try {
 							  if(controlficha.getEcg()==null) {
-								  controlficha.setEcg(new ECG(Integer.parseInt(frecuencia.getSelectedItem().toString()),"","0"));
+								  controlficha.setEcg(new ECG(Integer.parseInt(frecuencia.getSelectedItem().toString()),"",new Vector<Double>()));
 							  }
 							// Se imprime el mensaje recibido en la consola
 							if (ino.isMessageAvailable()) {
@@ -461,12 +472,23 @@ public class GraficaECG extends JPanel implements Runnable {
 								Double aux = Double.parseDouble(ino.printMessage());
 								System.out.println(aux);
 								if(aux<1000000){
-										controlficha.getEcg().setPuntos(controlficha.getEcg().getPuntos() + ";" + aux);
+										controlficha.getEcg().getPuntos().add(aux);
 										addPunto(aux, num);
 										if (num > Integer.parseInt(esca.getValue().toString()) / 2) {
 											mayor = num;
 											sl.setMaximum((getMayor()>4000)?(int)getMayor()-(int)esca.getValue()/2:0);
 											sl.setValue(num);
+										} else {
+											if(dataset.getSeriesCount()>0) {
+												XYSeries ser=(XYSeries) dataset.getSeries().get(dataset.getSeriesCount()-1);
+												if(ser.getMaxY()+20>mayory) {
+													mayory=ser.getMaxY()+20;
+												}
+												if(ser.getMinY()-20<menory) {
+													menory=ser.getMinY()-20;
+												}
+												}
+											chart.getXYPlot().getRangeAxis().setRange(menory,mayory );
 										}
 										
 										num += 1000 /controlficha.getEcg().getPuntosporsec();
@@ -484,20 +506,20 @@ public class GraficaECG extends JPanel implements Runnable {
 					}
 					
 				});
-				try {
-					
-					while(!ino.isMessageAvailable()){
-						Thread.sleep(10);
-							ino.sendData(frecuencia.getSelectedItem().toString());
-						
-					}
-				} catch (SerialPortException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					
+//					while(!ino.isMessageAvailable()){
+//						Thread.sleep(10);
+//							ino.sendData(frecuencia.getSelectedItem().toString());
+//						
+//					}
+//				} catch (SerialPortException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
 			} catch (ArduinoException e) {
 				// TODO Auto-generated catch block
@@ -505,7 +527,8 @@ public class GraficaECG extends JPanel implements Runnable {
 			} catch(IndexOutOfBoundsException e) {
 				JOptionPane.showMessageDialog(controlficha.getVt(), "Ha habido un problema conectando con el sensor", "Error", JOptionPane.WARNING_MESSAGE);
 				controlficha.getVt().getFicha().getBtnStop().setEnabled(false);
-				controlficha.getVt().getFicha().getBtnEnivar().setEnabled(true);
+				controlficha.getVt().getFicha().getBtnEnivar().setEnabled(false);
+				controlficha.getVt().getFicha().getBtnTomarDatos().setEnabled(true);
 			}
 		}
 	}
