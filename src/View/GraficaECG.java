@@ -506,20 +506,20 @@ public class GraficaECG extends JPanel implements Runnable {
 					}
 					
 				});
-//				try {
-//					
-//					while(!ino.isMessageAvailable()){
-//						Thread.sleep(10);
-//							ino.sendData(frecuencia.getSelectedItem().toString());
-//						
-//					}
-//				} catch (SerialPortException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				try {
+					
+					while(!ino.isMessageAvailable()){
+						Thread.sleep(10);
+							ino.sendData(frecuencia.getSelectedItem().toString());
+						
+					}
+				} catch (SerialPortException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			} catch (ArduinoException e) {
 				// TODO Auto-generated catch block
