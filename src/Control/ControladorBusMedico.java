@@ -139,7 +139,7 @@ public class ControladorBusMedico implements  KeyListener {
 						PanelPaciente pan = new PanelPaciente(pacientes.get(i));
 						pan.setBorder(new LineBorder(Color.gray, 2));
 
-						ControladorPanelM cpm = new ControladorPanelM(vm, m.getPacientes().get(i),m);
+						ControladorPanelM cpm = new ControladorPanelM(vm, pacientes.get(i),m);
 						pan.addMouseListener(cpm);
 						JPanel invi = new JPanel();
 						invi.setOpaque(false);
