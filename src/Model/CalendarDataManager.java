@@ -10,7 +10,8 @@ import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
 public class CalendarDataManager extends JPanel{
-    static final int CAL_WIDTH = 7;
+	private static final long serialVersionUID = 1L;
+	static final int CAL_WIDTH = 7;
     static final int CAL_HEIGHT = 6;
     private int[][] calDates = new int[6][7];
     private int calYear;

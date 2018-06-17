@@ -1,6 +1,5 @@
 package Model;
 
-import java.io.IOException;
 import java.util.Vector;
 
 public class Utilidades {

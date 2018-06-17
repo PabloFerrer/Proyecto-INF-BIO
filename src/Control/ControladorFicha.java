@@ -2,30 +2,19 @@ package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 
 import com.panamahitek.ArduinoException;
-import com.panamahitek.PanamaHitek_Arduino;
 
 import Model.Conexion;
 import Model.ECG;
 import Model.Lectura;
 import View.DetallePaciente;
-import View.GraficaECG;
 import View.VentanaTecnico;
-import jssc.SerialPortEvent;
-import jssc.SerialPortEventListener;
-import jssc.SerialPortException;
+
 
 /**
  * @author Heartlight

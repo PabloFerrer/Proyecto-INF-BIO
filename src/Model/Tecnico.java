@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
+
 
 public class Tecnico extends Usuario{
 	private int turno;

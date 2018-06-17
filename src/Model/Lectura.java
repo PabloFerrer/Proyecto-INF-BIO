@@ -1,6 +1,6 @@
 package Model;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -13,10 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
- * Lectura es una clase la cual contiene una serie de metodos que nos 
- * permitiran obtener informacion de los archivos de texto plano
- * como los medicos y de estos sus pacientes y de cada paciente 
- * sus electrocardiogramas
+ * La clase lectura es una clase de una version anterior de cuando el programa funcionaba con txt
  * 
  * @author Heartlight
  * 

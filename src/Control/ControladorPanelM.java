@@ -12,14 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import Model.Conexion;
 import Model.Constantes;
 import Model.ECG;
 import Model.Medico;
-import Model.Mensaje;
+
 import Model.Paciente;
 import Model.Usuario;
 import Model.Utilidades;

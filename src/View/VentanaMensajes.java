@@ -23,7 +23,6 @@ import javax.swing.ListSelectionModel;
 
 import Control.ControladorMensaje;
 import Control.ControladorPanel;
-import Control.ControladorPanelM;
 import Model.Conexion;
 import Model.Constantes;
 import Model.Mensaje;
@@ -33,6 +32,7 @@ import Model.Utilidades;
 
 public class VentanaMensajes extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	private JPanel info;
 	private JTextField asunto;
 	private JLabel fecha;

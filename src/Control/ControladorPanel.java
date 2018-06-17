@@ -4,28 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.util.Calendar;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.panamahitek.ArduinoException;
 
-import Model.Conexion;
-import Model.Constantes;
-import Model.Mensaje;
+
 import Model.Paciente;
 import Model.Tecnico;
 import Model.Usuario;
 import Model.Utilidades;
 import View.DetallePaciente;
 import View.VentanaAdminPrincipal;
-import View.VentanaMensajes;
 import View.VentanaTecnico;
 
 /**

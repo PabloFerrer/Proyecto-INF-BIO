@@ -1,8 +1,7 @@
  package Control;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,7 +17,6 @@ import javax.swing.JTextField;
 
 import Model.Administrador;
 import Model.Conexion;
-import Model.Lectura;
 import Model.Medico;
 import Model.Paciente;
 import Model.Tecnico;
@@ -31,10 +29,8 @@ import View.VentanaMedico;
 import View.VentanaTecnico;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**

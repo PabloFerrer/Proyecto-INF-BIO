@@ -12,7 +12,6 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,7 +26,6 @@ import Control.ControladorAdmin;
 import Control.ControladorPanel;
 import Model.Administrador;
 import Model.Conexion;
-import Model.Constantes;
 import Model.Usuario;
 /**
  * Elemento grafico que incorpora todas las funciones/opciones que puede realizar un Administrador

@@ -12,7 +12,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -20,10 +19,7 @@ import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
 import Control.ControladorMensaje;
-import Control.ControladorPanel;
-import Control.ControladorPanelM;
 import Control.GraphController;
-import Model.Mensaje;
 import Model.Paciente;
 import Model.Usuario;
 
