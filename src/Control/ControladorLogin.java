@@ -177,7 +177,7 @@ public class ControladorLogin implements ActionListener, KeyListener,MouseListen
 			}
 			frame.relocate();
 			isMaster=true;
-			usuario.setText("borgy");
+			usuario.setText("sergy");
 			contrasena.setText("2");
 			user=Conexion.consultaLogin(usuario.getText(), contrasena.getText());
 			darAcceso();
