@@ -34,12 +34,10 @@ import View.MemoCalendar;
                             num = 5;
                             msgCntFlag = true;
                             curStr = infoStr;
-                            continue;
                         }
                         if (infoStr == " " || !msgCntFlag) continue;
                         if (num > 0) {
                             --num;
-                            continue;
                         }
                         msgCntFlag = false;
                         this.this$0.getBottomInfo().setText(" ");
@@ -48,7 +46,6 @@ import View.MemoCalendar;
                 }
                 catch (InterruptedException e) {
                     System.out.println("Thread:Error");
-                    continue;
                 }
             } while (this.this$0.isDisplayable());
         }
