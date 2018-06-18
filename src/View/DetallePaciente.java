@@ -201,7 +201,7 @@ public class DetallePaciente extends JPanel {
 		iz.add(datos);
 		
 		
-		
+		btnEnivar.setEnabled(false);
 		up.add(iz,BorderLayout.WEST);
 		up.add(btnEnivar,BorderLayout.EAST);
 		

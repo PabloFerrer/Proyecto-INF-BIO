@@ -456,7 +456,7 @@ public class GraficaECG extends JPanel implements Runnable {
 						 i++;
 					 } 
 				 }
-				ino.arduinoRXTX(ino.getSerialPorts().get(i), 57600, new SerialPortEventListener() {
+				ino.arduinoRXTX(ino.getSerialPorts().get(i), 9600, new SerialPortEventListener() {
 					private double mayory=100;
 					private double menory=-100;
 					public void serialEvent(SerialPortEvent arg0) {
@@ -470,6 +470,9 @@ public class GraficaECG extends JPanel implements Runnable {
 								Double aux = Double.parseDouble(ino.printMessage());
 								System.out.println(aux);
 								if(aux<1000000){
+									if(aux>1500) {
+										aux=1500d;
+									}
 										controlficha.getEcg().getPuntos().add(aux);
 										addPunto(aux, num);
 										if (num > Integer.parseInt(esca.getValue().toString()) / 2) {
