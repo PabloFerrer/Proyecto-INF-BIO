@@ -50,7 +50,7 @@ public class Formulario extends JFrame{
 	private JTextField dni;
 	private JComboBox<String> letra;
 	private JTextField lugar;
-	private JTextField direccion;
+//	private JTextField direccion;
 	private JTextField ss;
 	private JComboBox<String> urgencia;
 	private JPasswordField contrasena1;
@@ -135,13 +135,6 @@ public class Formulario extends JFrame{
 		return user;
 	}
 			
-			/**
-			 * Getter para saber los escrito en el campo de texto de direccion
-			 * @return JTextField
-			 */
-			public JTextField getDireccion() {
-				return direccion;
-			}
 			/**
 			 * Getter para saber los escrito en el campo de texto de Seguridad Social
 			 * @return JTextField
@@ -721,7 +714,7 @@ public class Formulario extends JFrame{
 				lug.setOpaque(false);
 				lug.setLayout(floow);
 				lugar=new JTextField(15);
-				JLabel l=new JLabel("Poblacion: ");
+				JLabel l=new JLabel("Ubicación: ");
 				l.setForeground(Color.BLACK);
 				l.setFont(font);
 				lug.add(l);
@@ -739,16 +732,16 @@ public class Formulario extends JFrame{
 				lug1.add(ss);
 				formu.add(lug1);
 				
-				JPanel con=new JPanel();
-				con.setOpaque(false);
-				con.setLayout(floow);
-				direccion = new JTextField(15);
-				JLabel c=new JLabel("Direccion: ");
-				c.setForeground(Color.BLACK);
-				c.setFont(font);
-				con.add(c);
-				con.add(direccion);
-				formu.add(con);
+//				JPanel con=new JPanel();
+//				con.setOpaque(false);
+//				con.setLayout(floow);
+//				direccion = new JTextField(15);
+//				JLabel c=new JLabel("Direccion: ");
+//				c.setForeground(Color.BLACK);
+//				c.setFont(font);
+//				con.add(c);
+//				con.add(direccion);
+//				formu.add(con);
 
 				JPanel se = new JPanel();
 				se.setOpaque(false);
@@ -817,7 +810,6 @@ public class Formulario extends JFrame{
 				apellido2.addMouseListener(control);
 				dni.addMouseListener(control);
 				lugar.addMouseListener(control);
-				direccion.addMouseListener(control);
 				ss.addMouseListener(control);
 				//urgencia.addMouseListener(control);
 				rdbtnFemenino.addMouseListener(control);

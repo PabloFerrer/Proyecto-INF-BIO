@@ -196,9 +196,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				if(!aux1.getLetra().getSelectedItem().toString().toLowerCase().equals(Utilidades.letraDNI(Integer.parseInt(aux1.getDni().getText())).toLowerCase())) {
 					aux1.getDni().setBackground(Color.red);
 					aux1.getLetra().setBackground(Color.RED);
-					dni=true;
+					dni=false;
 				} else {
 					aux1.getDni().setBackground(Color.WHITE);
+					aux1.getLetra().setBackground(Color.WHITE);
 				}
 			}
 			if(aux1.getLugar().getText().isEmpty()){
@@ -248,7 +249,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			if(bien==true){
 				if(!dni) {
 					JOptionPane.showMessageDialog(null, "El dni es erroneo", "Error", JOptionPane.ERROR_MESSAGE);
-				} 
+				} else
 				
 				if(!(pss.equals(pss2))){
 					aux1.getContrasena2().setBackground(Color.RED);
@@ -355,7 +356,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			if(bien==true){
 				if(!dni) {
 					JOptionPane.showMessageDialog(null, "El dni es erroneo", "Error", JOptionPane.ERROR_MESSAGE);
-				}
+				} else
 				
 				if(!(pss.equals(pss2))){
 				aux1.getContrasena2().setBackground(Color.RED);
